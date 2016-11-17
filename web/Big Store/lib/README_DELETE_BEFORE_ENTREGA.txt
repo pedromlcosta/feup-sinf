@@ -1,0 +1,1 @@
+Isto veio do projecto de LBAW, não garanto que seja tudo útil ou necessário mas convém ver e apagar
