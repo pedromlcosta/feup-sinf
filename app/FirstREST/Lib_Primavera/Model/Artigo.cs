@@ -19,5 +19,30 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public double StockActual
+        {
+            get;
+            set;
+        }
+
+        public string Marca
+        {
+            get;
+            set;
+        }
+
+
+        public double PCPadrao
+        {
+            get;
+            set;
+        }
+
+        public string IVA
+        {
+            get;
+            set;
+        }
+
     }
 }

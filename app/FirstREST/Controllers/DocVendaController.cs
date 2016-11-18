@@ -25,14 +25,12 @@ namespace FirstREST.Controllers
         // GET api/cliente/5    
         public Lib_Primavera.Model.DocVenda Get(string id)
         {
-           
             Lib_Primavera.Model.DocVenda docvenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
             if (docvenda == null)
             {
-             
                 throw new HttpResponseException(
                         Request.CreateResponse(HttpStatusCode.NotFound));
-                
+
             }
             else
             {
