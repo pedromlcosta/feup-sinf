@@ -260,7 +260,6 @@ namespace FirstREST.Lib_Primavera
                     myArt.StockActual = objArtigo.get_StkActual();
                     myArt.Marca = objArtigo.get_Marca();
                     myArt.PCPadrao = objArtigo.get_PCPadrao();
-                    myArt.IVA = objArtigo.get_IVA();
                     return myArt;
                 }
                 
@@ -282,7 +281,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT ArtigoArmazem.Artigo,Armazem,Artigo.Descricao,Marca,sum(ArtigoArmazem.StkActual) as StockActual ,PVP1, Iva FROM ArtigoArmazem,ArtigoMoeda,Artigo WHERE Artigo.Artigo=ArtigoArmazem.Artigo AND ArtigoMoeda.Artigo=Artigo.Artigo  GROUP BY Armazem,ArtigoArmazem.Artigo,Artigo.Descricao,Marca,pvp1,Iva HAVING sum(ArtigoArmazem.StkActual)>=0 ");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo,Descricao,PCPadrao,STKActual,Marca FROM Artigo GROUP BY Artigo,Descricao,PCPadrao,STKActual,Marca HAVING PCPadrao>0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
@@ -290,7 +289,9 @@ namespace FirstREST.Lib_Primavera
                     art = new Model.Artigo();
                     art.CodArtigo = objList.Valor("artigo");
                     art.DescArtigo = objList.Valor("descricao");
-                    //art.StockActual = objList.Valor("");
+                    art.PCPadrao = objList.Valor("pcpadrao");
+                    art.StockActual = objList.Valor("stkactual");
+                    art.Marca = objList.Valor("marca");
                     listArts.Add(art);
                     objList.Seguinte();
                 }
