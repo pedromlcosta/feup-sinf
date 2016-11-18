@@ -25,9 +25,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //js -->
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/checkout.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
-<script type="text/javascript" src="js/requests.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){
@@ -35,6 +33,19 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
+</script>
+<script type="text/javascript">
+var xhttp = new XMLHttpRequest();
+	alert("requesting");
+	xhttp.onreadystatechange = function() 
+	{
+    if (this.readyState == 4 && this.status == 200) {
+       		alert(xhttp.responseText);
+    	}
+	};
+	xhttp.open("GET", "http://localhost:49822/api/artigos", true);
+	xhttp.setRequestHeader("Content-Type", "text/json");
+	xhttp.send();
 </script>
 <!-- start-smoth-scrolling -->
 <link href="css/font-awesome.css" rel="stylesheet">
@@ -311,7 +322,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 											<div class="clearfix"></div>
 										</div>
 											<div class="add add-2">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="1" data-name="product 1" data-summary="summary 1" data-price="6.00" data-quantity="1" data-image="images/of16.png">Add to Cart</button>
+										   <button id="getButton" class="btn btn-danger my-cart-btn my-cart-b" data-id="1" data-name="product 1" data-summary="summary 1" data-price="6.00" data-quantity="1" data-image="images/of16.png">Add to Cart</button>
 										</div>
 									</div>
 								</div>
