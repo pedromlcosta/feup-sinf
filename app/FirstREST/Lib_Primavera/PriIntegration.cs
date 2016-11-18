@@ -309,6 +309,53 @@ namespace FirstREST.Lib_Primavera
 
         #endregion Artigo
 
+        #region ArtigoArmazem
+        
+        //retorna armazéns que vendem artigo com codArtigo
+        public static List<Lib_Primavera.Model.ArtigoArmazem> GetArtigoArmazens(string codArtigo)
+        {
+
+            StdBELista objArtigoArmazem;
+            Model.ArtigoArmazem myArtArm = new Model.ArtigoArmazem();
+            List<Model.ArtigoArmazem> listArtArms = new List<Model.ArtigoArmazem>();
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+
+                if (PriEngine.Engine.Comercial.Artigos.Existe(codArtigo) == false)
+                {
+                    return null;
+                }
+                else
+                {
+                    objArtigoArmazem = PriEngine.Engine.Consulta("SELECT Armazem,Artigo,PCMedio,sum(StkActual) as StockActual FROM ArtigoArmazem WHERE Artigo LIKE '" + codArtigo + "'  GROUP BY Armazem,Artigo,PCMedio HAVING sum(StkActual)>=0 and PCMedio>0");
+                    while (!objArtigoArmazem.NoFim())
+                    {
+                        myArtArm = new Model.ArtigoArmazem();
+                        myArtArm.Armazem = objArtigoArmazem.Valor("armazem");
+                        myArtArm.CodArtigo = objArtigoArmazem.Valor("artigo");
+                        myArtArm.StockActual = objArtigoArmazem.Valor("stockactual");
+                        myArtArm.PCMedio = objArtigoArmazem.Valor("pcmedio");
+                   
+                        listArtArms.Add(myArtArm);
+                        objArtigoArmazem.Seguinte();
+                    }
+                    return listArtArms;
+                }
+
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+       
+ 
+
+        #endregion ArtigoArmazem
+
    
 
         #region DocCompra
