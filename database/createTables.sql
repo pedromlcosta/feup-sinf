@@ -25,6 +25,7 @@ score SMALLINT NOT NULL,
 tsv tsvector
 );
 
+--http://stackoverflow.com/questions/9807909/are-email-addresses-case-sensitive to justify the trigger
 CREATE OR REPLACE FUNCTION lowerCaseEmailFunction() RETURNS trigger AS $$
 BEGIN
  NEW.email = lower(NEW.email);
