@@ -22,7 +22,7 @@ namespace FirstREST.Lib_Primavera
             StdBSConfApl objAplConf = new StdBSConfApl();
             StdPlatBS Plataforma = new StdPlatBS();
             ErpBS MotorLE = new ErpBS();
-
+         
             EnumTipoPlataforma objTipoPlataforma = new EnumTipoPlataforma();
             objTipoPlataforma = EnumTipoPlataforma.tpProfissional;
 

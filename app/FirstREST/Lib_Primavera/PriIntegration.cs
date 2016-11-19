@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Diagnostics;
 using Interop.ErpBS900;
 using Interop.StdPlatBS900;
 using Interop.StdBE900;
@@ -235,6 +236,100 @@ namespace FirstREST.Lib_Primavera
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
 
+        # region OrderStatus
+
+        public static List<Model.OrderStatus> ListaOrderStatus()
+        {
+
+
+            StdBELista objList;
+
+            List<Model.OrderStatus> listOrdStatus = new List<Model.OrderStatus>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                objList = PriEngine.Engine.Consulta("SELECT IdCabecDoc,Estado,Anulado,Fechado FROM  CabecDocStatus");
+
+
+                while (!objList.NoFim())
+                {
+                    listOrdStatus.Add(new Model.OrderStatus
+                    {
+                        idCabecDoc=objList.Valor("idcabecdoc"),
+                        Estado=objList.Valor("estado"),
+                        Anulado=objList.Valor("anulado"),
+                        Fechado=objList.Valor("fechado")
+                    });
+                    objList.Seguinte();
+
+                }
+
+                return listOrdStatus;
+            }
+            else
+                return null;
+        }
+
+        public static Lib_Primavera.Model.OrderStatus GetOrderStatus(string idCabecDoc)
+        {
+            StdBELista objO;
+            objO = PriEngine.Engine.Consulta("SELECT Estado,Anulado,Fechado FROM  CabecDocStatus WHERE IdCabecDoc='"+idCabecDoc+"' ");
+            Model.OrderStatus myOrderStatus = new Model.OrderStatus();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                while (!objO.NoFim())
+                {
+                    myOrderStatus.idCabecDoc = idCabecDoc;
+                    myOrderStatus.Estado = objO.Valor("estado");
+                    myOrderStatus.Anulado = objO.Valor("anulado");
+                    myOrderStatus.Fechado = objO.Valor("fechado");
+                    objO.Seguinte();      
+                }
+                return myOrderStatus;
+            }
+            else
+                return null;
+        }
+
+        public static Lib_Primavera.Model.RespostaErro InsereOrderStatusObj(Model.OrderStatus OrderStatus)
+        {
+
+            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+            try
+            {
+                if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+                {
+
+                    //DISCOVER HOW TO INSERT OBJECT OF CABECDOCSTATUS TYPE INTO DATABASE
+                    //PriEngine.Engine.("INSERT INTO CabecDocStatus(IdCabecDoc,Estado,Anulado,Fechado) VALUES('" + OrderStatus.idCabecDoc + "','" + OrderStatus.Estado + "'," + Convert.ToInt16(OrderStatus.Anulado) + "," + Convert.ToInt16(OrderStatus.Fechado)+")");
+
+                    erro.Erro = 0;
+                    erro.Descricao = "Sucesso";
+                    return erro;
+                }
+                else
+                {
+                    erro.Erro = 1;
+                    erro.Descricao = "Erro ao abrir empresa";
+                    return erro;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+                return erro;
+            }
+
+
+        }
+
+#endregion OrderStatus
+
         #region Artigo
 
         public static Lib_Primavera.Model.Artigo GetArtigo(string codArtigo)
@@ -356,8 +451,6 @@ namespace FirstREST.Lib_Primavera
 
         #endregion ArtigoArmazem
 
-   
-
         #region DocCompra
         
 
@@ -373,7 +466,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='VGR'");
+                objListCab = PriEngine.Engine("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='VGR'");
                 while (!objListCab.NoFim())
                 {
                     dc = new Model.DocCompra();
