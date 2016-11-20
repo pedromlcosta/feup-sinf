@@ -8,6 +8,7 @@ function getArticlesRequest()
 	{
     if (this.readyState == 4 && this.status == 200) {
     		articles = JSON.parse(xhttp.responseText);
+    		current_filtered_articles = JSON.parse(xhttp.responseText);
        		processArticles(articles,0,8);
     	}
 	};
@@ -20,7 +21,6 @@ function processArticles(articles,start_index,end_index)
 	var i;
 	//alert(articles[4].CodArtigo);
 	var articleHolder = document.getElementById("article-holder");
-	var descriptionHolder = document.getElementById("myModal5");
 	//For the modals.
 	var j=0;
 	articleHolder.innerHTML = "";
@@ -39,7 +39,7 @@ function processArticles(articles,start_index,end_index)
 							</a>
 							<div class='mid-1'>
 								<div class='women'>
-									<h6><a href='single.html'>` + desc + `</a></h6>
+									<h6><a href='single.html'>` + desc.substring(0,23) + `</a></h6>
 								</div>
 								<div class='mid-2'>
 									<p ><label></label><em class='item_price'>$`+price+`</em></p>
@@ -51,16 +51,16 @@ function processArticles(articles,start_index,end_index)
 							</div>
 						</div>
 					</div>`;
-		$("#myModal"+i+" h3").html(desc);
-		$("#myModal"+i+" .reducedfrom").html("$"+price);
-		$("#myModal"+i+" .in-para").html("");
-		$("#myModal"+i+" .quick_desc").html("");
-		$("#myModal"+i+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id",codArtigo);
-		$("#myModal"+i+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-name",desc);
-		$("#myModal"+i+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-summary",desc);
-		$("#myModal"+i+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",price);
-		$("#myModal"+i+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
-		$("#myModal"+i+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/of28.png");
+		$("#myModal"+j+" h3").html(desc);
+		$("#myModal"+j+" .reducedfrom").html("$"+price);
+		$("#myModal"+j+" .in-para").html("");
+		$("#myModal"+j+" .quick_desc").html("");
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id",codArtigo);
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-name",desc);
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-summary",desc);
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",price);
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/of28.png");
 		j++;
 	}
 }
