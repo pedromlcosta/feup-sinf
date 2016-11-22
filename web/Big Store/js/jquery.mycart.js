@@ -5,9 +5,7 @@
 */
 
 (function ($) {
-  $("#checkout_button").click(function(){
-    alert("test");
-  });
+ 
   "use strict";
 
   var OptionManager = (function () {
@@ -193,7 +191,7 @@
         '</div>' +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
-        '<button type="button" class="btn btn-checkout" id = "checkout_buton"" >Checkout</button>' +
+        '<button type="button" class="btn btn-checkout" id = "checkout_button"" >Checkout</button>' +
 
         '</div>' +
         '</div>' +
@@ -285,8 +283,9 @@
     $cartIcon.click(function(){
       options.showCheckoutModal ? showModal() : options.clickOnCartIcon($cartIcon, ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
     });
+
     $("#checkout_button").click(function(){
-      alert("test");
+      console.log("Working");
     });
 
     $(document).on("input", "." + classProductQuantity, function () {
