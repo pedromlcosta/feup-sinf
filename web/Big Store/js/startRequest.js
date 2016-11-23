@@ -99,7 +99,7 @@ function getStorages(id,modal)
 			{
 				storages.forEach(function(item, index)
 				{
-					$("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "✔</p>");
+					$("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "<span style='color:green;'>✔</span></p>");
 				});
 			}
 			else
