@@ -1,4 +1,4 @@
-/*!
+/*!fontawesome-webfont.woff2?v=4.5.0
  *  Font Awesome 4.5.0 by @davegandy - http://fontawesome.io - @fontawesomefontawesome-webfont
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'FontAwesome';
   src: url('../../../Content/fonts/fontawesome-webfont.eot?v=4.5.0');
-  src: url('../../../Content/fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), url('../../../Content/fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'), url('../../../Content/fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), url('../../../Content/fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), url('../../../Content/fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
+  src: url('../../../Content/fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), url('../../../Content/fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), url('../../../Content/fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), url('../../../Content/fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
