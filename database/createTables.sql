@@ -28,7 +28,7 @@ tsv tsvector
 );
 */
 
---http://stackoverflow.com/questions/9807909/are-email-addresses-case-sensitive to justify the trigger
+--http://stackoverflow.com/questions/9807909/are-email-addresses-case-sensitive    to justify the trigger
 CREATE OR REPLACE FUNCTION lowerCaseEmailFunction() RETURNS trigger AS $$
 BEGIN
  NEW.email = lower(NEW.email);
@@ -59,6 +59,7 @@ BEFORE INSERT OR UPDATE ON User
 FOR EACH ROW
 EXECUTE PROCEDURE validateEmailFunction();
 
+--Test cases the first one should pass wihtout any problems, o 2º deve aparecer todo em lower case e o 3º não deve ser adicionado s
 INSERT INTO User (email, type, password) VALUES ('hi@gmail.com', 'admin', '123');
 INSERT INTO User (email, type, password) VALUES ('TEST@gmail.com', 'client', '123');
 INSERT INTO User (email, type, password) VALUES ('TESTsdasdasd.com', 'client', '123');
