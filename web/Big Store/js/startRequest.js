@@ -35,7 +35,7 @@ function processArticles(articles,start_index,end_index)
 		articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
 							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
-								<img src='images/of2.png' class='img-responsive' alt=''>
+								<img src='images/of2.png' class='img-responsive' alt='' onclick="getStorage(`+j+`)" >
 							</a>
 							<div class='mid-1'>
 								<div class='women'>
@@ -52,6 +52,7 @@ function processArticles(articles,start_index,end_index)
 						</div>
 					</div>`;
 		$("#myModal"+j+" h3").html(desc);
+		$("#myModal"+j+" .quick").html("");
 		$("#myModal"+j+" .reducedfrom").html("$"+price);
 		$("#myModal"+j+" .in-para").html("");
 		$("#myModal"+j+" .quick_desc").html("");
@@ -61,6 +62,7 @@ function processArticles(articles,start_index,end_index)
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",price);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/of28.png");
+
 		j++;
 	}
 }
@@ -77,4 +79,35 @@ function filterArticles(string)
 	}
 	if(string != "" ) processArticles(current_filtered_articles,0,8);
 	else processArticles(articles,0,8);
+}
+function getStorage(modal)
+{
+	var id = $("#myModal"+modal+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id");
+	getStorages(id,modal);
+	
+
+}
+function getStorages(id,modal)
+{
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() 
+	{
+    if (this.readyState == 4 && this.status == 200) {
+    		storages = JSON.parse(xhttp.responseText);
+    		if(storages.length > 0)
+			{
+				storages.forEach(function(item, index)
+				{
+					$("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "✔</p>");
+				});
+			}
+			else
+			{
+				$("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
+			}
+		}
+	};
+	xhttp.open("GET", "http://localhost:49822/api/ArtigoArmazem/"+id, true);
+	xhttp.setRequestHeader("Content-Type", "text/json");
+	xhttp.send();
 }
