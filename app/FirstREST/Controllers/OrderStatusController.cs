@@ -32,28 +32,6 @@ namespace FirstREST.Controllers
                 return artigo;
             }
         }
-
-       
-        public HttpResponseMessage Post(Lib_Primavera.Model.OrderStatus ord)
-        {
-            Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
-            erro = Lib_Primavera.PriIntegration.InsereOrderStatusObj(ord);
-
-            if (erro.Erro == 0)
-            {
-                var response = Request.CreateResponse(
-                   HttpStatusCode.Created, ord);
-                string uri = Url.Link("DefaultApi", new { idCabecDoc = ord.idCabecDoc });
-                response.Headers.Location = new Uri(uri);
-                return response;
-            }
-
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-
-        }
-    
+ 
     }
 }
