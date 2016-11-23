@@ -292,6 +292,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\themes\base\bootstrap.css" />
+    <Content Include="Content\themes\base\font-awesome.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -320,6 +322,7 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jstarbox.css" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -346,6 +349,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -359,25 +363,161 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\ab.jpg" />
+    <Content Include="Images\ab1.jpg" />
+    <Content Include="Images\arr.png" />
+    <Content Include="Images\ba.jpg" />
+    <Content Include="Images\ba1.jpg" />
+    <Content Include="Images\ba2.jpg" />
+    <Content Include="Images\cac.jpg" />
+    <Content Include="Images\can.png" />
+    <Content Include="Images\co.jpg" />
+    <Content Include="Images\co1.jpg" />
+    <Content Include="Images\co2.jpg" />
+    <Content Include="Images\co3.jpg" />
+    <Content Include="Images\computer.png" />
+    <Content Include="Images\download.png" />
+    <Content Include="Images\it1.jpg" />
+    <Content Include="Images\ki.jpg" />
+    <Content Include="Images\ki1.jpg" />
+    <Content Include="Images\ki2.jpg" />
+    <Content Include="Images\ki3.jpg" />
+    <Content Include="Images\ki4.jpg" />
+    <Content Include="Images\ki5.jpg" />
+    <Content Include="Images\ki6.jpg" />
+    <Content Include="Images\ki7.jpg" />
+    <Content Include="Images\ki8.jpg" />
+    <Content Include="Images\me.png" />
+    <Content Include="Images\me1.png" />
+    <Content Include="Images\me2.png" />
+    <Content Include="Images\of.png" />
+    <Content Include="Images\of1.png" />
+    <Content Include="Images\of10.png" />
+    <Content Include="Images\of11.png" />
+    <Content Include="Images\of12.png" />
+    <Content Include="Images\of13.png" />
+    <Content Include="Images\of14.png" />
+    <Content Include="Images\of15.png" />
+    <Content Include="Images\of16.png" />
+    <Content Include="Images\of17.png" />
+    <Content Include="Images\of18.png" />
+    <Content Include="Images\of19.png" />
+    <Content Include="Images\of2.png" />
+    <Content Include="Images\of20.png" />
+    <Content Include="Images\of21.png" />
+    <Content Include="Images\of22.png" />
+    <Content Include="Images\of23.png" />
+    <Content Include="Images\of24.png" />
+    <Content Include="Images\of25.png" />
+    <Content Include="Images\of26.png" />
+    <Content Include="Images\of27.png" />
+    <Content Include="Images\of28.png" />
+    <Content Include="Images\of29.png" />
+    <Content Include="Images\of3.png" />
+    <Content Include="Images\of30.png" />
+    <Content Include="Images\of31.png" />
+    <Content Include="Images\of32.png" />
+    <Content Include="Images\of33.png" />
+    <Content Include="Images\of34.png" />
+    <Content Include="Images\of35.png" />
+    <Content Include="Images\of36.png" />
+    <Content Include="Images\of37.png" />
+    <Content Include="Images\of38.png" />
+    <Content Include="Images\of39.png" />
+    <Content Include="Images\of4.png" />
+    <Content Include="Images\of40.png" />
+    <Content Include="Images\of41.png" />
+    <Content Include="Images\of42.png" />
+    <Content Include="Images\of43.png" />
+    <Content Include="Images\of44.png" />
+    <Content Include="Images\of45.png" />
+    <Content Include="Images\of46.png" />
+    <Content Include="Images\of47.png" />
+    <Content Include="Images\of48.png" />
+    <Content Include="Images\of49.png" />
+    <Content Include="Images\of5.png" />
+    <Content Include="Images\of50.png" />
+    <Content Include="Images\of51.png" />
+    <Content Include="Images\of52.png" />
+    <Content Include="Images\of53.png" />
+    <Content Include="Images\of54.png" />
+    <Content Include="Images\of55.png" />
+    <Content Include="Images\of56.png" />
+    <Content Include="Images\of57.png" />
+    <Content Include="Images\of58.png" />
+    <Content Include="Images\of59.png" />
+    <Content Include="Images\of6.png" />
+    <Content Include="Images\of7.png" />
+    <Content Include="Images\of8.png" />
+    <Content Include="Images\of9.png" />
+    <Content Include="Images\sh.jpg" />
+    <Content Include="Images\si-1.jpg" />
+    <Content Include="Images\si.jpg" />
+    <Content Include="Images\wi.png" />
+    <Content Include="Images\wi1.png" />
+    <Content Include="Images\wi2.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\checkout.js" />
+    <Content Include="Scripts\easing.js" />
+    <Content Include="Scripts\easyResponsiveTabs.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.mycart.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.vide.min.js" />
+    <Content Include="Scripts\jquery.zoomtoo.js" />
+    <Content Include="Scripts\jstarbox.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\loginPopup.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr.custom.js" />
+    <Content Include="Scripts\move-top.js" />
+    <Content Include="Scripts\myCart.js" />
+    <Content Include="Scripts\paging.js" />
+    <Content Include="Scripts\requests.js" />
+    <Content Include="Scripts\search.js" />
+    <Content Include="Scripts\startRequest.js" />
+    <None Include="Views\Home\about.cshtml" />
+    <None Include="Views\Home\care.cshtml" />
+    <None Include="Views\Home\codes.cshtml" />
+    <None Include="Views\Home\contact.cshtml" />
+    <None Include="Views\Home\faqs.cshtml" />
+    <None Include="Views\Home\hold.cshtml" />
+    <None Include="Views\Home\index.cshtml" />
+    <None Include="Views\Home\kitchen.cshtml" />
+    <None Include="Views\Home\login.cshtml" />
+    <None Include="Views\Home\offer.cshtml" />
+    <None Include="Views\Home\register.cshtml" />
+    <None Include="Views\Home\shipping.cshtml" />
+    <None Include="Views\Home\single.cshtml" />
+    <None Include="Views\Home\terms.cshtml" />
+    <None Include="Views\Home\wishlist.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -405,7 +545,6 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
@@ -432,13 +571,12 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>50561</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:49822/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:49822</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
