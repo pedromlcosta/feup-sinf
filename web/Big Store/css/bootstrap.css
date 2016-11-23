@@ -5788,5 +5788,26 @@ button.close {
 /*# sourceMappingURL=bootstrap.css.map */
 #search_background {
     background-image: url("../images/it1.jpg");
-    /*background-color: #cccccc;
+}
+#pagination {
+    width: 100%;
+    text-align: center;
+}
+.pagingButton{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.pagingButton:hover {
+    background-color: #FF0000;
+}
+.pagingButton:active {
+    background-color: #ffffff;
 }

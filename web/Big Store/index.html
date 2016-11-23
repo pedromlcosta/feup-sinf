@@ -28,6 +28,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript" src="js/startRequest.js"></script>
 <script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="js/paging.js"></script>
+<script type="text/javascript" src="js/loginPopup.js"></script>
+
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){
@@ -66,7 +69,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 </head>
 <body>
-<a href="offer.html"><img src="images/download.png" class="img-head" alt=""></a>
 <div class="header">
 
 		<div class="container">
@@ -77,7 +79,13 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			<div class="head-t">
 				<ul class="card">
 					<li><a href="wishlist.html" ><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a></li>
-					<li><a href="login.html" ><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
+					<li>
+						<a href="login.html" id="login_button" data-toggle="modal" data-target="#login_modal">
+							<i class="fa fa-user" aria-hidden="true">
+							</i>
+							Login
+						</a>
+					</li>
 					<li><a href="register.html" ><i class="fa fa-arrow-right" aria-hidden="true"></i>Register</a></li>
 					<li><a href="about.html" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
 					<li><a href="shipping.html" ><i class="fa fa-ship" aria-hidden="true"></i>Shipping</a></li>
@@ -112,7 +120,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							<li class=" active"><a href="index.html" class="hyper "><span>Home</span></a></li>
 
 							<li class="dropdown ">
-								<a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Kitchen<b class="caret"></b></span></a>
+								<a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Categories<b class="caret"></b></span></a>
 								<ul class="dropdown-menu multi">
 									<div class="row">
 										<div class="col-sm-3">
@@ -155,92 +163,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 									</div>
 								</ul>
 							</li>
-							<li class="dropdown">
-
-								<a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span> Personal Care <b class="caret"></b></span></a>
-								<ul class="dropdown-menu multi multi1">
-									<div class="row">
-										<div class="col-sm-3">
-											<ul class="multi-column-dropdown">
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Ayurvedic </a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Baby Care</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Cosmetics</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Deo & Purfumes</a></li>
-
-											</ul>
-
-										</div>
-										<div class="col-sm-3">
-
-											<ul class="multi-column-dropdown">
-												<li><a href="care.html"> <i class="fa fa-angle-right" aria-hidden="true"></i>Hair Care </a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Oral Care</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Personal Hygiene</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Skin care</a></li>
-
-											</ul>
-
-										</div>
-										<div class="col-sm-3">
-
-											<ul class="multi-column-dropdown">
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Fashion Accessories </a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Grooming Tools</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Shaving Need</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sanitary Needs</a></li>
-
-											</ul>
-										</div>
-										<div class="col-sm-3 w3l">
-											<a href="care.html"><img src="images/me1.png" class="img-responsive" alt=""></a>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span>Household<b class="caret"></b></span></a>
-								<ul class="dropdown-menu multi multi2">
-									<div class="row">
-										<div class="col-sm-3">
-											<ul class="multi-column-dropdown">
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Cleaning Accessories</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>CookWear</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Detergents</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Gardening Needs</a></li>
-
-											</ul>
-
-										</div>
-										<div class="col-sm-3">
-
-											<ul class="multi-column-dropdown">
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Kitchen & Dining</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>KitchenWear</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Pet Care</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Plastic Wear</a></li>
-
-											</ul>
-
-										</div>
-										<div class="col-sm-3">
-
-											<ul class="multi-column-dropdown">
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Pooja Needs</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Serveware</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Safety Accessories</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Festive Decoratives </a></li>
-
-											</ul>
-										</div>
-										<div class="col-sm-3 w3l">
-											<a href="hold.html"><img src="images/me2.png" class="img-responsive" alt=""></a>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</ul>
-							</li>
-
+							
 							<li><a href="codes.html" class="hyper"> <span>Codes</span></a></li>
 							<li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
 						</ul>
@@ -264,14 +187,14 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			<div  class="search-form">
 				<form name="search-bar" onsubmit="return false" method="GET">
 					<input type="text" placeholder="Search..." name="Search">
-					<input type="submit" onclick="searchFunction()" value=" " >
+					<input type="submit" onclick="resetPaging(); searchFunction();" value=" " >
 				</form>
 			</div>
 		</div>
     </div>
 </div>
 
-    //<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
    
 
 <!--content-->
@@ -295,7 +218,11 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							
 				</div>
 	</div>
-	<button type="button"> << </button>
+	<div id="pagination">
+	<button class="pagingButton" id="pafeLeft" onclick="pageToLeft()" > << </button>
+	<button class="pagingButton" id="pageIndex"> 1  </button>
+	<button class="pagingButton" id="pafeRight" onclick="pageToRight()"> >> </button>
+	</div>
 <!--footer-->
 <div class="footer">
 	<div class="container">
@@ -309,9 +236,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			<h3>Menu</h3>
 			<ul>
 				<li><a href="index.html">Home</a></li>
-				<li><a href="kitchen.html">Kitchen</a></li>
-				<li><a href="care.html">Personal Care</a></li>
-				<li><a href="hold.html">Household</a></li>
+				<li><a href="kitchen.html">Categories</a></li>
 				<li><a href="codes.html">Short Codes</a></li>
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
@@ -323,7 +248,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<li><a href="terms.html">Terms & Conditions</a></li>
 				<li><a href="faqs.html">Faqs</a></li>
 				<li><a href="contact.html">Contact</a></li>
-				<li><a href="offer.html">Online Shopping</a></li>
 
 			</ul>
 		</div>
@@ -717,5 +641,69 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 			</div>
 		</div>
+
+
+<!-- Login MODAL -->
+<div id="login_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title"><strong>Login</strong></h4>
+            </div>
+
+            <div class="modal-body">
+                <form id="loginForm" class="form-horizontal" action="#" method="post" id="login_form">
+
+                    <!-- USER -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Utilizador</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                <input  name="title" placeholder="Email" class="form-control" type="text"
+                                       required>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PASSWORD -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input  name="title" placeholder="Password" class="form-control" type="text"
+                                       required>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <!-- SUCCESS MESSAGE -->
+                        <div id="creation_success" class="text-center">
+                        </div>
+                        <!-- FAILURE MESSAGE -->
+                        <div id="creation_failure" class="text-center">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="requestSubmitBtn" type="submit" class="btn btn-success" data-dismiss="modal">Login</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
