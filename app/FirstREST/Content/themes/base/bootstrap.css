@@ -5555,7 +5555,7 @@ button.close {
   width: 12px;
   height: 12px;
   margin: 0;
-  background-color: url(../images/pagenate.png) no-repeat 0px 0px;
+  background-color: url(../../../Images/pagenate.png) no-repeat 0px 0px;
 }
 .carousel-caption {
   position: absolute;
@@ -5787,7 +5787,7 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 #search_background {
-    background-image: url("../images/it1.jpg");
+    background-image: url("../../../Images/it1.jpg");
 }
 #pagination {
     width: 100%;

@@ -1158,7 +1158,7 @@ ul.product-qty {
     width: 100%;
     height: 114px;
     display: block;
-    background: url(../images/sh.jpg)no-repeat ;
+    background: url(../../../Images/sh.jpg)no-repeat ;
     padding: 3em 0;
     background-size: cover;
 }
@@ -2240,7 +2240,7 @@ span.last {
 	height: 32px;
 	border: none;
 	text-indent: 100%;
-	background: url("../images/arr.png") no-repeat 0px 0px;
+	background: url("../../../Images/arr.png") no-repeat 0px 0px;
 }
 /*--responsive--*/
 @media(max-width:1440px){
@@ -2894,7 +2894,7 @@ img.img-head {
 .search-form input[type='submit'] {
     width: 35px;
     height: 35px;
-    background: url(../images/can.png) no-repeat 4px 3px #FCCD1E;
+    background: url(../../../Images/can.png) no-repeat 4px 3px #FCCD1E;
 }
 .search-form input[type='text'] {
     width: 85%;
