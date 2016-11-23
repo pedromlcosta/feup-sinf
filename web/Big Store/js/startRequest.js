@@ -94,6 +94,7 @@ function getStorages(id,modal)
 	{
     if (this.readyState == 4 && this.status == 200) {
     		storages = JSON.parse(xhttp.responseText);
+    		$("#myModal"+modal+" .quick").html("");
     		if(storages.length > 0)
 			{
 				storages.forEach(function(item, index)
