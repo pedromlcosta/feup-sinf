@@ -35,7 +35,7 @@ function processArticles(articles,start_index,end_index)
 		articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
 							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
-								<img src='images/of2.png' class='img-responsive' alt='' onclick="getStorage(`+j+`)" >
+								<img src='../../../Images/of2.png' class='img-responsive' alt='' onclick="getStorage(`+j+`);" >
 							</a>
 							<div class='mid-1'>
 								<div class='women'>
