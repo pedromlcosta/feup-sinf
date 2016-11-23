@@ -64,102 +64,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 </head>
 <body>
-<div class="header">
+    @RenderPage("header.cshtml")
 
-		<div class="container">
-
-			<div class="logo">
-				<h1 ><a href="index.html"><b>T<br>H<br>E</b>Big Store<span>The Best Supermarket</span></a></h1>
-			</div>
-			<div class="head-t">
-				<ul class="card">
-					<li><a href="wishlist.html" ><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a></li>
-					<li>
-						<a href="login.html" id="login_button" data-toggle="modal" data-target="#login_modal">
-							<i class="fa fa-user" aria-hidden="true">
-							</i>
-							Login
-						</a>
-					</li>
-					<li><a href="register.html" ><i class="fa fa-arrow-right" aria-hidden="true"></i>Register</a></li>
-					<li><a href="about.html" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
-					<li><a href="shipping.html" ><i class="fa fa-ship" aria-hidden="true"></i>Shipping</a></li>
-				</ul>
-			</div>
-
-			<div class="header-ri">
-				<ul class="social-top">
-					<li><a href="#" class="icon facebook"><i class="fa fa-facebook" aria-hidden="true"></i><span></span></a></li>
-					<li><a href="#" class="icon twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span></span></a></li>
-				</ul>
-			</div>
-
-
-				<div class="nav-top">
-					<nav class="navbar navbar-default">
-
-					<div class="navbar-header nav_2">
-						<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-
-
-					</div>
-					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-						<ul class="nav navbar-nav ">
-							<li class=" active"><a href="index.html" class="hyper "><span>Home</span></a></li>
-
-							<li class="dropdown ">
-								<a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Categories<b class="caret"></b></span></a>
-								<ul class="dropdown-menu multi">
-									<div class="row">
-										<div class="col-sm-3">
-											<ul class="multi-column-dropdown">
-
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Motherboards</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Graphic Cards</a></li>
-												<li><a href="kitchen.html"> <i class="fa fa-angle-right" aria-hidden="true"></i>Keyboards & Mouses</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sound Equipment</a></li>
-
-											</ul>
-
-										</div>
-										
-										<div class="col-sm-3">
-
-											<ul class="multi-column-dropdown">
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Processors</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Computer Cases</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Office Equipment</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Other Products</a></li>
-
-											</ul>
-										</div>
-										<div class="col-sm-3 w3l">
-											<a href=""><img src="../../../Images/computer.png" class="img-responsive" alt=""></a>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</ul>
-							</li>
-							
-							<li><a href="codes.html" class="hyper"> <span>Codes</span></a></li>
-							<li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
-						</ul>
-					</div>
-					</nav>
-					 <div class="cart" >
-
-						<span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-
-				</div>
-</div>
   <!---->
 <div id = "search_background" data-vide-bg="f/video " background="video/video.png">
     <div class="container">
@@ -206,69 +112,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<button class="pagingButton" id="pafeRight" onclick="pageToRight()"> >> </button>
 	</div>
 <!--footer-->
-<div class="footer">
-	<div class="container">
-		<div class="col-md-3 footer-grid">
-			<h3>About Us</h3>
-			<p>Nam libero tempore, cum soluta nobis est eligendi
-				optio cumque nihil impedit quo minus id quod maxime
-				placeat facere possimus.</p>
-		</div>
-		<div class="col-md-3 footer-grid ">
-			<h3>Menu</h3>
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><a href="kitchen.html">Categories</a></li>
-				<li><a href="codes.html">Short Codes</a></li>
-				<li><a href="contact.html">Contact</a></li>
-			</ul>
-		</div>
-		<div class="col-md-3 footer-grid ">
-			<h3>Customer Services</h3>
-			<ul>
-				<li><a href="shipping.html">Shipping</a></li>
-				<li><a href="terms.html">Terms & Conditions</a></li>
-				<li><a href="faqs.html">Faqs</a></li>
-				<li><a href="contact.html">Contact</a></li>
+   @RenderPage("footer.cshtml")
 
-			</ul>
-		</div>
-		<div class="col-md-3 footer-grid">
-			<h3>My Account</h3>
-			<ul>
-				<li><a href="login.html">Login</a></li>
-				<li><a href="register.html">Register</a></li>
-				<li><a href="wishlist.html">Wishlist</a></li>
-
-			</ul>
-		</div>
-		<div class="clearfix"></div>
-			<div class="footer-bottom">
-				<h2 ><a href="index.html"><b>T<br>H<br>E</b>Big Store<span>The Best Supermarket</span></a></h2>
-				<p class="fo-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
-				<ul class="social-fo">
-					<li><a href="#" class=" face"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-					<li><a href="#" class=" twi"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-				</ul>
-				<div class=" address">
-					<div class="col-md-4 fo-grid1">
-							<p><i class="fa fa-home" aria-hidden="true"></i>12K Street , 45 Building Road Canada.</p>
-					</div>
-					<div class="col-md-4 fo-grid1">
-							<p><i class="fa fa-phone" aria-hidden="true"></i>+1234 758 839 , +1273 748 730</p>
-					</div>
-					<div class="col-md-4 fo-grid1">
-						<p><a href="mailto:info@example.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>info@example1.com</a></p>
-					</div>
-					<div class="clearfix"></div>
-
-					</div>
-			</div>
-		<div class="copy-right">
-			<p> &copy; 2016 Big store. All Rights Reserved | Design by  <a href="http://w3layouts.com/"> W3layouts</a></p>
-		</div>
-	</div>
-</div>
 <!-- //footer-->
 
 <!-- smooth scrolling -->
@@ -608,69 +453,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 			</div>
 		</div>
-
-
-<!-- Login MODAL -->
-<div id="login_modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
-                <h4 class="modal-title"><strong>Login</strong></h4>
-            </div>
-
-            <div class="modal-body">
-                <form id="loginForm" class="form-horizontal" action="#" method="post" id="login_form">
-
-                    <!-- USER -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Utilizador</label>
-                        <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
-                                <input  name="title" placeholder="Email" class="form-control" type="text"
-                                       required>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PASSWORD -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Password</label>
-                        <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                <input  name="title" placeholder="Password" class="form-control" type="text"
-                                       required>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-
-                        <!-- SUCCESS MESSAGE -->
-                        <div id="creation_success" class="text-center">
-                        </div>
-                        <!-- FAILURE MESSAGE -->
-                        <div id="creation_failure" class="text-center">
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button id="requestSubmitBtn" type="submit" class="btn btn-success" data-dismiss="modal">Login</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 </body>
 </html>

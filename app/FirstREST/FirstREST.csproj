@@ -501,6 +501,8 @@
     <None Include="Views\Home\codes.cshtml" />
     <None Include="Views\Home\contact.cshtml" />
     <None Include="Views\Home\faqs.cshtml" />
+    <Content Include="Views\Home\header.cshtml" />
+    <Content Include="Views\Home\footer.cshtml" />
     <None Include="Views\Home\hold.cshtml" />
     <None Include="Views\Home\index.cshtml" />
     <None Include="Views\Home\kitchen.cshtml" />
