@@ -341,7 +341,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia FROM Artigo,Familias,SubFamilias WHERE Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia HAVING PCPadrao>0");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias WHERE Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao HAVING PCPadrao>0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
@@ -354,6 +354,8 @@ namespace FirstREST.Lib_Primavera
                     art.Marca = objList.Valor("marca");
                     art.familia = objList.Valor("Familia");
                     art.subFamilia = objList.Valor("SubFamilia");
+                    art.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
+                    art.familiaDesc = objList.Valor("FamiliaDesc");
                     listArts.Add(art);
                     objList.Seguinte();
                 }
@@ -637,11 +639,11 @@ namespace FirstREST.Lib_Primavera
 
         # region CategoriaArtigo
 
-        public static IEnumerable<Lib_Primavera.Model.CategoriaArtigo> ListaCategoriaArtigos()
+        public static IEnumerable<Lib_Primavera.Model.ArtigoCategoria> ListaCategoriaArtigos()
         {
             StdBELista objList;
 
-            List<Model.CategoriaArtigo> listCategoriaArtigos = new List<Model.CategoriaArtigo>();
+            List<Model.ArtigoCategoria> listCategoriaArtigos = new List<Model.ArtigoCategoria>();
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
@@ -654,14 +656,14 @@ namespace FirstREST.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
-                   
-                 listCategoriaArtigos.Add(new Model.CategoriaArtigo
+                 listCategoriaArtigos.Add(new Model.ArtigoCategoria
                     {
+                        
                         familia = objList.Valor("Familia"),
                         familiaDesc = objList.Valor("FamiliaDesc"),
                         subFamilia = objList.Valor("SubFamilia"),
                         subFamiliaDesc = objList.Valor("SubFamiliaDesc"),
-                        artigo = objList.Valor("Artigo")
+                        artigo=objList.Valor("Artigo")
                     });
                     objList.Seguinte();
 
@@ -673,10 +675,10 @@ namespace FirstREST.Lib_Primavera
                 return null;
         }
 
-        public static IEnumerable<Lib_Primavera.Model.CategoriaArtigo> GetCategoriaArtigos(string familia)
+        public static Model.CategoriaArtigo GetCategoriaArtigos(string familia)
         {
             GcpBEFamilia objFamilia = new GcpBEFamilia();
-            Model.CategoriaArtigo categoriaArtigo = new Model.CategoriaArtigo();
+            Model.ArtigoCategoria categoriaArtigo = new Model.ArtigoCategoria();
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
@@ -684,30 +686,33 @@ namespace FirstREST.Lib_Primavera
                 if (PriEngine.Engine.Comercial.Familias.Existe(familia) == true)
                 {
                     objFamilia = PriEngine.Engine.Comercial.Familias.Edita(familia);
+
                     string familiaCod = objFamilia.get_Familia();
                     string query= System.String.Empty;
                     query+="SELECT Artigo.Artigo,Familias.Familia,SubFamilias.SubFamilia, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias WHERE Familias.Familia= ";
                     query += familiaCod + " AND Artigo.Familia = Familias.Familia AND SubFamilias.SubFamilia = Artigo.SubFamilia AND Familias.Familia = SubFamilias.Familia;";
+                    
                     StdBELista objList = PriEngine.Engine.Consulta(query);
                     System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", query);
-                    List<Model.CategoriaArtigo> listCategoriaArtigos = new List<Model.CategoriaArtigo>();
+                    Model.CategoriaArtigo categoriaArtigoObj = new Model.CategoriaArtigo();
+                    if(!objList.Vazia()){ 
+                    categoriaArtigoObj.familia=objList.Valor("Familia");
+                    categoriaArtigoObj.familiaDesc = objList.Valor("FamiliaDesc");
+                    categoriaArtigoObj.subFamilia = objList.Valor("SubFamilia");
+                    categoriaArtigoObj.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
 
                     while (!objList.NoFim())
                     {
-                        listCategoriaArtigos.Add(new Model.CategoriaArtigo
-                        {
-                            familia = objList.Valor("Familia"),
-                            familiaDesc = objList.Valor("FamiliaDesc"),
-                            subFamilia = objList.Valor("SubFamilia"),
-                            subFamiliaDesc = objList.Valor("SubFamiliaDesc"),
-                            artigo = objList.Valor("Artigo")
-                        });
+
+                        categoriaArtigoObj.addArtigo(objList.Valor("Artigo"));
                         objList.Seguinte();
 
                     }
 
-                    return listCategoriaArtigos;
-                    
+                    return categoriaArtigoObj;
+                    }
+                    else
+                        return null;
                 }
                 else
                 {

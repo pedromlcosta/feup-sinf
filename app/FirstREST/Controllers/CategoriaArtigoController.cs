@@ -12,16 +12,17 @@ namespace FirstREST.Controllers
     public class CategoriaArtigoController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<Lib_Primavera.Model.CategoriaArtigo>  Get()
+        public IEnumerable<Lib_Primavera.Model.ArtigoCategoria>  Get()
         {
-            return Lib_Primavera.PriIntegration.ListaCategoriaArtigos(); ;
+            return null;
+            //return Lib_Primavera.PriIntegration.ListaCategoriaArtigos(); ;
         }
 
         // GET api/<controller>/5, ID da categoria/familia return artigos relacionados com ela
-        public IEnumerable<Lib_Primavera.Model.CategoriaArtigo> Get(string familia)
+        public CategoriaArtigo Get(string familia)
         {
             System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText1.txt", "why you no call");
-            IEnumerable<Lib_Primavera.Model.CategoriaArtigo> categoriaArtigos = Lib_Primavera.PriIntegration.GetCategoriaArtigos(familia);
+            Lib_Primavera.Model.CategoriaArtigo categoriaArtigos = Lib_Primavera.PriIntegration.GetCategoriaArtigos(familia);
             if (categoriaArtigos == null)
             {
                 throw new HttpResponseException(

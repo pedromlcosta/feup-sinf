@@ -5,50 +5,9 @@ using System.Web;
 
 namespace FirstREST.Lib_Primavera.Model
 {
-    public class Artigo
+    public class ArtigoCategoria
     {
-        public string CodArtigo
-        {
-            get;
-            set;
-        }
-
-        public string DescArtigo
-        {
-            get;
-            set;
-        }
-
-        public double StockActual
-        {
-            get;
-            set;
-        }
-
-        public string Marca
-        {
-            get;
-            set;
-        }
-
-
-        public double PCPadrao
-        {
-            get;
-            set;
-        }
         public string familia
-        {
-            get;
-            set;
-        }
-        public string subFamilia
-        {
-            get;
-            set;
-        }
-         
-        public string subFamiliaDesc
         {
             get;
             set;
@@ -59,6 +18,23 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
+      
+        public string subFamilia
+        {
+            get;
+            set;
+        }
 
+        public string subFamiliaDesc
+        {
+            get;
+            set;
+        }
+      
+        public string artigo
+        {
+            get;
+            set;
+        }
     }
 }

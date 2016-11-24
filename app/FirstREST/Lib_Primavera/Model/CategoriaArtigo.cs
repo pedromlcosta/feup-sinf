@@ -7,7 +7,7 @@ namespace FirstREST.Lib_Primavera.Model
 {
     public class CategoriaArtigo
     {
-        public string familia
+         public string familia
         {
             get;
             set;
@@ -30,12 +30,17 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
-      
-        public string artigo
+     
+        public List<String> artigo
         {
             get;
             set;
         }
-     
+      
+        public void addArtigo(string artigoToAdd)
+        {
+            artigo.Add(artigoToAdd);
+        }
     }
+    
 }
