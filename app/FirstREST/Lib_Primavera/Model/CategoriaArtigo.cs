@@ -18,30 +18,23 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
-      
-        public string subFamilia
-        {
-            get;
-            set;
-        }
-
         public string subFamiliaDesc
         {
             get;
             set;
         }
-     
-        public List<String> artigo
+
+        public List<Tuple<string, string>> artigo
         {
             get;
             set;
         }
       
-        public void addArtigo(string artigoToAdd)
+        public void addArtigo(string artigoToAdd,string subFamiliaToAdd)
         {
 
             if(artigoToAdd!=null)
-             artigo.Add(artigoToAdd);
+                artigo.Add(new Tuple<string, string>(artigoToAdd, subFamiliaToAdd));
         }
     }
     

@@ -698,14 +698,13 @@ namespace FirstREST.Lib_Primavera
                     if(!objList.Vazia()){ 
                     categoriaArtigoObj.familia=objList.Valor("Familia");
                     categoriaArtigoObj.familiaDesc = objList.Valor("FamiliaDesc");
-                    categoriaArtigoObj.subFamilia = objList.Valor("SubFamilia");
                     categoriaArtigoObj.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
 
-                    categoriaArtigoObj.artigo = new List<string>();
+                    categoriaArtigoObj.artigo = new List<Tuple<string,string>>();
                     while (!objList.NoFim())
                     {
 
-                        categoriaArtigoObj.addArtigo(objList.Valor("Artigo"));
+                        categoriaArtigoObj.addArtigo(objList.Valor("Artigo"), objList.Valor("SubFamilia"));
                         objList.Seguinte();
 
                     }
