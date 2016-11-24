@@ -14,8 +14,7 @@ namespace FirstREST.Controllers
         // GET api/<controller>
         public IEnumerable<Lib_Primavera.Model.ArtigoCategoria>  Get()
         {
-            return null;
-            //return Lib_Primavera.PriIntegration.ListaCategoriaArtigos(); ;
+            return Lib_Primavera.PriIntegration.ListaCategoriaArtigos(); ;
         }
 
         // GET api/<controller>/5, ID da categoria/familia return artigos relacionados com ela
