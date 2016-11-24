@@ -320,6 +320,7 @@ namespace FirstREST.Lib_Primavera
                     myArt.StockActual = objArtigo.get_StkActual();
                     myArt.Marca = objArtigo.get_Marca();
                     myArt.PCPadrao = objArtigo.get_PCPadrao();
+                    myArt.IVA = objArtigo.get_IVA();
                     return myArt;
                 }
                 
@@ -341,7 +342,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias WHERE Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao HAVING PCPadrao>0");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA FROM Artigo,Familias,SubFamilias WHERE Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao HAVING PCPadrao>0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
@@ -356,6 +357,7 @@ namespace FirstREST.Lib_Primavera
                     art.subFamilia = objList.Valor("SubFamilia");
                     art.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
                     art.familiaDesc = objList.Valor("FamiliaDesc");
+                    art.IVA = objList.Valor("iva");
                     listArts.Add(art);
                     objList.Seguinte();
                 }
