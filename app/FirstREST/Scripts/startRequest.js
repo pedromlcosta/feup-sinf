@@ -80,6 +80,20 @@ function filterArticles(string)
 	if(string != "" ) processArticles(current_filtered_articles,0,8);
 	else processArticles(articles,0,8);
 }
+function filterArticlesbyCategory(string)
+{
+    current_filtered_articles = [];
+    for(var i=0;i<articles.length;i++)
+    {
+        var catg = articles[i].familia;
+        if(catg.toLowerCase().indexOf(string) !== -1)
+        {
+            current_filtered_articles.push(articles[i]);
+        }
+    }
+    if(string != "" ) processArticles(current_filtered_articles,0,8);
+    else processArticles(articles,0,8);
+}
 function getStorage(modal)
 {
 	var id = $("#myModal"+modal+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id");
