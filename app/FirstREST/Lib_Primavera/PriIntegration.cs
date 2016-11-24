@@ -639,37 +639,35 @@ namespace FirstREST.Lib_Primavera
 
         # region CategoriaArtigo
 
-        public static IEnumerable<Lib_Primavera.Model.ArtigoCategoria> ListaCategoriaArtigos()
+        public static List<Lib_Primavera.Model.Categoria> ListaCategorias()
         {
             StdBELista objList;
 
-            List<Model.ArtigoCategoria> listCategoriaArtigos = new List<Model.ArtigoCategoria>();
-
+            List<Lib_Primavera.Model.Categoria> listCategorias = new List<Lib_Primavera.Model.Categoria>();
+            Lib_Primavera.Model.Categoria categoriaObj;
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-
-                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-
-                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Familias.Familia,SubFamilias.SubFamilia, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias "
-                        +"WHERE  Artigo.Familia = Familias.Familia AND SubFamilias.SubFamilia = Artigo.SubFamilia AND Familias.Familia = SubFamilias.Familia;");
-
-
+                objList = PriEngine.Engine.Consulta("SELECT Familias.Familia,SubFamilias.SubFamilia,SubFamilias.Ordem, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Familias,SubFamilias;");
+                
                 while (!objList.NoFim())
                 {
-                 listCategoriaArtigos.Add(new Model.ArtigoCategoria
-                    {
+                    string familiaCodigo = objList.Valor("Familia");
+                    if ((categoriaObj = listCategorias.Find(obj => obj.familiaCod == familiaCodigo)) == null)
+                    { 
+                        listCategorias.Add( new Model.Categoria
+                        {
+
+                            familiaCod = familiaCodigo,
+                            familiaDesc = objList.Valor("FamiliaDesc"),
                         
-                        familia = objList.Valor("Familia"),
-                        familiaDesc = objList.Valor("FamiliaDesc"),
-                        subFamilia = objList.Valor("SubFamilia"),
-                        subFamiliaDesc = objList.Valor("SubFamiliaDesc"),
-                        artigo=objList.Valor("Artigo")
-                    });
+                        });
+                        categoriaObj = listCategorias[listCategorias.Count - 1];
+                    }
+                    categoriaObj.addSubFamilia(new Lib_Primavera.Model.SubCategoria(objList.Valor("SubFamilia"), objList.Valor("SubFamiliaDesc")));
                     objList.Seguinte();
 
                 }
-
-                return listCategoriaArtigos;
+                return listCategorias;
             }
             else
                 return null;

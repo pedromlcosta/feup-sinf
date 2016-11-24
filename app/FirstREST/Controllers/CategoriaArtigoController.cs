@@ -12,9 +12,9 @@ namespace FirstREST.Controllers
     public class CategoriaArtigoController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<Lib_Primavera.Model.ArtigoCategoria>  Get()
+        public IEnumerable<Lib_Primavera.Model.Categoria> Get()
         {
-            return Lib_Primavera.PriIntegration.ListaCategoriaArtigos(); ;
+            return Lib_Primavera.PriIntegration.ListaCategorias(); ;
         }
 
         // GET api/<controller>/5, ID da categoria/familia return artigos relacionados com ela
