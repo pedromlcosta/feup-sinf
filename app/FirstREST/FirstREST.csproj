@@ -267,6 +267,7 @@
     <Compile Include="LoginData.cs" />
     <Compile Include="Controllers\ArtigoArmazemController.cs" />
     <Compile Include="Controllers\ArtigosController.cs" />
+    <Compile Include="Controllers\CategoriaArtigoController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\DocVendaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -276,6 +277,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Lib_Primavera\Model\ArtigoArmazem.cs" />
+    <Compile Include="Lib_Primavera\Model\CategoriaArtigo.cs" />
     <Compile Include="Lib_Primavera\Model\OrderStatus.cs" />
     <Compile Include="Lib_Primavera\PriIntegration.cs" />
     <Compile Include="Lib_Primavera\Model\Artigo.cs" />
