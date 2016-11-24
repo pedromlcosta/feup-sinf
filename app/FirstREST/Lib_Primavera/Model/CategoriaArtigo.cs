@@ -12,8 +12,20 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
+     
+        public string familiaDesc
+        {
+            get;
+            set;
+        }
       
         public string subFamilia
+        {
+            get;
+            set;
+        }
+
+        public string subFamiliaDesc
         {
             get;
             set;

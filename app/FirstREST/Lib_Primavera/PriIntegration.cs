@@ -20,7 +20,6 @@ namespace FirstREST.Lib_Primavera
         public static List<Model.Cliente> ListaClientes()
         {
             
-            
             StdBELista objList;
 
             List<Model.Cliente> listClientes = new List<Model.Cliente>();
@@ -342,7 +341,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT Artigo,Descricao,PCPadrao,STKActual,Marca FROM Artigo GROUP BY Artigo,Descricao,PCPadrao,STKActual,Marca HAVING PCPadrao>0");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia FROM Artigo,Familias,SubFamilias WHERE Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia HAVING PCPadrao>0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
@@ -353,6 +352,8 @@ namespace FirstREST.Lib_Primavera
                     art.PCPadrao = objList.Valor("pcpadrao");
                     art.StockActual = objList.Valor("stkactual");
                     art.Marca = objList.Valor("marca");
+                    art.familia = objList.Valor("Familia");
+                    art.subFamilia = objList.Valor("SubFamilia");
                     listArts.Add(art);
                     objList.Seguinte();
                 }
@@ -633,5 +634,90 @@ namespace FirstREST.Lib_Primavera
         }
 
         #endregion DocsVenda
+
+        # region CategoriaArtigo
+
+        public static IEnumerable<Lib_Primavera.Model.CategoriaArtigo> ListaCategoriaArtigos()
+        {
+            StdBELista objList;
+
+            List<Model.CategoriaArtigo> listCategoriaArtigos = new List<Model.CategoriaArtigo>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Familias.Familia,SubFamilias.SubFamilia, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias "
+                        +"WHERE  Artigo.Familia = Familias.Familia AND SubFamilias.SubFamilia = Artigo.SubFamilia AND Familias.Familia = SubFamilias.Familia;");
+
+
+                while (!objList.NoFim())
+                {
+                   
+                 listCategoriaArtigos.Add(new Model.CategoriaArtigo
+                    {
+                        familia = objList.Valor("Familia"),
+                        familiaDesc = objList.Valor("FamiliaDesc"),
+                        subFamilia = objList.Valor("SubFamilia"),
+                        subFamiliaDesc = objList.Valor("SubFamiliaDesc"),
+                        artigo = objList.Valor("Artigo")
+                    });
+                    objList.Seguinte();
+
+                }
+
+                return listCategoriaArtigos;
+            }
+            else
+                return null;
+        }
+
+        public static IEnumerable<Lib_Primavera.Model.CategoriaArtigo> GetCategoriaArtigos(string familia)
+        {
+            GcpBEFamilia objFamilia = new GcpBEFamilia();
+            Model.CategoriaArtigo categoriaArtigo = new Model.CategoriaArtigo();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                if (PriEngine.Engine.Comercial.Familias.Existe(familia) == true)
+                {
+                    objFamilia = PriEngine.Engine.Comercial.Familias.Edita(familia);
+                    string familiaCod = objFamilia.get_Familia();
+                    string query= System.String.Empty;
+                    query+="SELECT Artigo.Artigo,Familias.Familia,SubFamilias.SubFamilia, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias WHERE Familias.Familia= ";
+                    query += familiaCod + " AND Artigo.Familia = Familias.Familia AND SubFamilias.SubFamilia = Artigo.SubFamilia AND Familias.Familia = SubFamilias.Familia;";
+                    StdBELista objList = PriEngine.Engine.Consulta(query);
+                    System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", query);
+                    List<Model.CategoriaArtigo> listCategoriaArtigos = new List<Model.CategoriaArtigo>();
+
+                    while (!objList.NoFim())
+                    {
+                        listCategoriaArtigos.Add(new Model.CategoriaArtigo
+                        {
+                            familia = objList.Valor("Familia"),
+                            familiaDesc = objList.Valor("FamiliaDesc"),
+                            subFamilia = objList.Valor("SubFamilia"),
+                            subFamiliaDesc = objList.Valor("SubFamiliaDesc"),
+                            artigo = objList.Valor("Artigo")
+                        });
+                        objList.Seguinte();
+
+                    }
+
+                    return listCategoriaArtigos;
+                    
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+                return null;
+        }
+
+        #endregion CategoriaArtigo;   // -----------------------------  END   CategoriaArtigo    -----------------------
     }
 }
