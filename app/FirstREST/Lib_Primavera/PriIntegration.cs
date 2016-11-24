@@ -234,7 +234,6 @@ namespace FirstREST.Lib_Primavera
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
-
         # region OrderStatus
 
         public static List<Model.OrderStatus> ListaOrderStatus()
@@ -724,5 +723,7 @@ namespace FirstREST.Lib_Primavera
         }
 
         #endregion CategoriaArtigo;   // -----------------------------  END   CategoriaArtigo    -----------------------
+    
+    
     }
 }

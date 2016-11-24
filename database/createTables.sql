@@ -14,7 +14,7 @@ password VARCHAR(256) NOT NULL
 /*
 CREATE TABLE IF NOT EXISTS Product(
 code SERIAL PRIMARY KEY,
-primaveraCode INTEGER NOT NULL UNIQUE,
+primaveraCode TEXT NOT NULL UNIQUE, -- primavera code is a mix of letters and numbers
 img TEXT NOT NULL -- link to img of a product 
 );
 
@@ -25,6 +25,12 @@ productCode INTEGER REFERENCES Product(code),  --subject to change and verify wi
 review TEXT NOT NULL,
 score SMALLINT NOT NULL,
 tsv tsvector
+);
+ 
+CREATE TABLE IF NOT EXISTS Wishlist(
+utilizador  INTEGER REFERENCES User(code),
+productCode INTEGER REFERENCES Product(code),
+ PRIMARY KEY(utilizador, productCode)
 );
 */
 

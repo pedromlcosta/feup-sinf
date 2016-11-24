@@ -37,7 +37,16 @@ namespace FirstREST.Controllers
             }
         }
 
-       
+        //Send from Body ou a partir do URL?
+        public string[] Get([FromUri] string[] ids) {
+            List<Artigo> wishList = new List<Artigo>();
+           /* foreach (string id in ids)
+            {
+                wishList.Add(Get(id));
+            }
+            return wishList;*/
+            return ids;
+        }
     }
 }
 
