@@ -35,7 +35,7 @@ function processArticles(articles,start_index,end_index)
 		articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
 							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
-								<img src='../../../Images/of2.png' class='img-responsive' alt='' onclick="getStorage(`+j+`);" >
+								<img src='../../../Images/i7.png' class='img-responsive' alt='' onclick="getStorage(`+j+`);" >
 							</a>
 							<div class='mid-1'>
 								<div class='women'>
@@ -61,7 +61,7 @@ function processArticles(articles,start_index,end_index)
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-summary",desc);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",price);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/of28.png");
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/i7.png");
 
 		j++;
 	}
@@ -85,9 +85,10 @@ function filterArticlesbyCategory(string)
     current_filtered_articles = [];
     for(var i=0;i<articles.length;i++)
     {
-        var catg = articles[i].familia;
-        if(catg.toLowerCase().indexOf(string) !== -1)
+        var catg = articles[i].subFamiliaDesc;
+        if(catg.toLowerCase().indexOf(string.toLowerCase()) !== -1)
         {
+            console.log("match");
             current_filtered_articles.push(articles[i]);
         }
     }

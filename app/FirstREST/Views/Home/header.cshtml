@@ -7,7 +7,7 @@
     <div class="container">
 
         <div class="logo">
-            <h1><a href="index.html"><b>T<br>H<br>E</b>Big Store<span>The Best Supermarket</span></a></h1>
+            <h1><a href="Index.cshtml"><b>T<br>H<br>E</b>Big Store<span>The Best Supermarket</span></a></h1>
         </div>
         <div class="head-t">
             <ul class="card">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav ">
-                        <li class=" active"><a href="index.html" class="hyper "><span>Home</span></a></li>
+                        <li class=" active"><a href="../Index.cshtml" class="hyper "><span>Home</span></a></li>
 
                         <li class="dropdown ">
                             <a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown"><span>Categories<b class="caret"></b></span></a>
@@ -57,10 +57,10 @@
                                     <div class="col-sm-3">
                                         <ul class="multi-column-dropdown">
 
-                                            <li><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Motherboards</a></li>
-                                            <li><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Graphic Cards</a></li>
-                                            <li><a href=""> <i class="fa fa-angle-right" aria-hidden="true"></i>Keyboards & Mouses</a></li>
-                                            <li><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Sound Equipment</a></li>
+                                            <li><a onclick="getCategory('Computadores base');"><i class="fa fa-angle-right" aria-hidden="true"></i>Computers</a></li>
+                                            <li><a onclick="getCategory('RAM');"><i class="fa fa-angle-right" aria-hidden="true"></i>RAM</a></li>
+                                            <li><a onclick="getCategory('Processadores');"> <i class="fa fa-angle-right" aria-hidden="true"></i>Keyboards & Mouses</a></li>
+                                            <li><a onclick="getCategory('Mother Boards');"><i class="fa fa-angle-right" aria-hidden="true"></i>Motherboards</a></li>
 
                                         </ul>
 
@@ -69,10 +69,10 @@
                                     <div class="col-sm-3">
 
                                         <ul class="multi-column-dropdown">
-                                            <li><a onclick="getCategory('H01');"><i class="fa fa-angle-right" aria-hidden="true"></i>Processors</a></li>
-                                            <li><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Computer Cases</a></li>
-                                            <li><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Office Equipment</a></li>
-                                            <li><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Other Products</a></li>
+                                            <li><a onclick="getCategory('Processadores');"><i class="fa fa-angle-right" aria-hidden="true"></i>Processors</a></li>
+                                            <li><a onclick="getCategory('Chassis');"><i class="fa fa-angle-right" aria-hidden="true"></i>Computer Cases</a></li>
+                                            <li><a onclick="getCategory('Discos');"><i class="fa fa-angle-right" aria-hidden="true"></i>Disks</a></li>
+                                            <li><a onclick="getCategory('Drives');"><i class="fa fa-angle-right" aria-hidden="true"></i>Drives</a></li>
 
                                         </ul>
                                     </div>
