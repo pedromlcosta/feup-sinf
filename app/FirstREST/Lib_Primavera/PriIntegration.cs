@@ -689,11 +689,11 @@ namespace FirstREST.Lib_Primavera
 
                     string familiaCod = objFamilia.get_Familia();
                     string query= System.String.Empty;
-                    query+="SELECT Artigo.Artigo,Familias.Familia,SubFamilias.SubFamilia, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias WHERE Familias.Familia= ";
-                    query += familiaCod + " AND Artigo.Familia = Familias.Familia AND SubFamilias.SubFamilia = Artigo.SubFamilia AND Familias.Familia = SubFamilias.Familia;";
-                    
-                    StdBELista objList = PriEngine.Engine.Consulta(query);
+                    query+="SELECT Artigo.Artigo,Familias.Familia,SubFamilias.SubFamilia, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias WHERE Familias.Familia= '";
+                    query += familiaCod + "' AND Artigo.Familia = Familias.Familia AND SubFamilias.SubFamilia = Artigo.SubFamilia AND Familias.Familia = SubFamilias.Familia;";
+
                     System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", query);
+                    StdBELista objList = PriEngine.Engine.Consulta(query);
                     Model.CategoriaArtigo categoriaArtigoObj = new Model.CategoriaArtigo();
                     if(!objList.Vazia()){ 
                     categoriaArtigoObj.familia=objList.Valor("Familia");
@@ -701,6 +701,7 @@ namespace FirstREST.Lib_Primavera
                     categoriaArtigoObj.subFamilia = objList.Valor("SubFamilia");
                     categoriaArtigoObj.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
 
+                    categoriaArtigoObj.artigo = new List<string>();
                     while (!objList.NoFim())
                     {
 

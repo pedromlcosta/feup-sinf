@@ -39,7 +39,9 @@ namespace FirstREST.Lib_Primavera.Model
       
         public void addArtigo(string artigoToAdd)
         {
-            artigo.Add(artigoToAdd);
+
+            if(artigoToAdd!=null)
+             artigo.Add(artigoToAdd);
         }
     }
     

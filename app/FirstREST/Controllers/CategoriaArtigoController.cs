@@ -19,10 +19,9 @@ namespace FirstREST.Controllers
         }
 
         // GET api/<controller>/5, ID da categoria/familia return artigos relacionados com ela
-        public CategoriaArtigo Get(string familia)
+        public CategoriaArtigo Get(string id)
         {
-            System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText1.txt", "why you no call");
-            Lib_Primavera.Model.CategoriaArtigo categoriaArtigos = Lib_Primavera.PriIntegration.GetCategoriaArtigos(familia);
+            Lib_Primavera.Model.CategoriaArtigo categoriaArtigos = Lib_Primavera.PriIntegration.GetCategoriaArtigos(id);
             if (categoriaArtigos == null)
             {
                 throw new HttpResponseException(
