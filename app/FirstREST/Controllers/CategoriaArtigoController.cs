@@ -10,30 +10,33 @@ namespace FirstREST.Controllers
     public class CategoriaArtigo : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public IEnumerable<Lib_Primavera.Model.CategoriaArtigo>  Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        // GET api/<controller>/5, ID da categoria/familia
+        public CategoriaArtigo Get(int familia)
         {
-            return "value";
+            return null;
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(Lib_Primavera.Model.CategoriaArtigo value)
         {
+            return null;
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(Lib_Primavera.Model.CategoriaArtigo value)
         {
+            return null;
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        // DELETE api/<controller>/5 ID da categoria/familia
+        public HttpResponseMessage Delete(int familia)
         {
+            return null;
         }
     }
 }
