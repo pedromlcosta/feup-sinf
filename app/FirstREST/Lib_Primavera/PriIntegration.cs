@@ -300,19 +300,18 @@ namespace FirstREST.Lib_Primavera
         {
             
             GcpBEArtigo objArtigo = new GcpBEArtigo();
-            
+            StdBELista objList;
             Model.Artigo myArt = new Model.Artigo();
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-
-                
                 if (PriEngine.Engine.Comercial.Artigos.Existe(codArtigo) == false)
                 {
                     return null;
                 }
                 else
                 {
+                    objList = PriEngine.Engine.Consulta("SELECT ArtigoMoeda.Moeda FROM ArtigoMoeda WHERE Artigo = " + objArtigo.get_Artigo()+";");
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
                     myArt.CodArtigo = objArtigo.get_Artigo();
                     myArt.DescArtigo = objArtigo.get_Descricao();
@@ -320,15 +319,14 @@ namespace FirstREST.Lib_Primavera
                     myArt.Marca = objArtigo.get_Marca();
                     myArt.PCPadrao = objArtigo.get_PCPadrao();
                     myArt.IVA = objArtigo.get_IVA();
+                    myArt.moeadaSymbol = Model.CurrencyCodeMapper.GetCurrenySymbol(objList.Valor("moeda"));
                     return myArt;
                 }
-                
             }
             else
             {
                 return null;
             }
-
         }
 
         public static List<Model.Artigo> ListaArtigos()
@@ -341,7 +339,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA FROM Artigo,Familias,SubFamilias WHERE Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao HAVING PCPadrao>0");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao,IVA,ArtigoMoeda.moeda HAVING PCPadrao>0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
@@ -357,6 +355,7 @@ namespace FirstREST.Lib_Primavera
                     art.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
                     art.familiaDesc = objList.Valor("FamiliaDesc");
                     art.IVA = objList.Valor("iva");
+                    art.moeadaSymbol = objList.Valor("moeda");
                     listArts.Add(art);
                     objList.Seguinte();
                 }
