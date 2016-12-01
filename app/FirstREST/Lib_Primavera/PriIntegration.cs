@@ -319,7 +319,7 @@ namespace FirstREST.Lib_Primavera
                     myArt.Marca = objArtigo.get_Marca();
                     myArt.PCPadrao = objArtigo.get_PCPadrao();
                     myArt.IVA = objArtigo.get_IVA();
-                    myArt.moeadaSymbol = Model.CurrencyCodeMapper.GetCurrenySymbol(objList.Valor("moeda"));
+                  //  myArt.moeadaSymbol = Model.CurrencyCodeMapper.GetCurrenySymbol(objList.Valor("moeda"));
                     return myArt;
                 }
             }

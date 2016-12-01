@@ -5,7 +5,7 @@ using System.Web;
 using System.Globalization;
 
 namespace FirstREST.Lib_Primavera.Model
-{
+{ 
     public static class CurrencyCodeMapper
     {
         private static readonly Dictionary<string, string> currencySymbol;
