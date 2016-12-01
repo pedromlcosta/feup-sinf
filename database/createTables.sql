@@ -3,6 +3,9 @@
 DROP TABLE IF EXISTS User CASCADE; 
 DROP TABLE IF EXISTS Reviews CASCADE; 
 DROP TABLE IF EXISTS Product CASCADE;
+DROP TABLE IF EXISTS Wishlist CASCADE;
+DROP TRIGGER  IF EXISTS lowerCaseEmail ON User CASCADE;
+DROP TRIGGER  IF EXISTS validateEmail ON User CASCADE;
 
 CREATE TABLE IF NOT EXISTS User(
 code SERIAL PRIMARY KEY,
@@ -11,7 +14,6 @@ type VARCHAR(16) NOT NULL,
 password VARCHAR(256) NOT NULL
 );
 
-/*
 CREATE TABLE IF NOT EXISTS Product(
 code SERIAL PRIMARY KEY,
 primaveraCode TEXT NOT NULL UNIQUE, -- primavera code is a mix of letters and numbers
@@ -22,8 +24,8 @@ CREATE TABLE IF NOT EXISTS Reviews(
 code SERIAL PRIMARY KEY,
 utilizador INTEGER REFERENCES User(code),
 productCode INTEGER REFERENCES Product(code),  --subject to change and verify with primavera
-review TEXT NOT NULL,
-score SMALLINT NOT NULL,
+review TEXT,
+score SMALLINT,
 tsv tsvector
 );
  
@@ -32,7 +34,6 @@ utilizador  INTEGER REFERENCES User(code),
 productCode INTEGER REFERENCES Product(code),
  PRIMARY KEY(utilizador, productCode)
 );
-*/
 
 --http://stackoverflow.com/questions/9807909/are-email-addresses-case-sensitive    to justify the trigger
 CREATE OR REPLACE FUNCTION lowerCaseEmailFunction() RETURNS trigger AS $$
