@@ -27,9 +27,8 @@ function loginButtonHandler(event) {
     event.stopImmediatePropagation();
     $(this).blur();
 
-  
-    console.log("was clicked!");
-    console.log($("#email").val());
+    var email = $("#email").val();
+    var password = $("#password").val();
 
     $.ajax({
         url: 'api/login',
@@ -44,10 +43,10 @@ function loginButtonHandler(event) {
                 console.log("here");
                 console.log(data);
 
-                if (data == 'true') {
+                if (data.loggedIn == 'true') {
                     clearModalErrors();
                     //location.reload();
-                    window.location.replace("../../index.php");
+                    window.location.replace("Home/index");
                 } else {
                     clearModalErrors();
                     $("#login_failure").prepend("Username/Password combination not found.");

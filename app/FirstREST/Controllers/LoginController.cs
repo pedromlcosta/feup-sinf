@@ -19,7 +19,7 @@ namespace FirstREST.Controllers
             {
                 //checks if login is correct
                 var response = Request.CreateResponse(
-                   HttpStatusCode.OK, data);
+                   HttpStatusCode.OK, new { loggedIn = "true" });
                 string uri = Url.Link("DefaultApi", new { CodCliente = data.email });
                 response.Headers.Location = new Uri(uri);
                 return response;
@@ -27,7 +27,13 @@ namespace FirstREST.Controllers
 
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                if(data.email == "")
+                    return Request.CreateResponse(HttpStatusCode.BadRequest);
+                else if (data.email == null)
+                    return Request.CreateResponse(HttpStatusCode.Forbidden);
+                else
+                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            
             }
             
         }
