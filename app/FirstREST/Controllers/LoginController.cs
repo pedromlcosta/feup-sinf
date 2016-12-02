@@ -4,17 +4,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
+using System.Web.SessionState;
 using System.Web.Http;
+using System.Web.Services;
+using System.Web.UI;
 using System.Windows.Forms;
 using System.Data;
 using Npgsql;
 
 namespace FirstREST.Controllers {
-    public class LoginController : ApiController {
+
+    public class LoginController : ApiController, IRequiresSessionState {
 
         DataSet ds = new DataSet();
 
+        //[System.Web.Services.WebMethod(EnableSession = true)]
+
+        [WebMethod(EnableSession = true)]
         public HttpResponseMessage Post(LoginData data) {
+
 
             string email = data.email;
             string password = data.password;
@@ -26,10 +35,16 @@ namespace FirstREST.Controllers {
 
                 if (postgresLoggedIn) {
                     //Check if Primavera has the same person that is trying to login
-                    //TODO: written above
+                    //TODO: written above + get person's name to store in session
 
-                    Debug.Write("Logged in on postgres");
-                    //TODO: Session variables set here
+                    Debug.Write("Email is: " + email);
+
+                    //[WebMethod(EnableSession = true)];
+                    // Session variables set here
+                    Debug.Write(System.Web.HttpContext.Current.Session == null);
+                    //{Controller}.ControllerContext.HttpContext.Session["{username}"] = email;
+
+                    System.Web.HttpContext.Current.Session["username"] = email;
 
                     var response = Request.CreateResponse(
                        HttpStatusCode.OK, new { loggedIn = "true" });

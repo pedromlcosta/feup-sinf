@@ -17,5 +17,9 @@ namespace FirstREST.Controllers
         {
             return View();
         }
+
+        public ActionResult Logout() {
+            return View();
+        }
     }
 }

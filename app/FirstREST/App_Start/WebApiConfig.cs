@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace FirstREST
-{
-    public static class WebApiConfig
-    {
-        public static void Register(HttpConfiguration config)
-        {
+namespace FirstREST {
+    public static class WebApiConfig {
+
+        public static string UrlPrefix { get { return "api"; } }
+        public static string UrlPrefixRelative { get { return "~/api"; } }
+
+        public static void Register(HttpConfiguration config) {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: WebApiConfig.UrlPrefix + "/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 
@@ -22,7 +23,7 @@ namespace FirstREST
 
             // To disable tracing in your application, please comment out or remove the following line of code
             // For more information, refer to: http://www.asp.net/web-api
-           // config.EnableSystemDiagnosticsTracing();
+            // config.EnableSystemDiagnosticsTracing();
         }
     }
 }
