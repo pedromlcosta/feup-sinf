@@ -12,14 +12,20 @@ namespace FirstREST.Lib_Primavera
 {
     public class PriEngine
     {
-
         public static StdPlatBS Platform { get; set; }
         public static ErpBS Engine { get; set; }
 
         public static bool InitializeCompany(string Company, string User, string Password)
         {
-
             StdBSConfApl objAplConf = new StdBSConfApl();
+            objAplConf.Instancia = "Default";
+            objAplConf.AbvtApl = "GCP";
+            objAplConf.PwdUtilizador = Password;
+            objAplConf.Utilizador = User;
+            objAplConf.LicVersaoMinima = "9.00";
+            StdBETransaccao objStdTransac = new StdBETransaccao();
+            if (Platform == null || Engine == null) { 
+            
             StdPlatBS Plataforma = new StdPlatBS();
             ErpBS MotorLE = new ErpBS();
          
@@ -32,44 +38,34 @@ namespace FirstREST.Lib_Primavera
             objAplConf.Utilizador = User;
             objAplConf.LicVersaoMinima = "9.00";
 
-            StdBETransaccao objStdTransac = new StdBETransaccao();
+            // Retuns the ptl.
+            Platform = Plataforma;
+            // Returns the engine.
+            Engine = MotorLE;
 
-            // Opem platform.
             try
             {
-                Plataforma.AbrePlataformaEmpresa(ref Company, ref objStdTransac, ref objAplConf, ref objTipoPlataforma,"");
+                Platform.AbrePlataformaEmpresa(ref Company, ref objStdTransac, ref objAplConf, ref objTipoPlataforma, "");
             }
             catch (Exception ex)
             {
                 throw new Exception("Error on open Primavera Platform.");
             }
 
+            }
             // Is plt initialized?
-            if (Plataforma.Inicializada)
+            if (Platform.Inicializada)
             {
-
-                // Retuns the ptl.
-                Platform = Plataforma;
-
                 bool blnModoPrimario = true;
-
                 // Open Engine
-                MotorLE.AbreEmpresaTrabalho(EnumTipoPlataforma.tpProfissional, ref Company, ref User, ref Password, ref objStdTransac, "Default", ref blnModoPrimario);
-                MotorLE.set_CacheActiva(false);
-
-                // Returns the engine.
-                Engine = MotorLE;
-
+                Engine.AbreEmpresaTrabalho(EnumTipoPlataforma.tpProfissional, ref Company, ref User, ref Password, ref objStdTransac, "Default", ref blnModoPrimario);
+                Engine.set_CacheActiva(false);
                 return true;
             }
             else
             {
                 return false;
             }
-
-
         }
-
     }
-
 }

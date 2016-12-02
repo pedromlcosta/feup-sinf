@@ -311,15 +311,20 @@ namespace FirstREST.Lib_Primavera
                 }
                 else
                 {
-                    objList = PriEngine.Engine.Consulta("SELECT ArtigoMoeda.Moeda FROM ArtigoMoeda WHERE Artigo = " + objArtigo.get_Artigo()+";");
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
-                    myArt.CodArtigo = objArtigo.get_Artigo();
-                    myArt.DescArtigo = objArtigo.get_Descricao();
-                    myArt.StockActual = objArtigo.get_StkActual();
-                    myArt.Marca = objArtigo.get_Marca();
-                    myArt.PCPadrao = objArtigo.get_PCPadrao();
-                    myArt.IVA = objArtigo.get_IVA();
-                  //  myArt.moeadaSymbol = Model.CurrencyCodeMapper.GetCurrenySymbol(objList.Valor("moeda"));
+                    objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao,IVA,ArtigoMoeda.moeda HAVING PCPadrao>0");
+
+                    myArt.CodArtigo = objList.Valor("artigo");
+                    myArt.DescArtigo = objList.Valor("descricao");
+                    myArt.PCPadrao = objList.Valor("pcpadrao");
+                    myArt.StockActual = objList.Valor("stkactual");
+                    myArt.Marca = objList.Valor("marca");
+                    myArt.familia = objList.Valor("Familia");
+                    myArt.subFamilia = objList.Valor("SubFamilia");
+                    myArt.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
+                    myArt.familiaDesc = objList.Valor("FamiliaDesc");
+                    myArt.IVA = objList.Valor("iva");
+                    myArt.moeadaSymbol = objList.Valor("moeda");//Model.CurrencyCodeMapper.GetCurrenySymbol(objList.Valor("moeda"));
                     return myArt;
                 }
             }

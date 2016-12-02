@@ -10,7 +10,12 @@ namespace FirstREST.Lib_Primavera.Model
     {
         private static readonly Dictionary<string, string> currencySymbol;
 
+        
         public static string GetCurrenySymbol(string currencyCode) { return currencySymbol[currencyCode]; }
+        public static int isItWorking()
+        {
+           return  currencySymbol.Count;
+        }
 
         static CurrencyCodeMapper()
         {
