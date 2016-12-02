@@ -1,10 +1,7 @@
-function showPopup(){
-    $('#modal_login_button').blur();
-    $(this).blur();
-}
 
 
-$(document).ready(function() {
+
+$(document).ready(function () {
 
     $("#login_modal").on("hidden.bs.modal", function () {
 
@@ -20,6 +17,10 @@ $(document).ready(function() {
     $('#modal_login_button').click(showPopup);
 });
 
+function showPopup() {
+    $('#modal_login_button').blur();
+    $(this).blur();
+}
 
 function loginButtonHandler(event) {
     event.preventDefault();
@@ -30,23 +31,25 @@ function loginButtonHandler(event) {
     var email = $("#email").val();
     var password = $("#password").val();
 
+    var root = location.protocol + '//' + location.host + '/';
+
+    console.log(root);
     $.ajax({
-        url: 'api/login',
+        url: root + 'api/login',
         type: 'POST',
-        data: 
+        data:
         {
-            email: $("#email").val(),
-            password: $("#password").val()
+            email: email,
+            password: password
         },
         success: function (data, textStatus, jqXHR) {
             if (typeof data.error === 'undefined') {
                 console.log("here");
-                console.log(data);
 
                 if (data.loggedIn == 'true') {
                     clearModalErrors();
                     //location.reload();
-                    window.location.replace("Home/index");
+                    window.location.replace("");
                 } else {
                     clearModalErrors();
                     $("#login_failure").prepend("Username/Password combination not found.");
@@ -57,10 +60,11 @@ function loginButtonHandler(event) {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log("there");
             // Handle errors here
-            console.log('ERRORS: ' + textStatus);
-            // STOP LOADING SPINNER
+            console.log('ERRORS: ' + jqXHR.status + " - " + errorThrown);
+            clearModalErrors();
+            if (jqXHR.status == 400)
+                $("#login_failure").prepend("Username/Password combination not found.");
         }
     });
 
