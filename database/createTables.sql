@@ -32,6 +32,7 @@ tsv tsvector
 CREATE TABLE IF NOT EXISTS Wishlist(
 utilizador  INTEGER REFERENCES Utilizador(code),
 productCode INTEGER REFERENCES Product(code),
+quantity INTEGER NOT NULL DEFAULT 1,
  PRIMARY KEY(utilizador, productCode)
 );
 

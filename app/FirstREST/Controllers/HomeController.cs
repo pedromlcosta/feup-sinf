@@ -21,5 +21,15 @@ namespace FirstREST.Controllers
         public ActionResult Logout() {
             return View();
         }
+
+        public ActionResult WishList()
+        {
+            return View();
+        }
+
+        public ActionResult Single()
+        {
+            return View();
+        }
     }
 }
