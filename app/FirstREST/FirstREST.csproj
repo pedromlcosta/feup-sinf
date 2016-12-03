@@ -528,6 +528,7 @@
       <BrowseToURL>~/Home/logout</BrowseToURL>
     </Content>
     <None Include="Views\Home\offer.cshtml" />
+    <Content Include="Views\Home\orderHistory.cshtml" />
     <None Include="Views\Home\register.cshtml" />
     <None Include="Views\Home\shipping.cshtml" />
     <None Include="Views\Home\single.cshtml" />

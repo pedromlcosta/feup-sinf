@@ -26,7 +26,10 @@ namespace FirstREST.Controllers
         {
             return View();
         }
-
+        public ActionResult OrderHistory()
+        {
+            return View();
+        }
         public ActionResult Single()
         {
             return View();
