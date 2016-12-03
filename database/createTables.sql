@@ -1,13 +1,13 @@
 ﻿SET SCHEMA 'sinf';
 
-DROP TABLE IF EXISTS User CASCADE; 
+DROP TABLE IF EXISTS Utilizador CASCADE; 
 DROP TABLE IF EXISTS Reviews CASCADE; 
 DROP TABLE IF EXISTS Product CASCADE;
 DROP TABLE IF EXISTS Wishlist CASCADE;
-DROP TRIGGER  IF EXISTS lowerCaseEmail ON User CASCADE;
-DROP TRIGGER  IF EXISTS validateEmail ON User CASCADE;
+DROP TRIGGER  IF EXISTS lowerCaseEmail ON Utilizador CASCADE;
+DROP TRIGGER  IF EXISTS validateEmail ON Utilizador CASCADE;
 
-CREATE TABLE IF NOT EXISTS User(
+CREATE TABLE IF NOT EXISTS Utilizador(
 code SERIAL PRIMARY KEY,
 email TEXT NOT NULL UNIQUE,
 type VARCHAR(16) NOT NULL,
@@ -22,7 +22,7 @@ img TEXT NOT NULL -- link to img of a product
 
 CREATE TABLE IF NOT EXISTS Reviews(
 code SERIAL PRIMARY KEY,
-utilizador INTEGER REFERENCES User(code),
+utilizador INTEGER REFERENCES Utilizador(code),
 productCode INTEGER REFERENCES Product(code),  --subject to change and verify with primavera
 review TEXT,
 score SMALLINT,
@@ -30,7 +30,7 @@ tsv tsvector
 );
  
 CREATE TABLE IF NOT EXISTS Wishlist(
-utilizador  INTEGER REFERENCES User(code),
+utilizador  INTEGER REFERENCES Utilizador(code),
 productCode INTEGER REFERENCES Product(code),
  PRIMARY KEY(utilizador, productCode)
 );
@@ -44,7 +44,7 @@ END
 $$ LANGUAGE 'plpgsql'; 
 
 CREATE TRIGGER lowerCaseEmail
-BEFORE INSERT OR UPDATE ON User 
+BEFORE INSERT OR UPDATE ON Utilizador 
 FOR EACH ROW
 EXECUTE PROCEDURE lowerCaseEmailFunction();
 
@@ -62,12 +62,12 @@ END
 $$ LANGUAGE 'plpgsql'; 
 
 CREATE TRIGGER validateEmail
-BEFORE INSERT OR UPDATE ON User 
+BEFORE INSERT OR UPDATE ON Utilizador 
 FOR EACH ROW
 EXECUTE PROCEDURE validateEmailFunction();
 
 --Test cases the first one should pass wihtout any problems, o 2º deve aparecer todo em lower case e o 3º não deve ser adicionado s
-INSERT INTO User (email, type, password) VALUES ('hi@gmail.com', 'admin', '123');
-INSERT INTO User (email, type, password) VALUES ('TEST@gmail.com', 'client', '123');
-INSERT INTO User (email, type, password) VALUES ('TESTsdasdasd.com', 'client', '123');
+INSERT INTO Utilizador (email, type, password) VALUES ('hi@gmail.com', 'admin', '123');
+INSERT INTO Utilizador (email, type, password) VALUES ('TEST@gmail.com', 'client', '123');
+INSERT INTO Utilizador (email, type, password) VALUES ('TESTsdasdasd.com', 'client', '123');
 
