@@ -42,7 +42,7 @@ function processArticles(articles,start_index,end_index)
 									<h6><a href='single.html'>` + desc.substring(0,23) + `</a></h6>
 								</div>
 								<div class='mid-2'>
-									<p ><label></label><em class='item_price'>$`+price+`</em></p>
+									<p ><label></label><em class='item_price'>€`+price+`</em></p>
 									  <div class='block'>
 										<div class='starbox small ghosting'> </div>
 									</div>
@@ -53,7 +53,7 @@ function processArticles(articles,start_index,end_index)
 					</div>`;
 		$("#myModal"+j+" h3").html(desc);
 		$("#myModal"+j+" .quick").html("");
-		$("#myModal"+j+" .reducedfrom").html("$"+price);
+		$("#myModal"+j+" .reducedfrom").html("€"+price);
 		$("#myModal"+j+" .in-para").html("");
 		$("#myModal"+j+" .quick_desc").html("");
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id",codArtigo);
@@ -107,19 +107,26 @@ function getStorages(id,modal)
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() 
 	{
-    if (this.readyState == 4 && this.status == 200) {
+	    if (this.readyState == 4 && this.status == 200) {
     		storages = JSON.parse(xhttp.responseText);
     		$("#myModal"+modal+" .quick").html("");
-    		if(storages.length > 0)
-			{
-				storages.forEach(function(item, index)
-				{
-					$("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "<span style='color:green;'>✔</span></p>");
-				});
+    		if(storages == null)
+    		{   
+    		    $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
 			}
 			else
-			{
-				$("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
+    		{
+    		    if(storages.length > 0)
+    		    {
+    		        storages.forEach(function(item, index)
+    		        {
+    		            $("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "<span style='color:green;'>✔</span></p>");
+    		        });
+    		    }
+    		    else
+    		    {
+    		        $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
+    		    }
 			}
 		}
 	};
