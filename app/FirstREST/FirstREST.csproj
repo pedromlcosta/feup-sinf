@@ -270,12 +270,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ClientRegisterController.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Connection\ConnectionFactory.cs" />
     <Compile Include="Lib_Primavera\Model\Categoria.cs" />
     <Compile Include="Lib_Primavera\Model\CategoriaArtigo.cs" />
     <Compile Include="Lib_Primavera\Model\Currency.cs" />
     <Compile Include="Lib_Primavera\Model\SubCategoria.cs" />
+    <Compile Include="RequestObjects\ClientRegisterData.cs" />
     <Compile Include="RequestObjects\LoginData.cs" />
     <Compile Include="Controllers\ArtigoArmazemController.cs" />
     <Compile Include="Controllers\ArtigosController.cs" />
@@ -505,6 +507,7 @@
     <Content Include="Scripts\jstarbox.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\registerClient.js" />
     <Content Include="Scripts\loginPopup.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr.custom.js" />

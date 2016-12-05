@@ -1,5 +1,7 @@
 ﻿    @RenderPage("header.cshtml")
     @{var engine = "Razor";}
+
+<script src="../../../Scripts/registerClient.js"></script>
     <!---->
     <!--banner-->
     <div class="banner-top">
@@ -10,43 +12,93 @@
         </div>
     </div>
 
-    <!--login-->
+    <!--register-->
 
-    <div class="login">
-        <div class="main-agileits">
-            <div class="form-w3agile form1">
-                <h3>Register</h3>
-                <form action="#" method="post">
+<div class="register">
+    <form class="well form-horizontal " action="#" method="post" id="client_register_form">
+        <!-- EMAIL -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Email</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="email" placeholder="Email" class="form-control" type="text" required>
 
-                    <div class="key">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <input type="text" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="key">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        <input type="text" maxlength="9" value="NIF" name="NIF" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'NIF';}" required="">
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="key">
-                        <i class="fa fa-address-book" aria-hidden="true"></i>
-                        <input type="text" maxlength="9" value="Morada" name="Morada" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'NIF';}" required="">
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="key">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                        <input type="password" value="Password" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="key">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                        <input type="password" value="Confirm Password" name="Confirm Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Confirm Password';}" required="">
-                        <div class="clearfix"></div>
-                    </div>
-                    <input type="submit" value="Submit">
-                </form>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NIF -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">NIF</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="nif" placeholder="NIF. Must have 9 characters Ex: 123456789" class="form-control" type="number" required>
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADDRESS -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Morada</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="morada" placeholder="Morada" class="form-control" type="text">
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Password</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="password" placeholder="Password" class="form-control" type="password" required>
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSWORD CONFIRMATION -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Password Confirmation</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="password_confirmation" placeholder="Password Confirmation" class="form-control" type="password" required>
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+
+
+            <button id="registerSubmitBtn" type="submit" class="btn btn-success center-block">Register</button>
+
+
+            <!-- SUCCESS MESSAGE -->
+            <div id="register_success" class="text-center">
+            </div>
+            <!-- FAILURE MESSAGE -->
+            <div id="register_failure" class="text-center">
             </div>
 
         </div>
-    </div>
+    </form>
+</div>
+
   @RenderPage("footer.cshtml")

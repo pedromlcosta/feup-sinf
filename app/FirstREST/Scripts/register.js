@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     // Login form submition
     $('#login_form').on('submit', loginButtonHandler);
-    $('#loginSubmitBtn').on('click', loginButtonHandler);
+    $('#requestSubmitBtn').on('click', loginButtonHandler);
     $('#modal_login_button').click(showPopup);
 });
 

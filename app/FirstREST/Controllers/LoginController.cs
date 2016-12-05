@@ -17,7 +17,7 @@ namespace FirstREST.Controllers {
 
     public class LoginController : ApiController, IRequiresSessionState {
 
-        DataSet ds = new DataSet();
+        string codCliente;
 
         //[System.Web.Services.WebMethod(EnableSession = true)]
 
@@ -37,14 +37,14 @@ namespace FirstREST.Controllers {
                     //Check if Primavera has the same person that is trying to login
                     //TODO: written above + get person's name to store in session
 
-                    Debug.Write("Email is: " + email);
 
-                    //[WebMethod(EnableSession = true)];
                     // Session variables set here
-                    Debug.Write(System.Web.HttpContext.Current.Session == null);
-                    //{Controller}.ControllerContext.HttpContext.Session["{username}"] = email;
-
+                    //TODO: SET CODCLIENTE ON LOGIN
                     System.Web.HttpContext.Current.Session["username"] = email;
+                    //System.Web.HttpContext.Current.Session["codCliente"] = codCliente;
+
+
+
 
                     var response = Request.CreateResponse(
                        HttpStatusCode.OK, new { loggedIn = "true" });
@@ -63,6 +63,8 @@ namespace FirstREST.Controllers {
 
         private bool login(string email, string password) {
             NpgsqlConnection conn = null;
+            bool postgresLogin = false;
+            bool primaveraUserExists = false;
 
             try {
                 // Creates and opens connection to the postgres DB
@@ -93,6 +95,10 @@ namespace FirstREST.Controllers {
                 if (dr.HasRows) {
 
                     while (dr.Read()) {
+
+                        //TODO: read codCliente from the selected account here
+                        //codCliente = dr["codCliente"].ToString();
+
                         /*
                         for(int i = 0; i< dr.VisibleFieldCount; i++){
                             Debug.Write(dr[i].ToString() + "\n");
@@ -102,12 +108,17 @@ namespace FirstREST.Controllers {
                         Debug.Write(dr["email"].ToString());
                         Debug.Write(" - " + dr["password"].ToString() + "\n");
                     }
-                    return true;
+                    postgresLogin = true;
                 } else {
                     Debug.Write("No Rows on this table");
-                    return false;
+                    postgresLogin = false;
                 }
 
+                // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente
+                // primaveraUserExists = checkUserExists(codCliente);
+
+
+                return postgresLogin && primaveraUserExists;
             } catch (Exception msg) {
                 // something went wrong, and you wanna know why
                 MessageBox.Show(msg.ToString());
