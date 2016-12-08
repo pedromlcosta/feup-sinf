@@ -1,50 +1,63 @@
 ﻿// JavaScript source code
 // JavaScript source code
-var articles;
-var current_filtered_articles = new Array();
-window.onload = getArticlesRequest;
-function getArticlesRequest()
+var orders;
+var current_filtered_orders = new Array();
+window.onload = getOrderHistoryRequest;
+function getOrderHistoryRequest()
 {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() 
     {
         if (this.readyState == 4 && this.status == 200) {
-            articles = JSON.parse(xhttp.responseText);
-            current_filtered_articles = JSON.parse(xhttp.responseText);
-            processArticles(articles,0,8);
+            orders = JSON.parse(xhttp.responseText);
+            current_filtered_orders = JSON.parse(xhttp.responseText);
+            processOrders(orders,0,8);
         }
     };
-    xhttp.open("GET", "http://localhost:49822/api/artigos", true);
+    xhttp.open("GET", "http://localhost:49822/api/DocVenda/ALCAD", true);
     xhttp.setRequestHeader("Content-Type", "text/json");
     xhttp.send();
 }
-function processArticles(articles,start_index,end_index)
+function processOrders(orders,start_index,end_index)
 {
     var i;
-    //alert(articles[4].CodArtigo);
-    var articleHolder = document.getElementById("article-holder");
+    //alert(orders[4].CodArtigo);
+    var orderHolder = document.getElementById("order-holder");
     //For the modals.
     var j=0;
-    articleHolder.innerHTML = "";
-    if(articles.length < end_index) end_index = articles.length;
+    orderHolder.innerHTML = "";
+    if(orders.length < end_index) end_index = orders.length;
+    console.log(orders);
     for(i=start_index;i<end_index;i++)
     {
-        var codArtigo = articles[i].CodArtigo
-        var desc = articles[i].DescArtigo;
-        var price = articles[i].PCPadrao;
-        var marca = articles[i].Marca;
-        var stock = articles[i].StockActual;
-        articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
-						<div class='col-m'>
-							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
-								<img src='../../../Images/i7.png' class='img-responsive' alt='' onclick="getStorage(`+j+`);" >
+        
+        var orderID = orders[i].id.substring(1,orders[i].id.length-1);
+        var entidade = orders[i].Entidade;
+        var morada = orders[i].Morada;
+        var codPostal = orders[i].CodPostal;        
+        var data = orders[i].Data.substring(0,10);
+        var totalMerc = orders[i].TotalMerc;
+        var totalIva = orders[i].TotalIva;
+        var totalDesc = orders[i].TotalDesc;
+        var soldItems = orders[i].LinhasDoc;
+        //console.log(typeof(data));
+        var final = (totalMerc-totalDesc)+totalIva;
+        orderHolder.innerHTML += `<div class='col-md4 pro-1'>
+						<div class='col-cs'>
+							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' onclick="getOrderStatus(`+j+`);">
+                                <h6 ><a href='single.html'>ID:` + orderID + `</a> </h6>
 							</a>
-							<div class='mid-1'>
-								<div class='women'>
-									<h6><a href='single.html'>` + desc.substring(0,23) + `</a></h6>
-								</div>
-								<div class='mid-2'>
-									<p ><label></label><em class='item_price'>€`+price+`</em></p>
+								<div class='mid-1'>
+                                    <label>Cliente:</label><span>` + entidade + `</span><br>
+                                    <label>Morada:</label><span>`+ morada+`, `+codPostal+`</span><br>
+                                    <label>Order Date:</label><span>`+data+`</span><br>                      
+                                    <br>
+                                    <label>Cost Breakdown:</label>
+									<p>+ Preço:€`+totalMerc+`</p>
+                                    <p>+ IVA:€`+totalIva+`</p>
+                                    <p>- Desconto:€`+totalDesc+`</p>
+                                    <p>-----------------------------------------</p>
+                                    <p>= Total:€`+final+`</p>
 									  <div class='block'>
 										<div class='starbox small ghosting'> </div>
 									</div>
@@ -53,49 +66,66 @@ function processArticles(articles,start_index,end_index)
 							</div>
 						</div>
 					</div>`;
-		$("#myModal"+j+" h3").html(desc);
+		/*$("#myModal"+j+" h3").html(desc);
 		$("#myModal"+j+" .quick").html("");
-		$("#myModal"+j+" .reducedfrom").html("€"+price);
+		$("#myModal"+j+" .reducedfrom").html("€"+final);
 		$("#myModal"+j+" .in-para").html("");
-		$("#myModal"+j+" .quick_desc").html("");
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id",codArtigo);
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-name",desc);
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-summary",desc);
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",price);
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/i7.png");
+		$("#myModal"+j+" .quick_desc").html("");*/
 
 		j++;
     }
 }
-function filterArticles(string)
+
+/*<table align="right">
+<tr>
+<th>|Armazem|</th>
+<th>Descrição|</th> 
+<th>Quantidade|</th>
+<th>Preço(Un)|</th>
+<th>Iva|</th>    
+</tr>
+for (var i= 0; i < soldItems.length; i++) {
+
+ <tr>
+ <th>`+soldItems[i].Armazem+`</th>
+ <th>`+soldItems[i].DescArtigo+`</th>
+ <th>`+soldItems[i].Quantidade+`</th>
+ <th>`+soldItems[i].PrecoUnitario+`</th>
+ <th>`+soldItems[i].TaxaIva+`</th>
+ </tr>
+  </table>
+ 
+}*/
+             
+    /*
+function filterorders(string)
 {
-	current_filtered_articles = [];
-	for(var i=0;i<articles.length;i++)
+	current_filtered_orders = [];
+	for(var i=0;i<orders.length;i++)
     {
-		var desc = articles[i].DescArtigo
+		var desc = orders[i].DescArtigo
 		if(desc.toLowerCase().indexOf(string) !== -1)
 	    {
-			current_filtered_articles.push(articles[i]);
+			current_filtered_orders.push(orders[i]);
 		}
 	}
-	if(string != "" ) processArticles(current_filtered_articles,0,8);
-	else processArticles(articles,0,8);
+	if(string != "" ) processorders(current_filtered_orders,0,8);
+	else processorders(orders,0,8);
 }
-function filterArticlesbyCategory(string)
+function filterordersbyCategory(string)
 {
-    current_filtered_articles = [];
-    for(var i=0;i<articles.length;i++)
+    current_filtered_orders = [];
+    for(var i=0;i<orders.length;i++)
     {
-        var catg = articles[i].subFamiliaDesc;
+        var catg = orders[i].subFamiliaDesc;
         if(catg.toLowerCase().indexOf(string.toLowerCase()) !== -1)
         {
             console.log("match");
-            current_filtered_articles.push(articles[i]);
+            current_filtered_orders.push(orders[i]);
         }
     }
-    if(string != "" ) processArticles(current_filtered_articles,0,8);
-    else processArticles(articles,0,8);
+    if(string != "" ) processorders(current_filtered_orders,0,8);
+    else processorders(orders,0,8);
 }
 function getStorage(modal)
 {
@@ -136,3 +166,4 @@ function getStorages(id,modal)
 	xhttp.setRequestHeader("Content-Type", "text/json");
 	xhttp.send();
 }
+*/

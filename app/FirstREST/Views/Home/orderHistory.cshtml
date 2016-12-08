@@ -1,15 +1,15 @@
-  @RenderPage("header.cshtml")
+@RenderPage("header.cshtml")
 @{var engine = "Razor";}
 <!---->
 
 
 <script>window.jQuery || document.write('<script src="../../../Scripts/jquery-1.11.1.min.js"><\/script>')</script>
-
+<script type="text/javascript" src="../../../Scripts/orderHistory.js"></script>
 
 <!--content-->
 <!--content-->
 <div class="content-mid">
-   
+
         <div class="container">
             <div class="spec ">
                 <h3>Orders</h3>
@@ -22,7 +22,7 @@
             <div id="order-holder" class="con-w3l">
 
             </div>
-    
+           
         <div id="pagination">
             <button class="pagingButton" id="pafeLeft" onclick="pageToLeft()"> << </button>
             <button class="pagingButton" id="pageIndex"> 1  </button>

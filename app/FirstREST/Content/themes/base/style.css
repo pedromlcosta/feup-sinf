@@ -656,6 +656,10 @@ ul.nav.tabs {
     padding: 1em;
     border: 1px solid #B2B2B2;
 }
+.col-cs{
+    padding: 1em;
+    border: 5px solid #B2B2B2;
+}
 .offer-img{
 	position:relative;
 	display:block;
@@ -933,6 +937,7 @@ ul.product-qty {
 .col-md1,.col-md2,.col-md3{
 	text-align:center;
 }
+
 .big-sale {
     position: absolute;
     top: 77px;

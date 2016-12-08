@@ -27,11 +27,17 @@ function processOrders(orders,start_index,end_index)
     var j=0;
     orderHolder.innerHTML = "";
     if(orders.length < end_index) end_index = articles.length;
+    console.log(orders);
     for(i=start_index;i<end_index;i++)
     {
-        var orderID = orders[i].id
+        
+        var orderID = orders[i].id;
+        var entidade = orders[i].entidade;
+        var morada = orders[i].morada;
         var data = orders[i].Data;
-        var price = orders[i].TotalMerc;
+      
+        
+        var totalMerc = orders[i].TotalMerc;
         var soldItems = orders[i].LinhasDoc;
         articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
@@ -67,6 +73,7 @@ function processOrders(orders,start_index,end_index)
 		j++;
     }
 }
+    /*
 function filterArticles(string)
 {
 	current_filtered_articles = [];
@@ -135,3 +142,4 @@ function getStorages(id,modal)
 	xhttp.setRequestHeader("Content-Type", "text/json");
 	xhttp.send();
 }
+*/

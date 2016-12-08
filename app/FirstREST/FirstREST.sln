@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstREST", "FirstREST.csproj", "{5CB9423F-6A15-49A7-8855-A3BA947D56C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13B687D3-0532-42B9-9DC6-B696218AD818}"
-	ProjectSection(SolutionItems) = preProject
-		orderHistory.js = orderHistory.js
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

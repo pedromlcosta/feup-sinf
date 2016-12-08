@@ -272,20 +272,16 @@ namespace FirstREST.Lib_Primavera
         public static Lib_Primavera.Model.OrderStatus GetOrderStatus(string idCabecDoc)
         {
             StdBELista objO;
-            objO = PriEngine.Engine.Consulta("SELECT Estado,Anulado,Fechado FROM  CabecDocStatus WHERE IdCabecDoc='"+idCabecDoc+"' ");
+            
             Model.OrderStatus myOrderStatus = new Model.OrderStatus();
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-
-                while (!objO.NoFim())
-                {
-                    myOrderStatus.idCabecDoc = idCabecDoc;
-                    myOrderStatus.Estado = objO.Valor("estado");
-                    myOrderStatus.Anulado = objO.Valor("anulado");
-                    myOrderStatus.Fechado = objO.Valor("fechado");
-                    objO.Seguinte();      
-                }
+                objO = PriEngine.Engine.Consulta("SELECT Estado,Anulado,Fechado FROM  CabecDocStatus WHERE IdCabecDoc='" + idCabecDoc + "' ");
+                myOrderStatus.idCabecDoc = idCabecDoc;
+                myOrderStatus.Estado = objO.Valor("Estado");
+                myOrderStatus.Anulado = objO.Valor("Anulado");
+                myOrderStatus.Fechado = objO.Valor("Fechado");      
                 return myOrderStatus;
             }
             else
@@ -514,7 +510,7 @@ namespace FirstREST.Lib_Primavera
                     dv.TotalIva = objListCab.Valor("TotalIva");
                     dv.TotalDesc = objListCab.Valor("TotalDesc"); 
                     
-                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido,TaxaIVA,Armazem from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido,TaxaIVA,Armazem from LinhasDoc where Quantidade>0 and IdCabecDoc='" + dv.id + "' order By NumLinha");
                     listlindv = new List<Model.LinhaDocVenda>();
 
                     while (!objListLin.NoFim())
@@ -570,8 +566,8 @@ namespace FirstREST.Lib_Primavera
                     dv.Data = objListCab.Valor("Data");
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
                     dv.TotalIva = objListCab.Valor("TotalIva");
-                    dv.TotalDesc = objListCab.Valor("TotalDesc"); 
-                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido,TaxaIVA,Armazem from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                    dv.TotalDesc = objListCab.Valor("TotalDesc");
+                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido,TaxaIVA,Armazem from LinhasDoc where Quantidade>0 and IdCabecDoc='" + dv.id + "' order By NumLinha");
                     listlindv = new List<Model.LinhaDocVenda>();
 
                     while (!objListLin.NoFim())
@@ -627,7 +623,7 @@ namespace FirstREST.Lib_Primavera
                 dv.Morada = objListCab.Valor("Morada");
                 dv.TotalIva = objListCab.Valor("TotalIva");
                 dv.TotalDesc = objListCab.Valor("TotalDesc");
-                objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido,TaxaIVA,Armazem from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido,TaxaIVA,Armazem from LinhasDoc where Quantidade>0 and IdCabecDoc='" + dv.id + "' order By NumLinha");
                 listlindv = new List<Model.LinhaDocVenda>();
 
                 while (!objListLin.NoFim())
