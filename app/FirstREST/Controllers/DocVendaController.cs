@@ -13,37 +13,23 @@ namespace FirstREST.Controllers
 {
     public class DocVendaController : ApiController
     {
-        //
+        //  
         // GET: /Clientes/
 
+        
         public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
         {
             return Lib_Primavera.PriIntegration.Encomendas_List();
-        }
 
-        public IEnumerable<Lib_Primavera.Model.DocVenda> Get(string codCliente)
-        {
-            return Lib_Primavera.PriIntegration.Encomenda_Get_EncomendaCliente(codCliente);
-    
         }
         // GET api/cliente/5   
-        /*
-        public Lib_Primavera.Model.DocVenda Get(string id)
-        {
-            Lib_Primavera.Model.DocVenda docvenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
-            if (docvenda == null)
-            {
-                throw new HttpResponseException(
-                        Request.CreateResponse(HttpStatusCode.NotFound));
 
-            }
-            else
-            {
-                return docvenda;
-            }
+        public List<Lib_Primavera.Model.DocVenda> Get(string id)
+        {
+           return Lib_Primavera.PriIntegration.Encomenda_Get_EncomendaCliente(id);
         }
 
-
+        
         public HttpResponseMessage Post(Lib_Primavera.Model.DocVenda dv)
         {
             Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
@@ -53,7 +39,7 @@ namespace FirstREST.Controllers
             {
                 var response = Request.CreateResponse(
                    HttpStatusCode.Created, dv.id);
-                string uri = Url.Link("DefaultApi", new {DocId = dv.id });
+                string uri = Url.Link("DefaultApi", new { DocId = dv.id });
                 response.Headers.Location = new Uri(uri);
                 return response;
             }
@@ -61,63 +47,6 @@ namespace FirstREST.Controllers
             else
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-
-        }
-        */
-
-        public HttpResponseMessage Put(int id, Lib_Primavera.Model.Cliente cliente)
-        {
-
-            Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
-
-            try
-            {
-                erro = Lib_Primavera.PriIntegration.UpdCliente(cliente);
-                if (erro.Erro == 0)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, erro.Descricao);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, erro.Descricao);
-                }
-            }
-
-            catch (Exception exc)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, erro.Descricao);
-            }
-        }
-
-
-
-        public HttpResponseMessage Delete(string id)
-        {
-
-
-            Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
-
-            try
-            {
-
-                erro = Lib_Primavera.PriIntegration.DelCliente(id);
-
-                if (erro.Erro == 0)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, erro.Descricao);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, erro.Descricao);
-                }
-
-            }
-
-            catch (Exception exc)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, erro.Descricao);
-
             }
 
         }

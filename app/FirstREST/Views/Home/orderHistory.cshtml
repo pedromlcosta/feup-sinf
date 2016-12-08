@@ -1,4 +1,37 @@
-     @RenderPage("header.cshtml")
-    @{var engine = "Razor";}
-    <h1>NOT DONE YET</h1>
-   @RenderPage("footer.cshtml")
+  @RenderPage("header.cshtml")
+@{var engine = "Razor";}
+<!---->
+
+
+<script>window.jQuery || document.write('<script src="../../../Scripts/jquery-1.11.1.min.js"><\/script>')</script>
+
+
+<!--content-->
+<!--content-->
+<div class="content-mid">
+   
+        <div class="container">
+            <div class="spec ">
+                <h3>Orders</h3>
+                <div class="ser-t">
+                    <b></b>
+                    <span><i></i></span>
+                    <b class="line"></b>
+                </div>
+            </div>
+            <div id="order-holder" class="con-w3l">
+
+            </div>
+    
+        <div id="pagination">
+            <button class="pagingButton" id="pafeLeft" onclick="pageToLeft()"> << </button>
+            <button class="pagingButton" id="pageIndex"> 1  </button>
+            <button class="pagingButton" id="pafeRight" onclick="pageToRight()"> >> </button>
+        </div>
+    </div>
+<!--content-->
+<!--content-->
+
+    <!--footer-->
+    @RenderPage("footer.cshtml")
+    

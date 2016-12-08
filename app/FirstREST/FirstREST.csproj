@@ -507,6 +507,7 @@
     <Content Include="Scripts\jstarbox.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\orderHistory.js" />
     <Content Include="Scripts\registerClient.js" />
     <Content Include="Scripts\loginPopup.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

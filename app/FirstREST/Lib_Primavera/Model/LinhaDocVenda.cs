@@ -59,10 +59,22 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
-          public double TotalLiquido
+        public double TotalLiquido
         {
             get;
             set;
+        }
+
+        public double TaxaIva
+        {
+           get;
+           set;
+        }
+       
+        public string Armazem
+        {
+           get;
+           set;
         }
 
 

@@ -20,6 +20,18 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public string Morada
+        {
+            get;
+            set;
+        }
+       
+        public string CodPostal
+        {
+            get;
+            set;
+        }
+        
         public int NumDoc
         {
             get;
@@ -38,7 +50,13 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
-        public string Serie
+        public double TotalDesc
+        {
+            get;
+            set;
+        }
+
+        public double TotalIva
         {
             get;
             set;
