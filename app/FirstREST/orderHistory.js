@@ -14,7 +14,7 @@ function getOrderHistoryRequest()
             processOrders(orders,0,8);
         }
     };
-    xhttp.open("GET", "http://localhost:49822/api/ALCAD", true);
+    xhttp.open("GET", "http://localhost:49822/api/DocVenda/ALCAD", true);
     xhttp.setRequestHeader("Content-Type", "text/json");
     xhttp.send();
 }
