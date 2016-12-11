@@ -34,24 +34,34 @@ function processArticles(articles,start_index,end_index)
 		var stock = articles[i].StockActual;
 		var iva = articles[i].IVA;
 		var withIVA = price + (iva/100)*price;
+		var stars_div = "";
+		for(var n=0;n<5;n++)
+		{
+		    stars_div += `<img src='../../../Images/star.jpg' style="width: 20px; align:left">`;
+		}
 		articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
 							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
 								<img src='../../../Images/i7.png' class='img-responsive' alt='' onclick="getStorage(`+j+`);" >
 							</a>
+                        
 							<div class='mid-1'>
 								<div class='women'>
 									<h6><a href='single.html'>` + desc.substring(0,23) + `</a></h6>
+                                     <div class="review" >` + stars_div + `</div>
 								</div>
 								<div class='mid-2'>
-									<p ><label></label><em class='item_price'>€`+withIVA+`</em></p>
+									<p ><label></label><em class='item_price'>€`+withIVA+`</em> </p>
+                                        
 									  <div class='block'>
 										<div class='starbox small ghosting'> </div>
 									</div>
+                                   
 								</div>
-									
+								 	
 							</div>
 						</div>
+                       
 					</div>`;
 		$("#myModal"+j+" h3").html(desc);
 		$("#myModal"+j+" .quick").html("");
