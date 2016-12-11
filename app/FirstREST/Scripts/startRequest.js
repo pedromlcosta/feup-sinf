@@ -32,6 +32,8 @@ function processArticles(articles,start_index,end_index)
 		var price = articles[i].PCPadrao;
 		var marca = articles[i].Marca;
 		var stock = articles[i].StockActual;
+		var iva = articles[i].IVA;
+		var withIVA = price + (iva/100)*price;
 		articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
 							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
@@ -42,7 +44,7 @@ function processArticles(articles,start_index,end_index)
 									<h6><a href='single.html'>` + desc.substring(0,23) + `</a></h6>
 								</div>
 								<div class='mid-2'>
-									<p ><label></label><em class='item_price'>€`+price+`</em></p>
+									<p ><label></label><em class='item_price'>€`+withIVA+`</em></p>
 									  <div class='block'>
 										<div class='starbox small ghosting'> </div>
 									</div>
@@ -53,13 +55,14 @@ function processArticles(articles,start_index,end_index)
 					</div>`;
 		$("#myModal"+j+" h3").html(desc);
 		$("#myModal"+j+" .quick").html("");
-		$("#myModal"+j+" .reducedfrom").html("€"+price);
-		$("#myModal"+j+" .in-para").html("");
+		$("#myModal"+j+" .reducedfrom").html("€"+withIVA);
+		$("#myModal"+j+" .in-para").html(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
+        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. `);
 		$("#myModal"+j+" .quick_desc").html("");
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id",codArtigo);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-name",desc);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-summary",desc);
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",price);
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",withIVA);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/i7.png");
 
