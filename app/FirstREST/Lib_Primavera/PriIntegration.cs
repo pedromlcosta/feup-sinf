@@ -452,17 +452,23 @@ namespace FirstREST.Lib_Primavera
                 if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
                 {
                     // Atribui valores ao cabecalho do doc
-                    //myEnc.set_DataDoc(dv.Data);
+                    myEnc.set_DataDoc(dv.Data);
                     myEnc.set_Entidade(dv.Entidade);
                     myEnc.set_Tipodoc("ECL");
                     myEnc.set_TipoEntidade("C");
+                    myEnc.set_Morada(dv.Morada);
+                    myEnc.set_CodigoPostal(dv.CodPostal);
+                    myEnc.set_TotalMerc(dv.TotalMerc);
+                    myEnc.set_TotalIva(dv.TotalIva);
+                    myEnc.set_TotalDesc(dv.TotalDesc);
+                    myEnc.set_NumContribuinte(dv.numContribuinte);
                     // Linhas do documento para a lista de linhas
                     lstlindv = dv.LinhasDoc;
                     //PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc, rl);
                     PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc);
                     foreach (Model.LinhaDocVenda lin in lstlindv)
                     {
-                        PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, lin.CodArtigo, lin.Quantidade, "", "", lin.PrecoUnitario, lin.Desconto);
+                        PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, lin.CodArtigo, lin.Quantidade, lin.Armazem, "", lin.PrecoUnitario, lin.Desconto,"",0,0,0,0,0,0,0,true,false,lin.PrecoUnitario*lin.TaxaIva);
                     }
 
 
@@ -509,7 +515,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Morada,Data, NumDoc, TotalMerc, TotalIVA,TotalDesc From CabecDoc where TipoDoc='ECL'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade,NumContribuinte Morada,Data, NumDoc, TotalMerc, TotalIVA,TotalDesc From CabecDoc where TipoDoc='ECL'");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
@@ -518,6 +524,7 @@ namespace FirstREST.Lib_Primavera
                     dv.Morada = objListCab.Valor("Morada");
                     dv.NumDoc = objListCab.Valor("NumDoc");
                     dv.Data = objListCab.Valor("Data");
+                    dv.numContribuinte = objListCab.Valor("NumContribuinte");
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
                     dv.TotalIva = objListCab.Valor("TotalIva");
                     dv.TotalDesc = objListCab.Valor("TotalDesc"); 
@@ -566,13 +573,14 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade,Morada,CodPostal, Data, NumDoc, TotalMerc,TotalIva,TotalDesc From CabecDoc where TipoDoc='ECL' and Entidade='" + codCliente + "'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade,Morada,NumContribuinte,CodPostal, Data, NumDoc, TotalMerc,TotalIva,TotalDesc From CabecDoc where TipoDoc='ECL' and Entidade='" + codCliente + "'");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
                     dv.id = objListCab.Valor("id");
                     dv.Entidade = objListCab.Valor("Entidade");
                     dv.Morada = objListCab.Valor("Morada");
+                    dv.numContribuinte = objListCab.Valor("NumContribuinte");
                     dv.CodPostal = objListCab.Valor("CodPostal"); 
                     dv.NumDoc = objListCab.Valor("NumDoc");
                     dv.Data = objListCab.Valor("Data");
@@ -624,11 +632,12 @@ namespace FirstREST.Lib_Primavera
             {
                 
 
-                string st = "SELECT id, Entidade, Data, NumDoc, TotalMerc, Morada,TotalIva,TotalDesc From CabecDoc where TipoDoc='ECL' and NumDoc='" + numdoc + "'";
+                string st = "SELECT id, Entidade,NumContribuinte, Data, NumDoc, TotalMerc, Morada,TotalIva,TotalDesc From CabecDoc where TipoDoc='ECL' and NumDoc='" + numdoc + "'";
                 objListCab = PriEngine.Engine.Consulta(st);
                 dv = new Model.DocVenda();
                 dv.id = objListCab.Valor("id");
                 dv.Entidade = objListCab.Valor("Entidade");
+                dv.numContribuinte = objListCab.Valor("NumContribuinte");
                 dv.NumDoc = objListCab.Valor("NumDoc");
                 dv.Data = objListCab.Valor("Data");
                 dv.TotalMerc = objListCab.Valor("TotalMerc");
@@ -643,6 +652,7 @@ namespace FirstREST.Lib_Primavera
                     lindv = new Model.LinhaDocVenda();
                     lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
                     lindv.CodArtigo = objListLin.Valor("Artigo");
+
                     lindv.DescArtigo = objListLin.Valor("Descricao");
                     lindv.Quantidade = objListLin.Valor("Quantidade");
                     lindv.Unidade = objListLin.Valor("Unidade");
