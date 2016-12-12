@@ -31,7 +31,7 @@ function sendCheckout()
         type: 'POST',
         data:
         {
-            id: gandalf,
+            id: "ALCAD",
             date: "parsemebaby",
             address: "rua escura",
             products: list
@@ -41,6 +41,7 @@ function sendCheckout()
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("fail");
+            alert("Error making order.");
         }
     });
 }
