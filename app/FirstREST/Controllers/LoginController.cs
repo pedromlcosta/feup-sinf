@@ -42,7 +42,7 @@ namespace FirstREST.Controllers {
                     // Session variables set here
                     System.Web.HttpContext.Current.Session["username"] = email;
                     System.Web.HttpContext.Current.Session["codCliente"] = codCliente;
-                    //System.Web.HttpContext.Current.Session["name"] = name;
+                    System.Web.HttpContext.Current.Session["name"] = "NomeTeste";
 
 
 

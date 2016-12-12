@@ -2,6 +2,8 @@
     ViewBag.Title = "Logout";
 }
 
-@{Session["username"] = null;}
+@{Session["username"] = null;
+  @{Session["name"] = null;
+  @{Session["codCliente"] = null;}
 
 @{ Response.Redirect("~/Home/Index");}
