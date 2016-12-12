@@ -24,18 +24,23 @@ namespace FirstREST.Controllers
             string password = data.password;
             string address = data.address;
             string nif = data.nif;
+            string type = data.type;
 
             Debug.Write(name);
             Debug.Write(email);
             Debug.Write(password);
             Debug.Write(address);
             Debug.Write(nif);
+            Debug.Write(type);
+
+            //Por agora até alguém alterar no pedido
+            type = "cliente";
 
             if (email != null && password != null && address != null && nif != null && name != null) {
                 //checks if login is correct
 
-                int registerStatus = register(email, password, name, address, nif);
-
+                int registerStatus = register(email, password, name, address, nif,type);
+                Debug.Write(registerStatus);
                 if (registerStatus == 1) {
                     
 
@@ -56,10 +61,10 @@ namespace FirstREST.Controllers
 
         }
 
-        private int register(string email, string password, string name, string address, string nif) {
+        private int register(string email, string password, string name, string address, string nif, string type)
+        {
             NpgsqlConnection conn = null;
             int registered = -1;
-            string type = "client";
 
             try {
                 // Creates and opens connection to the postgres DB
@@ -67,7 +72,7 @@ namespace FirstREST.Controllers
                 conn.Open();
 
                 // Rudimentar way to check if user exists and password coincides
-                string sql = "INSERT INTO Utilizador (email, password, type) VALUES (:email,:password, 'client') RETURNING code;";
+                string sql = "INSERT INTO Utilizador (email, password, type) VALUES (:email,:password, :type) RETURNING code;";
 
               
                 NpgsqlCommand command = new NpgsqlCommand();
@@ -75,8 +80,10 @@ namespace FirstREST.Controllers
                 command.CommandText = sql;
                 command.Parameters.Add(new NpgsqlParameter("email", DbType.String));
                 command.Parameters.Add(new NpgsqlParameter("password", DbType.String));
+                command.Parameters.Add(new NpgsqlParameter("type", DbType.String));
                 command.Parameters[0].Value = email;
                 command.Parameters[1].Value = password;
+                command.Parameters[2].Value = type;
                 command.Prepare();
                 NpgsqlDataReader dr = command.ExecuteReader();
 
@@ -88,17 +95,14 @@ namespace FirstREST.Controllers
 
                         codCliente = (int) dr["code"];
                         Debug.Write("Codigo: " + codCliente.ToString());
-
-                         
                     }
                     registered = 1;
                 } else {
-                 
                 }
 
-                // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente
-                // primaveraRegister = primaveraRegister(codCliente);
-
+                // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente --  return the clienteName
+                if (Lib_Primavera.PriIntegration.registerCliente(codCliente.ToString(), email, name, address, nif) != null)
+                    registered = 1;
 
                 return registered; // && primaveraUserExists;
             } catch (Exception msg) {

@@ -10,5 +10,6 @@ namespace FirstREST{
         public String nif { get; set; }
         public String address { get; set; }
         public String password { get; set; }
+        public String type { get; set; }
     }
 }

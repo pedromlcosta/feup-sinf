@@ -25,8 +25,7 @@ code SERIAL PRIMARY KEY,
 utilizador INTEGER REFERENCES Utilizador(code),
 productCode INTEGER REFERENCES Product(code),  --subject to change and verify with primavera
 review TEXT,
-score SMALLINT,
-tsv tsvector
+score SMALLINT
 );
  
 CREATE TABLE IF NOT EXISTS Wishlist(
