@@ -14,7 +14,7 @@ function getOrderHistoryRequest()
             processOrders(orders,0,8);
         }
     };
-    xhttp.open("GET", "http://localhost:49822/api/DocVenda/ALCAD", true);
+    xhttp.open("GET", "http://localhost:49822/api/DocVenda/SOFRIO", true);
     xhttp.setRequestHeader("Content-Type", "text/json");
     xhttp.send();
 }
@@ -24,7 +24,6 @@ function processOrders(orders,start_index,end_index)
     //alert(orders[4].CodArtigo);
     var orderHolder = document.getElementById("order-holder");
     //For the modals.
-    var j=0;
     orderHolder.innerHTML = "";
     if(orders.length < end_index) end_index = orders.length;
     console.log(orders);
@@ -65,53 +64,45 @@ function processOrders(orders,start_index,end_index)
 							</div>
 						</div>
 					</div>`;
-		/*$("#myModal"+j+" h3").html(desc);
-		$("#myModal"+j+" .quick").html("");
-		$("#myModal"+j+" .reducedfrom").html("€"+final);
-		$("#myModal"+j+" .in-para").html("");
-		$("#myModal"+j+" .quick_desc").html("");*/
-
-		j++;
     }
 }
 
 function getOrderDetails(orderID)
 {
-    console.log(orderID);
     $("#EncomendaModal .productListing").empty();
     var order;
     for(var c=0; c< orders.length; c++){
         if(orderID==orders[c].id.substring(1,orders[c].id.length-1)){
             order=orders[c];
-            console.log(orders[c].id.substring(1,orders[c].id.length-1));
         }
     }
 
-    console.log(order);
+  
     $("#EncomendaModal .productListing").html(`
     <table>
     <tr>    
-    <th style="width: 100px;">Armazem</th>
-    <th style="width: 300px;">Descrição</th> 
-    <th style="width: 100px;">Quantidade</th>
-    <th style="width: 100px;">Preço(Un)</th>
-    <th style="width: 100px;">Iva</th>   </tr>
+    <th style="width: 5%;">Armazem</th>
+    <th style="width: 15%;">Descrição</th> 
+    <th style="width: 5%;">Quantidade</th>
+    <th style="width: 5%;">Preço(Un)</th>
+    <th style="width: 5%;">Iva</th>   
+    </tr>
     `);
     
     
     for (var i= 0; i < order.LinhasDoc.length; i++) {
         $("#EncomendaModal .productListing").append(`
         <tr>
-        <td style="width: 103px;">`+order.LinhasDoc[i].Armazem+`</td>
-        <td style="width: 286px;">`+order.LinhasDoc[i].DescArtigo+`</td>
-        <td style="width: 100px;">`+order.LinhasDoc[i].Quantidade+`x</td>
-        <td style="width: 100px;">`+order.LinhasDoc[i].PrecoUnitario+`€</td>
-        <td style="width: 100px;">`+order.LinhasDoc[i].TaxaIva+`%</td>
+        <td style="width: 5.3%;">`+order.LinhasDoc[i].Armazem+`</td>
+        <td style="width: 14%;">`+order.LinhasDoc[i].DescArtigo+`</td>
+        <td style="width: 7%;">`+order.LinhasDoc[i].Quantidade+`x</td>
+        <td style="width: 5.1%;">`+order.LinhasDoc[i].PrecoUnitario+`€</td>
+        <td style="width: 5%;">`+order.LinhasDoc[i].TaxaIva+`%   </td>
         </tr>`);
     }
     $("#EncomendaModal .productListing").append(`</table>`);
     
-    //getOrderStatus(id,modal);
+    //getOrderStatus(orderID);
 	
 
 }
@@ -143,7 +134,7 @@ function getOrderStatus(orderID)
             }
         }
     };
-    xhttp.open("GET", "http://localhost:49822/api/ArtigoArmazem/"+id, true);
+    xhttp.open("GET", "http://localhost:49822/api/OrderStatus/"+orderID, true);
     xhttp.setRequestHeader("Content-Type", "text/json");
     xhttp.send();
 }
