@@ -1587,6 +1587,17 @@ h5.typ1{
   background-color:#FDA30E !important;
   border-color:#FDA30E !important;
 }
+
+th {
+ 
+    height: 40px;
+    text-align: center;
+}
+td {
+    
+    height: 30px;
+    text-align: center;
+}
 .grid_3 p,.page-header p {
   color: #888;
   font-size: 14px;

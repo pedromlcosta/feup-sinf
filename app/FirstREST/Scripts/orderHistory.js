@@ -40,14 +40,13 @@ function processOrders(orders,start_index,end_index)
         var totalIva = orders[i].TotalIva;
         var totalDesc = orders[i].TotalDesc;
         var soldItems = orders[i].LinhasDoc;
-        //console.log(typeof(data));
         var final = (totalMerc-totalDesc)+totalIva;
         orderHolder.innerHTML += `<div class='col-md4 pro-1'>
 						<div class='col-cs'>
-							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' onclick="getOrderStatus(`+j+`);">
-                                <h6 ><a href='single.html'>ID:` + orderID + `</a> </h6>
+							<a href='#' data-toggle='modal' data-target='#EncomendaModal' onclick="getOrderDetails('`+orderID+`');">
+                                <h6 >ID:` + orderID + `</h6>
 							</a>
-								<div class='mid-1'>
+								<div>
                                     <label>Cliente:</label><span>` + entidade + `</span><br>
                                     <label>Morada:</label><span>`+ morada+`, `+codPostal+`</span><br>
                                     <label>Order Date:</label><span>`+data+`</span><br>                      
@@ -76,24 +75,81 @@ function processOrders(orders,start_index,end_index)
     }
 }
 
-/*<table align="right">
-<tr>
-<th>|Armazem|</th>
-<th>Descrição|</th> 
-<th>Quantidade|</th>
-<th>Preço(Un)|</th>
-<th>Iva|</th>    
-</tr>
-for (var i= 0; i < soldItems.length; i++) {
+function getOrderDetails(orderID)
+{
+    console.log(orderID);
+    $("#EncomendaModal .productListing").empty();
+    var order;
+    for(var c=0; c< orders.length; c++){
+        if(orderID==orders[c].id.substring(1,orders[c].id.length-1)){
+            order=orders[c];
+            console.log(orders[c].id.substring(1,orders[c].id.length-1));
+        }
+    }
 
- <tr>
- <th>`+soldItems[i].Armazem+`</th>
- <th>`+soldItems[i].DescArtigo+`</th>
- <th>`+soldItems[i].Quantidade+`</th>
- <th>`+soldItems[i].PrecoUnitario+`</th>
- <th>`+soldItems[i].TaxaIva+`</th>
- </tr>
-  </table>
+    console.log(order);
+    $("#EncomendaModal .productListing").html(`
+    <table>
+    <tr>    
+    <th style="width: 100px;">Armazem</th>
+    <th style="width: 300px;">Descrição</th> 
+    <th style="width: 100px;">Quantidade</th>
+    <th style="width: 100px;">Preço(Un)</th>
+    <th style="width: 100px;">Iva</th>   </tr>
+    `);
+    
+    
+    for (var i= 0; i < order.LinhasDoc.length; i++) {
+        $("#EncomendaModal .productListing").append(`
+        <tr>
+        <td style="width: 103px;">`+order.LinhasDoc[i].Armazem+`</td>
+        <td style="width: 286px;">`+order.LinhasDoc[i].DescArtigo+`</td>
+        <td style="width: 100px;">`+order.LinhasDoc[i].Quantidade+`x</td>
+        <td style="width: 100px;">`+order.LinhasDoc[i].PrecoUnitario+`€</td>
+        <td style="width: 100px;">`+order.LinhasDoc[i].TaxaIva+`%</td>
+        </tr>`);
+    }
+    $("#EncomendaModal .productListing").append(`</table>`);
+    
+    //getOrderStatus(id,modal);
+	
+
+}
+function getOrderStatus(orderID)
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() 
+    {
+        if (this.readyState == 4 && this.status == 200) {
+            storages = JSON.parse(xhttp.responseText);
+            $("#myModal"+modal+" .quick").html("");
+            if(storages == null)
+            {   
+                $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
+            }
+            else
+            {
+                if(storages.length > 0)
+                {
+                    storages.forEach(function(item, index)
+                    {
+                        $("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "<span style='color:green;'>✔</span></p>");
+                    });
+                }
+                else
+                {
+                    $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
+                }
+            }
+        }
+    };
+    xhttp.open("GET", "http://localhost:49822/api/ArtigoArmazem/"+id, true);
+    xhttp.setRequestHeader("Content-Type", "text/json");
+    xhttp.send();
+}
+
+
+/*
  
 }*/
              
