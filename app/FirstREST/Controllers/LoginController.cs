@@ -27,21 +27,22 @@ namespace FirstREST.Controllers {
 
             string email = data.email;
             string password = data.password;
-
+            
             if (email != null && password != null) {
 
                 //checks if login is correct
-                bool postgresLoggedIn = login(email, password);
+                int codCliente = login(email, password);
 
-                if (postgresLoggedIn) {
+                if (codCliente > -1) {
+
                     //Check if Primavera has the same person that is trying to login
                     //TODO: written above + get person's name to store in session
-
+                    //string name = primaveraGetClientName(codCliente);
 
                     // Session variables set here
-                    //TODO: SET CODCLIENTE ON LOGIN
                     System.Web.HttpContext.Current.Session["username"] = email;
-                    //System.Web.HttpContext.Current.Session["codCliente"] = codCliente;
+                    System.Web.HttpContext.Current.Session["codCliente"] = codCliente;
+                    //System.Web.HttpContext.Current.Session["name"] = name;
 
 
 
@@ -61,9 +62,12 @@ namespace FirstREST.Controllers {
 
         }
 
-        private bool login(string email, string password) {
+        /*
+         * Returns -1 if login failed or clientCode if successful
+         */
+        private int login(string email, string password) {
             NpgsqlConnection conn = null;
-            bool postgresLogin = false;
+            int postgresLogin = -1;
             bool primaveraUserExists = false;
 
             try {
@@ -108,23 +112,23 @@ namespace FirstREST.Controllers {
                         Debug.Write(dr["email"].ToString());
                         Debug.Write(" - " + dr["password"].ToString() + "\n");
                     }
-                    postgresLogin = true;
+                    postgresLogin = 1;
                 } else {
                     Debug.Write("No Rows on this table");
-                    postgresLogin = false;
+                    postgresLogin = -1;
                 }
 
                 // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente
                 // primaveraUserExists = checkUserExists(codCliente);
 
 
-                return postgresLogin && primaveraUserExists;
+                return postgresLogin; // && primaveraUserExists;
             } catch (Exception msg) {
                 // something went wrong, and you wanna know why
                 MessageBox.Show(msg.ToString());
                 //throw;
                 Debug.Write("Entered catch");
-                return false;
+                return -1;
             } finally {
                 if (conn != null)
                     conn.Close();

@@ -14,8 +14,9 @@ function registernButtonHandler(event) {
     $(this).blur();
 
     var email = $("input[name='email']").val();
+    var name = $("input[name='name']").val();
     var nif = $("input[name='nif']").val();
-    var morada = $("input[name='morada']").val();
+    var address = $("input[name='address']").val();
     var password = $("input[name='password']").val();
     var password_confirmation = $("input[name='password_confirmation']").val();
 
@@ -23,7 +24,7 @@ function registernButtonHandler(event) {
 
     console.log(email);
     console.log(nif);
-    console.log(morada);
+    console.log(address);
     console.log(password);
     console.log(password_confirmation);
 
@@ -38,8 +39,9 @@ function registernButtonHandler(event) {
             data:
             {
                 email: email,
+                name: name,
                 nif: nif,
-                morada: morada,
+                address: address,
                 password: password
             },
             success: function (data, textStatus, jqXHR) {
@@ -48,8 +50,9 @@ function registernButtonHandler(event) {
 
                     if (data.registered == 'true') {
                         clearModalErrors();
+                        $("#register_failure").prepend("Success");
                         //location.reload();
-                        window.location.replace("");
+                        //window.location.replace("");
                     } else {
                         clearModalErrors();
                         $("#register_failure").prepend("Error registering.");

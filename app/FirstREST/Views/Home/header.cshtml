@@ -106,7 +106,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
                 
                     @if (@Session["username"] != null) {
                         <b>
-                            Logged in as: @Session["username"]
+                            Logged in as: @Session["username"] and code is: @Session["codCliente"]
                         </b>
                     }
                         
