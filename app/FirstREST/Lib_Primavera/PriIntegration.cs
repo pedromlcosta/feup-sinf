@@ -243,19 +243,22 @@ namespace FirstREST.Lib_Primavera
             return null;
         }
 
-        public static string registerCliente(string codCliente, string email, string nome, string morada, string nif)
+        public static int registerCliente(string codCliente, string email, string nome, string morada, string nif)
         {
-            GcpBECliente objCli;
+
             try
             {
                 if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
                 {
-
+                    GcpBECliente objCli;
                     if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == true)
-                        objCli = PriEngine.Engine.Comercial.Clientes.Edita(codCliente);
-                    else
-                        objCli = new GcpBECliente();
-                    objCli.set_EmModoEdicao(true);
+                    {
+                        return -1;
+                    }
+
+                    objCli = new GcpBECliente();
+                    objCli.set_Cliente(codCliente);
+                    objCli.set_Moeda("EUR");
                     objCli.set_B2BEnderecoMail(email);
                     objCli.set_Nome(email);
                     objCli.set_Morada(morada);
@@ -263,15 +266,16 @@ namespace FirstREST.Lib_Primavera
 
                     PriEngine.Engine.Comercial.Clientes.Actualiza(objCli);
 
-                    return objCli.get_Nome();
+                    return 1;
 
                 }
             }
             catch (Exception ex)
             {
-                return null;
+                Debug.Write(ex);
+                return -1;
             }
-            return null;
+            return -1;
 
         }
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
