@@ -289,7 +289,7 @@
     });
 
     $("#checkout_button").click(function(){
-      console.log("Working");
+        
     });
 
     $(document).on("input", "." + classProductQuantity, function () {

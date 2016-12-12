@@ -1,4 +1,5 @@
 var articles;
+var families;
 var current_filtered_articles = new Array();
 window.onload = getArticlesRequest;
 function getArticlesRequest()
@@ -9,15 +10,41 @@ function getArticlesRequest()
     if (this.readyState == 4 && this.status == 200) {
     		articles = JSON.parse(xhttp.responseText);
     		current_filtered_articles = JSON.parse(xhttp.responseText);
-       		processArticles(articles,0,8);
+    		processArticles(articles,0,8);
+            getSubFamilies(articles);
     	}
 	};
 	xhttp.open("GET", "http://localhost:49822/api/artigos", true);
 	xhttp.setRequestHeader("Content-Type", "text/json");
 	xhttp.send();
 }
+function getSubFamilies(articles)
+{
+    families = [];
+    for(var i=0;i<articles.length;i++)
+    {
+        if(!families.includes(articles[i].subFamiliaDesc)) families.push(articles[i].subFamiliaDesc);
+    }
+    var col1 = document.getElementById("categoryCol1");
+    var col2 = document.getElementById("categoryCol2");
+    col1.innerHTML = "";
+    col2.innerHTML = "";
+    for(var i=0;i<families.length;i++)
+    {
+        if(i + 1> (families.length / 2))
+        {
+            col2.innerHTML +=   `<li><a onclick="getCategory('`+ families[i] + `');"><i class="fa fa-angle-right" aria-hidden="true"></i>`+ families[i] + `</a></li>`;
+        }
+        else
+        {
+            col1.innerHTML +=  `<li><a onclick="getCategory('`+ families[i] + `');"><i class="fa fa-angle-right" aria-hidden="true"></i>`+ families[i] + `</a></li>`;
+        }
+    }
+   
+}
 function processArticles(articles,start_index,end_index)
 {
+    families = [];
 	var i;
 	//alert(articles[4].CodArtigo);
 	var articleHolder = document.getElementById("article-holder");
@@ -29,6 +56,7 @@ function processArticles(articles,start_index,end_index)
 	{
 		var codArtigo = articles[i].CodArtigo
 		var desc = articles[i].DescArtigo;
+		var family = articles[i].subFamiliaDesc;
 		var price = articles[i].PCPadrao;
 		var marca = articles[i].Marca;
 		var stock = articles[i].StockActual;
@@ -48,7 +76,7 @@ function processArticles(articles,start_index,end_index)
                         
 							<div class='mid-1'>
 								<div class='women'>
-									<h6><a href='single.html'>` + desc.substring(0,23) + `</a></h6>
+									<h6><a href='single.html'>` + desc.substring(0,20) + `</a></h6>
                                      <div class="review" >` + stars_div + `</div>
 								</div>
 								<div class='mid-2'>
