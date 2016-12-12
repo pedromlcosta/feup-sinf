@@ -34,6 +34,7 @@ function processArticles(articles,start_index,end_index)
 		var stock = articles[i].StockActual;
 		var iva = articles[i].IVA;
 		var withIVA = price + (iva/100)*price;
+		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
 		for(var n=0;n<5;n++)
 		{
@@ -74,7 +75,7 @@ function processArticles(articles,start_index,end_index)
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-summary",desc);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",withIVA);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","images/i7.png");
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","../../../Images/i7.png");
 
 		j++;
 	}

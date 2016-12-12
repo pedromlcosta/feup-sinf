@@ -258,11 +258,15 @@
         ProductManager.updatePoduct(id, $(this).val());
       });
     }
-    var showGrandTotal = function(){
-      $("#" + idGrandTotal).text("$" + ProductManager.getTotalPrice());
+    var showGrandTotal = function () {
+        var total = ProductManager.getTotalPrice();
+        total = total.toFixed(2);
+      $("#" + idGrandTotal).text("$" + total);
     }
-    var showDiscountPrice = function(){
-      $("#" + idDiscountPrice).text("$" + options.getDiscountPrice(ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity()));
+    var showDiscountPrice = function () {
+        var discount = options.getDiscountPrice(ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
+        discount = discount.toFixed(2);
+      $("#" + idDiscountPrice).text("$" + discount);
     }
 
     /*
