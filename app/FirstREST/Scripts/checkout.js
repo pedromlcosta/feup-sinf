@@ -5,17 +5,42 @@ function getCart() {
     {
         var title = tr[i].getAttribute("title");
         var id = tr[i].getAttribute("data-id");
-        console.log(id);
+        var price = tr[i].getAttribute("data-price");
         var td = tr[i].children;
         var input = td[3].children;
         var quantity = input[0].getAttribute("value");
-        console.log(quantity);
+
         var data = {
-            'id': id,
-            'quantity': quantity 
+            id: id,
+            quantity: quantity,
+            price : price
         };
         list.push(data);
     }
     return list;
 }
-   
+function sendCheckout()
+{
+    var root = location.protocol + '//' + location.host + '/';
+    //Get relevant user info
+    var list = getCart();
+    var gandalf = "gandalf";
+    //make request with it all
+    $.ajax({
+        url: root + 'api/cart',
+        type: 'POST',
+        data:
+        {
+            id: gandalf,
+            date: "parsemebaby",
+            address: "rua escura",
+            products: list
+        },
+        success: function (data, textStatus, jqXHR) {
+            console.log("tudo ok");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("fail");
+        }
+    });
+}

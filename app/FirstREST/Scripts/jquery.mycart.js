@@ -191,7 +191,7 @@
         '</div>' +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
-        '<button type="button" class="btn btn-checkout" id = "checkout_button"" >Checkout</button>' +
+        '<button type="button" class="btn btn-checkout" id = "checkout_button" onclick="sendCheckout();" >Checkout</button>' +
 
         '</div>' +
         '</div>' +

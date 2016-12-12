@@ -230,6 +230,18 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+
+        public static string getClienteName(string codCliente)
+        {
+            if ( PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == true)
+            {
+                // Cliente does not exist in primavera
+                GcpBECliente objCli = new GcpBECliente();
+                objCli = Lib_Primavera.PriEngine.Engine.Comercial.Clientes.Edita(codCliente);
+                return objCli.get_Nome(); ;
+            }
+            return  null;
+        }
        
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------

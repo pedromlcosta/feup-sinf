@@ -920,6 +920,7 @@ ul.product-qty {
 }
 .modal-spa {
     padding: 1em 1em 2.5em;
+	height:500px;
 }
 
 .modal-header {
@@ -1586,6 +1587,22 @@ h5.typ1{
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
   background-color:#FDA30E !important;
   border-color:#FDA30E !important;
+}
+table, td, th { 	
+    width:100%;
+}
+th {
+
+    height: 40px;
+    text-align: center;
+}
+td {
+    height: 30px;
+    text-align: center;
+}
+
+.productListing {
+    margin-bottom:20px;
 }
 .grid_3 p,.page-header p {
   color: #888;
