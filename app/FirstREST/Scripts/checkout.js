@@ -38,6 +38,11 @@ function sendCheckout()
         },
         success: function (data, textStatus, jqXHR) {
             console.log("tudo ok");
+            var closes = document.getElementsByClassName("btn btn-xs btn-danger my-product-remove");
+            for (var i = 0; i < closes.length; i++) {
+                closes[i].click();
+            }
+            document.getElementById("close_button").click();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("fail");
