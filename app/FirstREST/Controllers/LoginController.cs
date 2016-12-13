@@ -18,7 +18,8 @@ namespace FirstREST.Controllers
 
     public class LoginController : ApiController, IRequiresSessionState
     {
-        private string codCliente;
+        private string codCliente = null;
+        private string clientName = null;
         private string userType = "cliente";
 
         //[System.Web.Services.WebMethod(EnableSession = true)]
@@ -32,10 +33,11 @@ namespace FirstREST.Controllers
             if (email != null && password != null)
             {
                 //checks if login is correct
-                string clientName = login(email, password);
+                int loggedIn = login(email, password);
 
-                if (codCliente != null)
+                if (loggedIn > 0)
                 {
+                    Debug.Write("Logged in ");
                     //Check if Primavera has the same person that is trying to login
                     //TODO: written above + get person's name to store in session
                     //string name = primaveraGetClientName(codCliente);
@@ -65,12 +67,12 @@ namespace FirstREST.Controllers
         }
 
         /*
-         * Returns -1 if login failed or clientCode if successful
+         * Returns 
          */
-        private string login(string email, string password)
+        private int login(string email, string password)
         {
             NpgsqlConnection conn = null;
-            string postgresLogin = null;
+            int login = 1;
             // bool primaveraUserExists = false;
 
             try
@@ -105,9 +107,6 @@ namespace FirstREST.Controllers
 
                     while (dr.Read())
                     {
-
-                        //TODO: read codCliente from the selected account here
-
                         codCliente = dr["code"].ToString();
                         userType = dr["type"].ToString();
 
@@ -123,17 +122,18 @@ namespace FirstREST.Controllers
                 }
                 else
                 {
-
                     Debug.Write("No Rows on this table");
-                    //CHECK not sure, first let me get the name out of the way
-                    return null;
+                    return -1;
                 }
 
                 // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente
+                clientName = Lib_Primavera.PriIntegration.getClienteName(codCliente);
 
-                postgresLogin = Lib_Primavera.PriIntegration.getClienteName(codCliente);
+                if (clientName == null)
+                    login = -2;
 
-                return postgresLogin; // && primaveraUserExists;
+
+                return login; // && primaveraUserExists;
             }
             catch (Exception msg)
             {
@@ -141,7 +141,7 @@ namespace FirstREST.Controllers
                 MessageBox.Show(msg.ToString());
                 //throw;
                 Debug.Write("Entered catch");
-                return null;
+                return -1;
             }
             finally
             {
