@@ -25,15 +25,16 @@ function sendCheckout()
     //Get relevant user info
     var list = getCart();
     var gandalf = "gandalf";
+    var codCliente = $("#codCliente_input").val();
     //make request with it all
     $.ajax({
         url: root + 'api/cart',
         type: 'POST',
         data:
         {
-            id: "ALCAD",
+            id: codCliente,
             date: "parsemebaby",
-            address: "rua escura",
+            address: "rua esc",
             products: list
         },
         success: function (data, textStatus, jqXHR) {
