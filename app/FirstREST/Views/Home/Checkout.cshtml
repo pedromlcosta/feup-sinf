@@ -1,0 +1,87 @@
+﻿@RenderPage("header.cshtml")
+@{var engine = "Razor";}
+
+<!---->
+<!--banner-->
+<div class="banner-top">
+    <div class="container">
+        <h3>Checkout</h3>
+        <h4><a href="index.html">Home</a><label>/</label>Register</h4>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+<!--register-->
+
+<div class="register">
+    <form class="well form-horizontal " action="#" method="post" id="client_register_form">
+
+        <!-- NAME -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Name</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input id="registerName" name="registerName" placeholder="Name" class="form-control" type="text" required>
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- EMAIL -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Email</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input id="registerEmail" name="registerEmail" placeholder="Email" class="form-control" type="text" required>
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NIF -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">NIF</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="nif" placeholder="NIF. Must have 9 characters Ex: 123456789" class="form-control" type="number" required>
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADDRESS -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Morada</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="address" placeholder="Morada" class="form-control" type="text" required>
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+
+
+            <button id="registerSubmitBtn" type="submit" class="btn btn-success center-block">Checkout</button>
+
+
+            <!-- SUCCESS MESSAGE -->
+            <div id="register_success" class="text-center">
+            </div>
+            <!-- FAILURE MESSAGE -->
+            <div id="register_failure" class="text-center">
+            </div>
+
+        </div>
+    </form>
+</div>
+
+@RenderPage("footer.cshtml")
