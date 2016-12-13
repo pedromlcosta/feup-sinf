@@ -343,24 +343,22 @@ namespace FirstREST.Lib_Primavera
         public static string getCurrencySymbol(String symbol)
         {
             string currSymbol;
-            if (!Model.CurrencyTools.TryGetCurrencySymbol(symbol, out currSymbol))
+            if (Model.CurrencyTools.TryGetCurrencySymbol(symbol, out currSymbol))
             {
-                //Default Coins
-                return "€";
+
+                return currSymbol;
             }
-            return currSymbol;
+
+            return "€";
         }
 
         public static Double getPrecoCambio(Double valor, String moeda)
         {
             StdBELista objList;
             Double retorno;
-            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
-            {
-                objList = PriEngine.Engine.Consulta("SELECT * FROM Moedas WHERE Moeda = '" + moeda + "';");
-                retorno = Convert.ToDouble(objList.Valor("compra")) * valor;
-                return retorno;
-            }
+            objList = PriEngine.Engine.Consulta("SELECT * FROM Moedas WHERE Moeda = '" + moeda + "';");
+            retorno = Convert.ToDouble(objList.Valor("compra")) * valor;
+            return retorno;
             return 0.0;
         }
 
@@ -442,9 +440,11 @@ namespace FirstREST.Lib_Primavera
                         art.PCPadrao = getPrecoCambio(art.PCPadrao, moeda);
                     art.moeadaSymbol = getCurrencySymbol("EUR");
                     listArts.Add(art);
-                    objList.Seguinte();
-                }
 
+                    objList.Seguinte();
+
+                }
+                Debug.Write(" ARTIGO END \n\n" + listArts.Count);
                 return listArts;
 
             }

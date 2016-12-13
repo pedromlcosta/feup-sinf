@@ -24,11 +24,10 @@ namespace FirstREST.Lib_Primavera
             objAplConf.Utilizador = User;
             objAplConf.LicVersaoMinima = "9.00";
             StdBETransaccao objStdTransac = new StdBETransaccao();
-            if (Platform == null || Engine == null) { 
-            
+
             StdPlatBS Plataforma = new StdPlatBS();
             ErpBS MotorLE = new ErpBS();
-         
+
             EnumTipoPlataforma objTipoPlataforma = new EnumTipoPlataforma();
             objTipoPlataforma = EnumTipoPlataforma.tpProfissional;
 
@@ -52,7 +51,6 @@ namespace FirstREST.Lib_Primavera
                 throw new Exception("Error on open Primavera Platform.");
             }
 
-            }
             // Is plt initialized?
             if (Platform.Inicializada)
             {

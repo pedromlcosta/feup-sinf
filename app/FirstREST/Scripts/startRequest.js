@@ -62,6 +62,7 @@ function processArticles(articles,start_index,end_index)
 		var stock = articles[i].StockActual;
 		var iva = articles[i].IVA;
 		var withIVA = price + (iva/100)*price;
+		var currencySymbol = articles[i].moeadaSymbol;
 		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
 		for(var n=0;n<5;n++)
@@ -80,7 +81,7 @@ function processArticles(articles,start_index,end_index)
                                      <div class="review" >` + stars_div + `</div>
 								</div>
 								<div class='mid-2'>
-									<p ><label></label><em class='item_price'>€`+withIVA+`</em> </p>
+									<p ><label></label><em class='item_price'>`+currencySymbol+``+withIVA+`</em> </p>
                                         
 									  <div class='block'>
 										<div class='starbox small ghosting'> </div>
