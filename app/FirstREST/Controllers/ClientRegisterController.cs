@@ -113,25 +113,31 @@ namespace FirstREST.Controllers
                     }
                     else
                     {
+                        transaction.Rollback();
+                        transaction.Dispose();
+                        return -1;
                     }
-
+                    dr.Close();
                     // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente --  return the clienteName
                     int returnValue = Lib_Primavera.PriIntegration.registerCliente(codCliente.ToString(), email, name, address, nif);
                     
                     if (returnValue > 0)
                     {
-                        registered = 1;
-                        Debug.Write("\nSHOULD BE WORKING\n");
                         transaction.Commit();
+                        transaction.Dispose();
+                        Debug.Write("\nSHOULD BE WORKING\n");
+                        return 1; 
                     }
-                    else
+                    else{
                         transaction.Rollback();
+                        transaction.Dispose();
+                    }
 
-                    
-                    return registered; // && primaveraUserExists;
+                    return -1;
+                    // && primaveraUserExists;
                 }
                 catch (Exception ex) {
-                    transaction.Rollback();
+                   // transaction.Rollback();
                     Debug.Write(ex);
                     return -1;
                 }
