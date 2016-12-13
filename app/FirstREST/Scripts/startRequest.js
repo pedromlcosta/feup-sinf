@@ -31,7 +31,7 @@ function getSubFamilies(articles)
     col2.innerHTML = "";
     for(var i=0;i<families.length;i++)
     {
-        if(i + 1> (families.length / 2))
+        if(i> (families.length / 2))
         {
             col2.innerHTML +=   `<li><a onclick="getCategory('`+ families[i] + `');"><i class="fa fa-angle-right" aria-hidden="true"></i>`+ families[i] + `</a></li>`;
         }

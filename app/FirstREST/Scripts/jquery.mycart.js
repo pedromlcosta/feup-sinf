@@ -190,7 +190,7 @@
         '<table class="table table-hover table-responsive" id="' + idCartTable + '"></table>' +
         '</div>' +
         '<div class="modal-footer">' +
-        '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
+        '<button type="button" class="btn btn-default" data-dismiss="modal" id = "close_button">Close</button>' +
         '<button type="button" class="btn btn-checkout" id = "checkout_button" onclick="sendCheckout();" >Checkout</button>' +
 
         '</div>' +
