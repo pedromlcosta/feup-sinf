@@ -6,10 +6,12 @@ DROP TABLE IF EXISTS Product CASCADE;
 DROP TABLE IF EXISTS Wishlist CASCADE;
 DROP TRIGGER  IF EXISTS lowerCaseEmail ON Utilizador CASCADE;
 DROP TRIGGER  IF EXISTS validateEmail ON Utilizador CASCADE;
+DROP TRIGGER  IF EXISTS primaveraCodeInsert ON Utilizador CASCADE;
 
 CREATE TABLE IF NOT EXISTS Utilizador(
 code SERIAL PRIMARY KEY,
 email TEXT NOT NULL UNIQUE,
+primaveraCode TEXT NOT NULL UNIQUE,
 type VARCHAR(256) NOT NULL,
 password VARCHAR(256) NOT NULL
 );
@@ -61,10 +63,22 @@ BEGIN
 END 
 $$ LANGUAGE 'plpgsql'; 
 
+CREATE OR REPLACE FUNCTION insertPrimaveraCode() RETURNS trigger AS $$
+BEGIN
+  NEW.primaveraCode = NEW.code;
+  RETURN NEW;
+END 
+$$ LANGUAGE 'plpgsql'; 
+
 CREATE TRIGGER validateEmail
 BEFORE INSERT OR UPDATE ON Utilizador 
 FOR EACH ROW
 EXECUTE PROCEDURE validateEmailFunction();
+
+CREATE TRIGGER primaveraCodeInsert
+BEFORE INSERT ON Utilizador 
+FOR EACH ROW
+EXECUTE PROCEDURE insertPrimaveraCode();
 
 --Test cases the first one should pass wihtout any problems, o 2º deve aparecer todo em lower case e o 3º não deve ser adicionado s
 INSERT INTO Utilizador (email, type, password) VALUES ('hi@gmail.com', 'admin', '123');
