@@ -2,31 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace FirstREST.Lib_Primavera.Model
-{ 
-    public static class CurrencyCodeMapper
+{
+    public static class CurrencyTools
     {
-        private static readonly Dictionary<string, string> currencySymbol;
-
-        
-        public static string GetCurrenySymbol(string currencyCode) { return currencySymbol[currencyCode]; }
-        public static int isItWorking()
+        private static IDictionary<string, string> map;
+        static CurrencyTools()
         {
-           return  currencySymbol.Count;
+            map = CultureInfo
+                .GetCultures(CultureTypes.AllCultures)
+                .Where(c => !c.IsNeutralCulture)
+                .Select(culture =>
+                {
+                    try
+                    {
+                        return new RegionInfo(culture.LCID);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                })
+                .Where(ri => ri != null)
+                .GroupBy(ri => ri.ISOCurrencySymbol)
+                .ToDictionary(x => x.Key, x => x.First().CurrencySymbol);
         }
-
-        static CurrencyCodeMapper()
+        public static bool TryGetCurrencySymbol(
+                              string ISOCurrencySymbol,
+                              out string symbol)
         {
-            currencySymbol = new Dictionary<string, string>();
-
-            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                          .Select(x => new RegionInfo(x.LCID));
-
-            foreach (var region in regions)
-                if (!currencySymbol.ContainsKey(region.ISOCurrencySymbol))
-                    currencySymbol.Add(region.ISOCurrencySymbol, region.CurrencySymbol);
+            return map.TryGetValue(ISOCurrencySymbol, out symbol);
         }
     }
 }

@@ -340,6 +340,33 @@ namespace FirstREST.Lib_Primavera
 
         #region Artigo
 
+        public static string getCurrencySymbol(String symbol)
+        {
+            string currSymbol;
+            if (Model.CurrencyTools.TryGetCurrencySymbol(symbol, out currSymbol))
+            {
+                Debug.WriteLine("IS symbol is {0}", currSymbol);
+            }
+            Debug.Write(Model.CurrencyTools.TryGetCurrencySymbol(symbol, out currSymbol).ToString());
+            return currSymbol;
+        }
+
+        public static Double getPrecoCambio(Double valor, String moeda)
+        {
+            Debug.Write("\n\n\n" + valor + "\n\n\n\n");
+            StdBELista objList;
+            Double retorno;
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                objList = PriEngine.Engine.Consulta("SELECT * FROM Moedas WHERE Moeda = '" + moeda + "';");
+                retorno = Convert.ToDouble(objList.Valor("compra")) * valor;
+                return retorno;
+            }
+
+            return 0.0;
+        }
+
         public static Lib_Primavera.Model.Artigo GetArtigo(string codArtigo)
         {
 
@@ -357,18 +384,24 @@ namespace FirstREST.Lib_Primavera
                 {
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
                     objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao,IVA,ArtigoMoeda.moeda HAVING PCPadrao>0");
+                    String moeda = objList.Valor("moeda");
 
                     myArt.CodArtigo = objList.Valor("artigo");
                     myArt.DescArtigo = objList.Valor("descricao");
-                    myArt.PCPadrao = objList.Valor("pcpadrao");
-                    myArt.StockActual = objList.Valor("stkactual");
-                    myArt.Marca = objList.Valor("marca");
+                    myArt.PCPadrao = objList.Valor("PCPadrao");
+                    myArt.StockActual = objList.Valor("STKActual");
+                    myArt.Marca = objList.Valor("Marca");
                     myArt.familia = objList.Valor("Familia");
                     myArt.subFamilia = objList.Valor("SubFamilia");
                     myArt.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
                     myArt.familiaDesc = objList.Valor("FamiliaDesc");
                     myArt.IVA = objList.Valor("iva");
-                    myArt.moeadaSymbol = objList.Valor("moeda");//Model.CurrencyCodeMapper.GetCurrenySymbol(objList.Valor("moeda"));
+
+                    if (moeda != "EUR")
+                        myArt.PCPadrao = getPrecoCambio(myArt.PCPadrao, moeda);
+
+                    myArt.moeadaSymbol = getCurrencySymbol("EUR");
+
                     return myArt;
                 }
             }
@@ -388,23 +421,29 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao,IVA,ArtigoMoeda.moeda HAVING PCPadrao>0");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo.Artigo,Artigo.Descricao,PCPadrao,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao,IVA,ArtigoMoeda.moeda HAVING PCPadrao>0 and STKActual>0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
                 {
+
                     art = new Model.Artigo();
+                    String moeda = objList.Valor("moeda");
+
                     art.CodArtigo = objList.Valor("artigo");
                     art.DescArtigo = objList.Valor("descricao");
-                    art.PCPadrao = objList.Valor("pcpadrao");
-                    art.StockActual = objList.Valor("stkactual");
-                    art.Marca = objList.Valor("marca");
+                    art.PCPadrao = objList.Valor("PCPadrao");
+                    art.StockActual = objList.Valor("STKActual");
+                    art.Marca = objList.Valor("Marca");
                     art.familia = objList.Valor("Familia");
                     art.subFamilia = objList.Valor("SubFamilia");
                     art.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
                     art.familiaDesc = objList.Valor("FamiliaDesc");
                     art.IVA = objList.Valor("iva");
-                    art.moeadaSymbol = objList.Valor("moeda");
+
+                    if (moeda != "EUR")
+                        art.PCPadrao = getPrecoCambio(art.PCPadrao, moeda);
+                    art.moeadaSymbol = getCurrencySymbol("EUR");
                     listArts.Add(art);
                     objList.Seguinte();
                 }
