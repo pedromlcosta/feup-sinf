@@ -99,7 +99,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
                     </li>
                 }
                 
-                <li><a href="/Home/OrderHistory"><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
+                @if (@Session["username"] != null)
+                {
+                    <li><a href="/Home/OrderHistory"><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
+                }
             </ul>
         </div>
         <input type="hidden" name="codCliente" id="codCliente_input" value='@Session["codCliente"]'/>

@@ -55,7 +55,9 @@ namespace FirstREST.Lib_Primavera
                     myEnc.set_Entidade(userID);
                     myEnc.set_Tipodoc("ECL");
                     myEnc.set_TipoEntidade("C");
-                    //myEnc.set_DataDoc(DateTime.Today);
+                    myEnc.set_ModoPag("TRA");
+                    myEnc.set_CondPag("1");
+                    myEnc.set_DataDoc(DateTime.Today);
 
                     PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc);
                     foreach (Purchase p in products)

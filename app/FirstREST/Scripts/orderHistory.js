@@ -5,6 +5,8 @@ var current_filtered_orders = new Array();
 window.onload = getOrderHistoryRequest;
 function getOrderHistoryRequest()
 {
+    // Currently logged in user.
+    var codCliente = $("#codCliente_input").val();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() 
     {
@@ -14,7 +16,7 @@ function getOrderHistoryRequest()
             processOrders(orders,0,8);
         }
     };
-    xhttp.open("GET", "http://localhost:49822/api/DocVenda/SOFRIO", true);
+    xhttp.open("GET", "http://localhost:49822/api/DocVenda/"+codCliente, true);
     xhttp.setRequestHeader("Content-Type", "text/json");
     xhttp.send();
 }
