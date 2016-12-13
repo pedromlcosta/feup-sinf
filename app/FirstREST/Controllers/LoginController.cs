@@ -18,7 +18,6 @@ namespace FirstREST.Controllers
 
     public class LoginController : ApiController, IRequiresSessionState
     {
-
         private string codCliente;
         private string userType = "cliente";
 
@@ -27,21 +26,16 @@ namespace FirstREST.Controllers
         [WebMethod(EnableSession = true)]
         public HttpResponseMessage Post(LoginData data)
         {
-
-
             string email = data.email;
             string password = data.password;
 
-
             if (email != null && password != null)
             {
-
                 //checks if login is correct
                 string clientName = login(email, password);
 
                 if (codCliente != null)
                 {
-
                     //Check if Primavera has the same person that is trying to login
                     //TODO: written above + get person's name to store in session
                     //string name = primaveraGetClientName(codCliente);
@@ -51,9 +45,6 @@ namespace FirstREST.Controllers
                     System.Web.HttpContext.Current.Session["codCliente"] = codCliente;
                     System.Web.HttpContext.Current.Session["name"] = clientName;
                     System.Web.HttpContext.Current.Session["type"] = userType;
-
-
-
 
                     var response = Request.CreateResponse(
                        HttpStatusCode.OK, new { loggedIn = "true" });
@@ -71,7 +62,6 @@ namespace FirstREST.Controllers
                 // if email or password is null, immediately send bad request
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-
         }
 
         /*
