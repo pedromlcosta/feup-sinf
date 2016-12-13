@@ -1,6 +1,7 @@
 ﻿// JavaScript source code
 // JavaScript source code
 var orders;
+var orderStatus;
 var current_filtered_orders = new Array();
 window.onload = getOrderHistoryRequest;
 function getOrderHistoryRequest()
@@ -104,34 +105,45 @@ function getOrderDetails(orderID)
     }
     $("#EncomendaModal .productListing").append(`</table>`);
     
-    //getOrderStatus(orderID);
+    getOrderStatus(orderID);
 	
 
 }
 function getOrderStatus(orderID)
 {
+    $("#EncomendaModal .orderStatus").empty();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() 
     {
         if (this.readyState == 4 && this.status == 200) {
-            storages = JSON.parse(xhttp.responseText);
-            $("#myModal"+modal+" .quick").html("");
-            if(storages == null)
+            orderStatus = JSON.parse(xhttp.responseText);
+            if(orderStatus == null)
             {   
-                $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
+                $("#EncomendaModal .orderStatus").append("<p>Order not processed yet.</p>");
             }
             else
             {
-                if(storages.length > 0)
+                
+                switch(orderStatus.Estado)
                 {
-                    storages.forEach(function(item, index)
-                    {
-                        $("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "<span style='color:green;'>✔</span></p>");
-                    });
-                }
-                else
-                {
-                    $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
+                    case 'T':
+                        if(orderStatus.Anulado==0)
+                            $("#EncomendaModal .orderStatus").append("<p>In transit.</p>");
+                        else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
+                        break;
+                    case 'P':
+                        if(orderStatus.Anulado==0)
+                            $("#EncomendaModal .orderStatus").append("<p>Payment received. Shipping soon.</p>");
+                        else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
+                        break;
+                    case 'F':
+                        $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
+                        break;
+                    case 'G':
+                        if(orderStatus.Anulado==0)
+                            $("#EncomendaModal .orderStatus").append("<p>In Processing.</p>");
+                        else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
+                        break;
                 }
             }
         }
