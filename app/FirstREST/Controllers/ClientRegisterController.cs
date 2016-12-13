@@ -134,10 +134,11 @@ namespace FirstREST.Controllers
                     }
 
                     return -1;
-                    // && primaveraUserExists;
+                    
                 }
                 catch (Exception ex) {
-                   // transaction.Rollback();
+                   transaction.Rollback();
+                   transaction.Dispose();
                     Debug.Write(ex);
                     return -1;
                 }
