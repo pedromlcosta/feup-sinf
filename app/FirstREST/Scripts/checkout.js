@@ -1,5 +1,6 @@
 function getCart() {
     var list = [];
+    cartList = [];
     var tr = $("#my-cart-table tbody").children();
     for (var i = 0; i < tr.length - 2; i++)
     {
@@ -17,6 +18,7 @@ function getCart() {
         };
         list.push(data);
     }
+    localStorage.cartList= JSON.stringify(list);
     return list;
 }
 function sendCheckout()
@@ -25,15 +27,16 @@ function sendCheckout()
     //Get relevant user info
     var list = getCart();
     var gandalf = "gandalf";
+    var codCliente = $("#codCliente_input").val();
     //make request with it all
     $.ajax({
         url: root + 'api/cart',
         type: 'POST',
         data:
         {
-            id: "ALCAD",
+            id: codCliente,
             date: "parsemebaby",
-            address: "rua escura",
+            address: "rua esc",
             products: list
         },
         success: function (data, textStatus, jqXHR) {

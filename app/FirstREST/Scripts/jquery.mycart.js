@@ -176,6 +176,7 @@
     var classAffixMyCartIcon = 'my-cart-icon-affix';
 
     $cartBadge.text(ProductManager.getTotalQuantity());
+      // '<button type="button" class="btn btn-checkout" id = "checkout_button" onclick="sendCheckout();" >Checkout</button>' +
 
     if(!$("#" + idCartModal).length) {
       $('body').append(
@@ -191,8 +192,8 @@
         '</div>' +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-default" data-dismiss="modal" id = "close_button">Close</button>' +
-        '<button type="button" class="btn btn-checkout" id = "checkout_button" onclick="sendCheckout();" >Checkout</button>' +
-
+        '<a href="/Home/Checkout" class="btn btn-checkout" id = "checkout_button" onmouseover="getCart();" >Checkout</a>' +
+        
         '</div>' +
         '</div>' +
         '</div>' +

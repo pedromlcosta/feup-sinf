@@ -274,3 +274,5 @@ __pycache__/
 # Cake - Uncomment if you are using it
 # tools/
 app/FirstREST/FirstREST.csproj
+app/FirstREST/Web.config
+app/FirstREST/Web.config

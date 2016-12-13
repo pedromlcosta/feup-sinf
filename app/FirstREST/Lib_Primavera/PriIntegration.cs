@@ -587,7 +587,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade,NumContribuinte Morada,Data, NumDoc, TotalMerc, TotalIVA,TotalDesc From CabecDoc where TipoDoc='ECL'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade,NumContribuinte,Morada,Data, NumDoc, TotalMerc, TotalIVA,TotalDesc From CabecDoc where TipoDoc='ECL'");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
@@ -645,7 +645,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade,Morada,NumContribuinte,CodPostal, Data, NumDoc, TotalMerc,TotalIva,TotalDesc From CabecDoc where TipoDoc='ECL' and Entidade='" + codCliente + "'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade,Morada,NumContribuinte,CodPostal, Data, NumDoc, TotalMerc,TotalIva,TotalDesc From CabecDoc where TipoDoc='ECL' and Entidade='" + codCliente + "' ORDER BY Data DESC");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
