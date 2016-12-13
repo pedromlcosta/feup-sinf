@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Transactions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace FirstREST.Controllers
 {
     public class ClientRegisterController : ApiController
     {
-        public HttpResponseMessage Post(ClientRegisterData data) {
+        public HttpResponseMessage Post(ClientRegisterData data)
+        {
 
             string name = data.name;
             string email = data.email;
@@ -36,13 +38,15 @@ namespace FirstREST.Controllers
             //Por agora até alguém alterar no pedido
             type = "cliente";
 
-            if (email != null && password != null && address != null && nif != null && name != null) {
+            if (email != null && password != null && address != null && nif != null && name != null)
+            {
                 //checks if login is correct
 
-                int registerStatus = register(email, password, name, address, nif,type);
+                int registerStatus = register(email, password, name, address, nif, type);
                 Debug.Write(registerStatus);
-                if (registerStatus == 1) {
-                    
+                if (registerStatus == 1)
+                {
+
 
                     var response = Request.CreateResponse(
                        HttpStatusCode.OK, new { registered = "true" });
@@ -50,11 +54,15 @@ namespace FirstREST.Controllers
                     //string uri = Url.Link("DefaultApi", new { CodCliente = data.email });
                     //response.Headers.Location = new Uri(uri);
                     return response;
-                } else {
+                }
+                else
+                {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                
-            } else {
+
+            }
+            else
+            {
                 // if email or password is null, immediately send bad request
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -66,56 +74,83 @@ namespace FirstREST.Controllers
             NpgsqlConnection conn = null;
             int registered = -1;
 
-            try {
+            try
+            {
                 // Creates and opens connection to the postgres DB
                 conn = ConnectionFactory.MakePostgresConnection();
                 conn.Open();
-
+                NpgsqlTransaction transaction = conn.BeginTransaction();
                 // Rudimentar way to check if user exists and password coincides
-                string sql = "INSERT INTO Utilizador (email, password, type) VALUES (:email,:password, :type) RETURNING code;";
-
-              
-                NpgsqlCommand command = new NpgsqlCommand();
-                command.Connection = conn;
-                command.CommandText = sql;
-                command.Parameters.Add(new NpgsqlParameter("email", DbType.String));
-                command.Parameters.Add(new NpgsqlParameter("password", DbType.String));
-                command.Parameters.Add(new NpgsqlParameter("type", DbType.String));
-                command.Parameters[0].Value = email;
-                command.Parameters[1].Value = password;
-                command.Parameters[2].Value = type;
-                command.Prepare();
-                NpgsqlDataReader dr = command.ExecuteReader();
+                try
+                {
+                    string sql = "INSERT INTO Utilizador (email, password, type) VALUES (:email,:password, :type) RETURNING code;";
 
 
-                int codCliente = 0;
-                if (dr.HasRows) {
+                    NpgsqlCommand command = new NpgsqlCommand();
+                    command.Connection = conn;
+                    command.CommandText = sql;
+                    command.Parameters.Add(new NpgsqlParameter("email", DbType.String));
+                    command.Parameters.Add(new NpgsqlParameter("password", DbType.String));
+                    command.Parameters.Add(new NpgsqlParameter("type", DbType.String));
+                    command.Parameters[0].Value = email;
+                    command.Parameters[1].Value = password;
+                    command.Parameters[2].Value = type;
+                    command.Prepare();
+                    NpgsqlDataReader dr = command.ExecuteReader();
 
-                    while (dr.Read()) {
 
-                        codCliente = (int) dr["code"];
-                        Debug.Write("Codigo: " + codCliente.ToString());
+                    int codCliente = 0;
+                    if (dr.HasRows)
+                    {
+
+                        while (dr.Read())
+                        {
+
+                            codCliente = (int)dr["code"];
+                            Debug.Write("\nCodigo: " + codCliente.ToString());
+                        }
+                        registered = 1;
                     }
-                    registered = 1;
-                } else {
+                    else
+                    {
+                    }
+
+                    // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente --  return the clienteName
+                    int returnValue = Lib_Primavera.PriIntegration.registerCliente(codCliente.ToString(), email, name, address, nif);
+                    
+                    if (returnValue > 0)
+                    {
+                        registered = 1;
+                        Debug.Write("\nSHOULD BE WORKING\n");
+                        transaction.Commit();
+                    }
+                    else
+                        transaction.Rollback();
+
+                    
+                    return registered; // && primaveraUserExists;
+                }
+                catch (Exception ex) {
+                    transaction.Rollback();
+                    Debug.Write(ex);
+                    return -1;
                 }
 
-                // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente --  return the clienteName
-                if (Lib_Primavera.PriIntegration.registerCliente(codCliente.ToString(), email, name, address, nif) != null)
-                    registered = 1;
-
-                return registered; // && primaveraUserExists;
-            } catch (Exception msg) {
+            }
+            catch (Exception msg)
+            {
                 // something went wrong, and you wanna know why
                 Debug.Write("/n");
                 Debug.Write(msg.StackTrace);
                 //MessageBox.Show(msg.ToString());
                 //throw;
                 Debug.Write("Entered catch");
-
+                
                 //TODO: analyze error message to check if user already existed and give proper return
                 return -1;
-            } finally {
+            }
+            finally
+            {
                 if (conn != null)
                     conn.Close();
 

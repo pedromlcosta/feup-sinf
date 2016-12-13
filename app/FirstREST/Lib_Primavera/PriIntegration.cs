@@ -245,7 +245,7 @@ namespace FirstREST.Lib_Primavera
 
         public static int registerCliente(string codCliente, string email, string nome, string morada, string nif)
         {
-
+            
             try
             {
                 if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
@@ -253,6 +253,7 @@ namespace FirstREST.Lib_Primavera
                     GcpBECliente objCli;
                     if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == true)
                     {
+                        Debug.Write("USER JÁ EXISTE NO PRIMAVERA\n");
                         return -1;
                     }
 
