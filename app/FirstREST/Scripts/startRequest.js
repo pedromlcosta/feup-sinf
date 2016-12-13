@@ -105,7 +105,11 @@ function processArticles(articles,start_index,end_index)
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","../../../Images/i7.png");
         if(stock > 0) $("#myModal"+j+" .quick").append("<p>"+stock+ " units left <span style='color:green;'>✔</span></p>");
-        else $("#myModal"+j+" .quick").append("<p>Out of Stock.</p>");
+		else 
+		{
+            $("#myModal"+j+" .add-to").html("");
+            $("#myModal"+j+" .quick").append("<p>Out of Stock.</p>");
+		}
 		j++;
 	}
 }
