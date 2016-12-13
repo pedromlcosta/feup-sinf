@@ -18,7 +18,7 @@ namespace FirstREST.Controllers
 {
     public class ClientRegisterController : ApiController
     {
-        private string patternToMatch = ".{5}?";
+        private string patternToMatch = "^\\s*(.{5})\\z";
 
         public HttpResponseMessage Post(ClientRegisterData data)
         {
@@ -38,7 +38,7 @@ namespace FirstREST.Controllers
             Debug.Write(adminCode + "\n");
 
             //Por agora até alguém alterar no pedido
-            if (System.Text.RegularExpressions.Regex.Match(adminCode, patternToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success)
+            if (adminCode.Length == 5 && System.Text.RegularExpressions.Regex.Match(adminCode, patternToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success)
             {
                 type = "admin";
                 Debug.Write("\n it passed the regex\n");
