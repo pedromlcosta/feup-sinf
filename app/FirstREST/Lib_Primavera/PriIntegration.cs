@@ -343,27 +343,24 @@ namespace FirstREST.Lib_Primavera
         public static string getCurrencySymbol(String symbol)
         {
             string currSymbol;
-            if (Model.CurrencyTools.TryGetCurrencySymbol(symbol, out currSymbol))
+            if (!Model.CurrencyTools.TryGetCurrencySymbol(symbol, out currSymbol))
             {
-                Debug.WriteLine("IS symbol is {0}", currSymbol);
+                //Default Coins
+                return "€";
             }
-            Debug.Write(Model.CurrencyTools.TryGetCurrencySymbol(symbol, out currSymbol).ToString());
             return currSymbol;
         }
 
         public static Double getPrecoCambio(Double valor, String moeda)
         {
-            Debug.Write("\n\n\n" + valor + "\n\n\n\n");
             StdBELista objList;
             Double retorno;
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-
                 objList = PriEngine.Engine.Consulta("SELECT * FROM Moedas WHERE Moeda = '" + moeda + "';");
                 retorno = Convert.ToDouble(objList.Valor("compra")) * valor;
                 return retorno;
             }
-
             return 0.0;
         }
 
