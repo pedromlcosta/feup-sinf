@@ -13,22 +13,23 @@ function registernButtonHandler(event) {
     event.stopImmediatePropagation();
     $(this).blur();
 
-    var email = $("input[name='email']").val();
-    var name = $("input[name='name']").val();
+    var email = $("#registerEmail").val();
+    var name = $("#registerName").val();
     var nif = $("input[name='nif']").val();
     var address = $("input[name='address']").val();
     var password = $("input[name='password']").val();
     var password_confirmation = $("input[name='password_confirmation']").val();
     var adminCode = $("input[name='admin_code'").val()
 
-    
 
-    console.log(email);
-    console.log(nif);
-    console.log(address);
-    console.log(password);
-    console.log(password_confirmation);
-    console.log(adminCode);
+
+    console.log("Email: " + email);
+    console.log("Nome: " + name);
+    console.log("nif: " + nif);
+    console.log("addr: " + address);
+    console.log("pass: " + password);
+    console.log("check pass : " + password_confirmation);
+    console.log("admin code: " + adminCode);
 
     var root = location.protocol + '//' + location.host + '/';
 

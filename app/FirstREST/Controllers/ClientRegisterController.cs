@@ -30,7 +30,7 @@ namespace FirstREST.Controllers
             string nif = data.nif;
             string adminCode = data.adminCode;
             string type = "cliente";
-            Debug.Write(name+"\n");
+            Debug.Write(name + "\n");
             Debug.Write(email + "\n");
             Debug.Write(password + "\n");
             Debug.Write(address + "\n");
@@ -38,7 +38,7 @@ namespace FirstREST.Controllers
             Debug.Write(adminCode + "\n");
 
             //Por agora até alguém alterar no pedido
-            if (adminCode.Length == 5 && System.Text.RegularExpressions.Regex.Match(adminCode, patternToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success)
+            if (adminCode != null && System.Text.RegularExpressions.Regex.Match(adminCode, patternToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success)
             {
                 type = "admin";
                 Debug.Write("\n it passed the regex\n");
