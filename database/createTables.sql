@@ -70,4 +70,6 @@ EXECUTE PROCEDURE validateEmailFunction();
 INSERT INTO Utilizador (email, type, password) VALUES ('hi@gmail.com', 'admin', '123');
 INSERT INTO Utilizador (email, type, password) VALUES ('TEST@gmail.com', 'client', '123');
 INSERT INTO Utilizador (email, type, password) VALUES ('TESTsdasdasd.com', 'client', '123');
+INSERT INTO Utilizador (code,email,type,password) VALUES ('SOFRIO','sofrio@gmail.com','client','123');
+INSERT INTO Utilizador (code,email,type,password) VALUES ('ALCAD','alcad@gmail.com','client','123');
 
