@@ -245,7 +245,9 @@ namespace FirstREST.Lib_Primavera
 
         public static int registerCliente(string codCliente, string email, string nome, string morada, string nif)
         {
-            
+            Debug.Write("NOME: " + nome);
+            Debug.Write("EMAIL: " + email);
+
             try
             {
                 if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
@@ -261,14 +263,13 @@ namespace FirstREST.Lib_Primavera
                     objCli.set_Cliente(codCliente);
                     objCli.set_Moeda("EUR");
                     objCli.set_B2BEnderecoMail(email);
-                    objCli.set_Nome(email);
+                    objCli.set_Nome(nome);
                     objCli.set_Morada(morada);
                     objCli.set_NumContribuinte(nif);
 
                     PriEngine.Engine.Comercial.Clientes.Actualiza(objCli);
 
                     return 1;
-
                 }
             }
             catch (Exception ex)

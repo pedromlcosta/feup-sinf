@@ -19,6 +19,7 @@ function registernButtonHandler(event) {
     var address = $("input[name='address']").val();
     var password = $("input[name='password']").val();
     var password_confirmation = $("input[name='password_confirmation']").val();
+    var adminCode = $("input[name='admin_code'").val()
 
     
 
@@ -27,6 +28,7 @@ function registernButtonHandler(event) {
     console.log(address);
     console.log(password);
     console.log(password_confirmation);
+    console.log(adminCode);
 
     var root = location.protocol + '//' + location.host + '/';
 
@@ -42,7 +44,8 @@ function registernButtonHandler(event) {
                 name: name,
                 nif: nif,
                 address: address,
-                password: password
+                password: password,
+                adminCode: adminCode
             },
             success: function (data, textStatus, jqXHR) {
                 if (typeof data.error === 'undefined') {

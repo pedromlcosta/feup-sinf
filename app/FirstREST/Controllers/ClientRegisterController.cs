@@ -18,6 +18,8 @@ namespace FirstREST.Controllers
 {
     public class ClientRegisterController : ApiController
     {
+        private string patternToMatch = ".{5}?";
+
         public HttpResponseMessage Post(ClientRegisterData data)
         {
 
@@ -26,23 +28,28 @@ namespace FirstREST.Controllers
             string password = data.password;
             string address = data.address;
             string nif = data.nif;
-            string type = data.type;
-
-            Debug.Write(name);
-            Debug.Write(email);
-            Debug.Write(password);
-            Debug.Write(address);
-            Debug.Write(nif);
-            Debug.Write(type);
+            string adminCode = data.adminCode;
+            string type = "cliente";
+            Debug.Write(name+"\n");
+            Debug.Write(email + "\n");
+            Debug.Write(password + "\n");
+            Debug.Write(address + "\n");
+            Debug.Write(nif + "\n");
+            Debug.Write(adminCode + "\n");
 
             //Por agora até alguém alterar no pedido
-            type = "cliente";
+            if (System.Text.RegularExpressions.Regex.Match(adminCode, patternToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success)
+            {
+                type = "admin";
+                Debug.Write("\n it passed the regex\n");
+            }
 
             if (email != null && password != null && address != null && nif != null && name != null)
             {
                 //checks if login is correct
 
                 int registerStatus = register(email, password, name, address, nif, type);
+                Debug.Write(name + "\n");
                 Debug.Write(registerStatus);
                 if (registerStatus == 1)
                 {
@@ -72,8 +79,7 @@ namespace FirstREST.Controllers
         private int register(string email, string password, string name, string address, string nif, string type)
         {
             NpgsqlConnection conn = null;
-            int registered = -1;
-
+            Debug.Write(name + "\n");
             try
             {
                 // Creates and opens connection to the postgres DB
@@ -109,7 +115,6 @@ namespace FirstREST.Controllers
                             codCliente = (int)dr["code"];
                             Debug.Write("\nCodigo: " + codCliente.ToString());
                         }
-                        registered = 1;
                     }
                     else
                     {
@@ -120,25 +125,27 @@ namespace FirstREST.Controllers
                     dr.Close();
                     // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente --  return the clienteName
                     int returnValue = Lib_Primavera.PriIntegration.registerCliente(codCliente.ToString(), email, name, address, nif);
-                    
+
                     if (returnValue > 0)
                     {
                         transaction.Commit();
                         transaction.Dispose();
                         Debug.Write("\nSHOULD BE WORKING\n");
-                        return 1; 
+                        return 1;
                     }
-                    else{
+                    else
+                    {
                         transaction.Rollback();
                         transaction.Dispose();
                     }
 
                     return -1;
-                    
+
                 }
-                catch (Exception ex) {
-                   transaction.Rollback();
-                   transaction.Dispose();
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    transaction.Dispose();
                     Debug.Write(ex);
                     return -1;
                 }
@@ -152,7 +159,7 @@ namespace FirstREST.Controllers
                 //MessageBox.Show(msg.ToString());
                 //throw;
                 Debug.Write("Entered catch");
-                
+
                 //TODO: analyze error message to check if user already existed and give proper return
                 return -1;
             }
