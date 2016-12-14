@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Diagnostics;
 using FirstREST.Lib_Primavera.Model;
 
 
@@ -36,17 +37,26 @@ namespace FirstREST.Controllers
                 return artigo;
             }
         }
-
-        //Send from Body ou a partir do URL?
-     /*   public string[] Get([FromUri] string[] ids) {
-            List<Artigo> wishList = new List<Artigo>();
-           /* foreach (string id in ids)
+        public HttpResponseMessage changeArtigo(params int[] list)
+        {
+            for (int i = 0; i < list.Length; i++)
             {
-                wishList.Add(Get(id));
+                Debug.WriteLine("\n\n"+list[i]+"\n\n");
             }
-            return wishList;
-            return ids;
-        }*/
+
+            return Request.CreateResponse(HttpStatusCode.Accepted);
+
+        }
+        //Send from Body ou a partir do URL?
+        /*   public string[] Get([FromUri] string[] ids) {
+               List<Artigo> wishList = new List<Artigo>();
+              /* foreach (string id in ids)
+               {
+                   wishList.Add(Get(id));
+               }
+               return wishList;
+               return ids;
+           }*/
     }
 }
 
