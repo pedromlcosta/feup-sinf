@@ -68,11 +68,10 @@ namespace FirstREST.Lib_Primavera
                     myEnc.set_Entidade(userID);
                     myEnc.set_NumContribuinte(nif);
 
-                    myEnc.set_Tipodoc("ECL");
+                    myEnc.set_Tipodoc("ECL"); //Encomenda de cliente
                     myEnc.set_TipoEntidade("C"); //Client
                     if (payment.Equals("paypal")) myEnc.set_ModoPag("TRA"); //Online transfer
                     else myEnc.set_ModoPag("TRA"); //Online transfer
-
                     myEnc.set_CondPag("1"); //Request immediate payment.
                     myEnc.set_DataDoc(DateTime.Today);
 

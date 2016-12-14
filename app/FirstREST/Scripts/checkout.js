@@ -1,4 +1,23 @@
-
+function tryOrder()
+{
+   
+    getCart();
+    if (localStorage.cartList == "[]")
+    {
+        alert("Your cart is empty.");
+    }
+    else
+    {
+        if($("#codCliente_input").val().length == 0)
+        {
+            window.location.href = '/Home/Register';
+        }
+        else
+        {
+            window.location.href = '/Home/Checkout';
+        }
+    }
+}
 function getCart() {
     var list = [];
     cartList = [];
@@ -19,7 +38,8 @@ function getCart() {
         };
         list.push(data);
     }
-    localStorage.cartList= JSON.stringify(list);
+    localStorage.cartList = JSON.stringify(list);
+    //window.location.href = '/Home/Checkout';
     return list;
 }
 function makeOrder()
@@ -58,6 +78,7 @@ function makeOrder()
             $("#checkout_failure").empty();
             $("#checkout_failure").prepend("Sucess.");
             cleanCart();
+            window.location.href = '/Home/Index';
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $("#checkout_failure").empty();

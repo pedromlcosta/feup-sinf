@@ -72,6 +72,8 @@ namespace FirstREST.Lib_Primavera
                     myCli.Moeda = objCli.get_Moeda();
                     myCli.NumContribuinte = objCli.get_NumContribuinte();
                     myCli.Morada = objCli.get_Morada();
+                    myCli.NumTelemovel = objCli.get_Telefone();
+                    myCli.CodPostal = objCli.get_CodigoPostal();
                     return myCli;
                 }
                 else
@@ -393,6 +395,9 @@ namespace FirstREST.Lib_Primavera
                     myArt.familiaDesc = objList.Valor("FamiliaDesc");
                     myArt.IVA = objList.Valor("iva");
 
+                    //TODO: get artigo image from pgsql
+                    myArt.imageURL = "test";
+
                     if (moeda != "EUR")
                         myArt.PVP1 = getPrecoCambio(myArt.PVP1, moeda);
 
@@ -438,6 +443,9 @@ namespace FirstREST.Lib_Primavera
                     art.subFamiliaDesc = objList.Valor("SubFamiliaDesc");
                     art.familiaDesc = objList.Valor("FamiliaDesc");
                     art.IVA = objList.Valor("iva");
+
+                    //TODO: get artigo image from pgsql
+                    art.imageURL = "test";
 
                     if (moeda != "EUR")
                         art.PVP1 = getPrecoCambio(art.PVP1, moeda);

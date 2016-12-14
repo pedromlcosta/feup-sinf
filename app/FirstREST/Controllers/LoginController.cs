@@ -13,11 +13,9 @@ using System.Windows.Forms;
 using System.Data;
 using Npgsql;
 
-namespace FirstREST.Controllers
-{
+namespace FirstREST.Controllers {
 
-    public class LoginController : ApiController, IRequiresSessionState
-    {
+    public class LoginController : ApiController, IRequiresSessionState {
         private string codCliente = null;
         private string clientName = null;
         private string userType = "cliente";
@@ -25,18 +23,15 @@ namespace FirstREST.Controllers
         //[System.Web.Services.WebMethod(EnableSession = true)]
 
         [WebMethod(EnableSession = true)]
-        public HttpResponseMessage Post(LoginData data)
-        {
+        public HttpResponseMessage Post(LoginData data) {
             string email = data.email;
             string password = data.password;
 
-            if (email != null && password != null)
-            {
+            if (email != null && password != null) {
                 //checks if login is correct
                 int loggedIn = login(email, password);
 
-                if (loggedIn > 0)
-                {
+                if (loggedIn > 0) {
                     Debug.Write("Logged in ");
                     //Check if Primavera has the same person that is trying to login
                     //TODO: written above + get person's name to store in session
@@ -53,14 +48,10 @@ namespace FirstREST.Controllers
                     string uri = Url.Link("DefaultApi", new { CodCliente = data.email });
                     //response.Headers.Location = new Uri(uri);
                     return response;
-                }
-                else
-                {
+                } else {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-            }
-            else
-            {
+            } else {
                 // if email or password is null, immediately send bad request
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -69,14 +60,12 @@ namespace FirstREST.Controllers
         /*
          * Returns 
          */
-        private int login(string email, string password)
-        {
+        private int login(string email, string password) {
             NpgsqlConnection conn = null;
             int login = 1;
             // bool primaveraUserExists = false;
 
-            try
-            {
+            try {
                 // Creates and opens connection to the postgres DB
                 conn = ConnectionFactory.MakePostgresConnection();
                 conn.Open();
@@ -102,11 +91,9 @@ namespace FirstREST.Controllers
                 command.Prepare();
                 NpgsqlDataReader dr = command.ExecuteReader();
 
-                if (dr.HasRows)
-                {
+                if (dr.HasRows) {
 
-                    while (dr.Read())
-                    {
+                    while (dr.Read()) {
                         codCliente = dr["primaveracode"].ToString();
                         userType = dr["type"].ToString();
 
@@ -119,13 +106,12 @@ namespace FirstREST.Controllers
                         Debug.Write(dr["email"].ToString());
                         Debug.Write(" - " + dr["password"].ToString() + "\n");
                     }
-                }
-                else
-                {
+                } else {
                     Debug.Write("No Rows on this table");
                     return -1;
                 }
 
+                // login = -1 -> postgres failed   login = -2 -> primavera failed finding name
                 // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente
                 if (codCliente != null)
                     clientName = Lib_Primavera.PriIntegration.getClienteName(codCliente);
@@ -135,19 +121,29 @@ namespace FirstREST.Controllers
                 if (clientName == null)
                     login = -2;
 
+                // Login success!
+                if (login > 0) {
+                    Debug.Write("Gonna login... checking client other stuff.");
+                    Lib_Primavera.Model.Cliente cliente = Lib_Primavera.PriIntegration.GetCliente(codCliente);
+                    if (cliente != null) {
+                        Debug.Write("Postal Code: " + cliente.CodPostal);
+                        Debug.Write("Telemovel: " + cliente.NumTelemovel);
+                        System.Web.HttpContext.Current.Session["codPostal"] = cliente.CodPostal;
+                        System.Web.HttpContext.Current.Session["numTelemovel"] = cliente.NumTelemovel;
+                    }
+
+                }
+
+
 
                 return login; // && primaveraUserExists;
-            }
-            catch (Exception msg)
-            {
+            } catch (Exception msg) {
                 // something went wrong, and you wanna know why
                 MessageBox.Show(msg.ToString());
                 //throw;
                 Debug.Write("Entered catch");
                 return -1;
-            }
-            finally
-            {
+            } finally {
                 if (conn != null)
                     conn.Close();
 

@@ -192,7 +192,7 @@
         '</div>' +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-default" data-dismiss="modal" id = "close_button">Close</button>' +
-        '<a href="/Home/Checkout" class="btn btn-checkout" id = "checkout_button" onmouseover="getCart();" >Checkout</a>' +
+        '<button  class="btn btn-checkout" id = "checkout_button" onclick="tryOrder();" >Checkout</button>' +
         
         '</div>' +
         '</div>' +

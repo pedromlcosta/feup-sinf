@@ -50,7 +50,7 @@ function processArticles(articles,start_index,end_index)
 	var articleHolder = document.getElementById("article-holder");
 	//For the modals.
 	var j=0;
-	articleHolder.innerHTML = "";
+	if(articleHolder != null) articleHolder.innerHTML = "";
 	if(articles.length < end_index) end_index = articles.length;
 	for(i=start_index;i<end_index;i++)
 	{
@@ -62,6 +62,10 @@ function processArticles(articles,start_index,end_index)
 		var flagIVA= articles[i].PVP1_IVA;
 		var marca = articles[i].Marca;
 		var stock = articles[i].StockActual;
+		var imageURL = articles[i].imageURL;
+
+		console.log(imageURL);
+
 		var iva;
 		var withIVA;
 		if(!flagIVA){
@@ -77,7 +81,7 @@ function processArticles(articles,start_index,end_index)
 		{
 		    stars_div += `<img src='../../../Images/star.jpg' style="width: 20px; align:left">`;
 		}
-		articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
+		if(articleHolder != null) articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
 							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
 								<img src='../../../Images/i7.png' class='img-responsive' alt='' >

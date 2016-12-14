@@ -1,6 +1,9 @@
 ﻿    @RenderPage("header.cshtml")
     @{var engine = "Razor";}
 
+@if (@Session["username"] != null) {
+   Response.Redirect("~/Home/index");
+}
 <script src="../../../Scripts/registerClient.js"></script>
     <!---->
     <!--banner-->

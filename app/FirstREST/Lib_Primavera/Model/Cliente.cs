@@ -50,6 +50,15 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
+        public string CodPostal {
+            get;
+            set;
+        }
+
+        public string NumTelemovel {
+            get;
+            set;
+        }
 
     }
 }
