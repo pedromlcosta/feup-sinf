@@ -23,9 +23,8 @@ function getOrderHistoryRequest()
 }
 function processOrders(orders,start_index,end_index)
 {
-    console.log(start_index);
-    var i;
-  
+
+    var i;  
     var orderHolder = document.getElementById("order-holder");
     //For the modals.
     orderHolder.innerHTML = "";
