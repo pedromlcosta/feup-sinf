@@ -1,3 +1,8 @@
+$(document).ready(function () {
+
+    // Login form submition
+    $('#checkoutSubmit').on('submit', sendCheckout());
+});
 function getCart() {
     var list = [];
     cartList = [];
@@ -25,7 +30,7 @@ function sendCheckout()
 {
     var root = location.protocol + '//' + location.host + '/';
     //Get relevant user info
-    var list = getCart();
+    var list = JSON.parse(localStorage.cartList);
     var gandalf = "gandalf";
     var codCliente = $("#codCliente_input").val();
     //make request with it all
