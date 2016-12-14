@@ -127,17 +127,20 @@ function getOrderStatus(orderID)
                 switch(orderStatus.Estado)
                 {
                     case 'T':
-                        if(orderStatus.Fechado==1)
-                            $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
+                        if(orderStatus.Fechado==1){
+                        $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
                         break;
+                        }
+                            
                         if(orderStatus.Anulado==0)
                             $("#EncomendaModal .orderStatus").append("<p>Payment Confirmed, Shipped.</p>");
                         else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
                         break;
                     case 'P':
-                        if(orderStatus.Fechado==1)
-                            $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
+                        if(orderStatus.Fechado==1){
+                        $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
                         break;
+                        }
                         if(orderStatus.Anulado==0)
                             $("#EncomendaModal .orderStatus").append("<p>Approved Order,Pending to confirm payment</p>");
                         else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
