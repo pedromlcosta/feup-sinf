@@ -57,11 +57,19 @@ function processArticles(articles,start_index,end_index)
 		var codArtigo = articles[i].CodArtigo
 		var desc = articles[i].DescArtigo;
 		var family = articles[i].subFamiliaDesc;
-		var price = articles[i].PCPadrao;
+		var fullDesc = articles[i].FullDesc;
+		var price = articles[i].PVP1;
+		var flagIVA= articles[i].PVP1_IVA;
 		var marca = articles[i].Marca;
 		var stock = articles[i].StockActual;
-		var iva = articles[i].IVA;
-		var withIVA = price + (iva/100)*price;
+		var iva;
+		var withIVA;
+		if(!flagIVA){
+		  iva = articles[i].IVA;
+		  withIVA = price + (iva/100)*price;
+		}
+		else
+			withIVA=price;
 		var currencySymbol = articles[i].moeadaSymbol;
 		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
@@ -96,8 +104,7 @@ function processArticles(articles,start_index,end_index)
 		$("#myModal"+j+" h3").html(desc);
 		$("#myModal"+j+" .quick").html("");
 		$("#myModal"+j+" .reducedfrom").html("€"+withIVA);
-		$("#myModal"+j+" .in-para").html(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. `);
+		$("#myModal"+j+" .in-para").html(fullDesc);
 		$("#myModal"+j+" .quick_desc").html("");
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id",codArtigo);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-name",desc);

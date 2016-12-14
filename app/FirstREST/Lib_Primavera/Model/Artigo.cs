@@ -32,7 +32,7 @@ namespace FirstREST.Lib_Primavera.Model
         }
 
 
-        public double PCPadrao
+        public double PVP1
         {
             get;
             set;
@@ -66,6 +66,16 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
         public string moeadaSymbol
+        {
+            get;
+            set;
+        }
+        public string FullDesc
+        {
+            get;
+            set;
+        }
+        public bool PVP1_IVA
         {
             get;
             set;

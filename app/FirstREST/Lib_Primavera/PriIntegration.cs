@@ -359,7 +359,6 @@ namespace FirstREST.Lib_Primavera
             objList = PriEngine.Engine.Consulta("SELECT * FROM Moedas WHERE Moeda = '" + moeda + "';");
             retorno = Convert.ToDouble(objList.Valor("compra")) * valor;
             return retorno;
-            return 0.0;
         }
 
         public static Lib_Primavera.Model.Artigo GetArtigo(string codArtigo)
@@ -378,12 +377,14 @@ namespace FirstREST.Lib_Primavera
                 else
                 {
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
-                    objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,PVP1,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo.Artigo,Artigo.Descricao,PVP1,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao,IVA,ArtigoMoeda.moeda HAVING PVP1>0");
+                    objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,Artigo.Observacoes,PVP1,ArtigoMoeda.PVP1IvaIncluido,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia AND PVP1>0 AND STKActual >0 ");
                     String moeda = objList.Valor("moeda");
 
                     myArt.CodArtigo = objList.Valor("artigo");
                     myArt.DescArtigo = objList.Valor("descricao");
-                    myArt.PCPadrao = objList.Valor("PVP1");
+                    myArt.FullDesc = objList.Valor("Observacoes");
+                    myArt.PVP1 = objList.Valor("PVP1");
+                    myArt.PVP1_IVA = objList.Valor("PVP1IvaIncluido");
                     myArt.StockActual = objList.Valor("STKActual");
                     myArt.Marca = objList.Valor("Marca");
                     myArt.familia = objList.Valor("Familia");
@@ -393,7 +394,7 @@ namespace FirstREST.Lib_Primavera
                     myArt.IVA = objList.Valor("iva");
 
                     if (moeda != "EUR")
-                        myArt.PCPadrao = getPrecoCambio(myArt.PCPadrao, moeda);
+                        myArt.PVP1 = getPrecoCambio(myArt.PVP1, moeda);
 
                     myArt.moeadaSymbol = getCurrencySymbol("EUR");
 
@@ -416,7 +417,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,PVP1,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia GROUP BY Artigo.Artigo,Artigo.Descricao,PVP1,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,SubFamilias.Descricao,Familias.Descricao,IVA,ArtigoMoeda.moeda HAVING PVP1>0 and STKActual>0");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,Artigo.Observacoes,PVP1,ArtigoMoeda.PVP1IvaIncluido,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia AND PVP1>0 AND STKActual>0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
@@ -427,7 +428,9 @@ namespace FirstREST.Lib_Primavera
 
                     art.CodArtigo = objList.Valor("artigo");
                     art.DescArtigo = objList.Valor("descricao");
-                    art.PCPadrao = objList.Valor("PVP1");
+                    art.FullDesc = objList.Valor("Observacoes");
+                    art.PVP1 = objList.Valor("PVP1");
+                    art.PVP1_IVA = objList.Valor("PVP1IvaIncluido");
                     art.StockActual = objList.Valor("STKActual");
                     art.Marca = objList.Valor("Marca");
                     art.familia = objList.Valor("Familia");
@@ -437,7 +440,7 @@ namespace FirstREST.Lib_Primavera
                     art.IVA = objList.Valor("iva");
 
                     if (moeda != "EUR")
-                        art.PCPadrao = getPrecoCambio(art.PCPadrao, moeda);
+                        art.PVP1 = getPrecoCambio(art.PVP1, moeda);
                     art.moeadaSymbol = getCurrencySymbol("EUR");
                     listArts.Add(art);
 
