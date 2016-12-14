@@ -49,7 +49,8 @@ function loginButtonHandler(event) {
                 if (data.loggedIn == 'true') {
                     clearModalErrors();
                     //location.reload();
-                    window.location.replace("");
+                    window.location.href = root;
+                    //window.location.replace(root);
                 } else {
                     clearModalErrors();
                     $("#login_failure").prepend("Username/Password combination not found.");

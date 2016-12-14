@@ -55,8 +55,7 @@ function registernButtonHandler(event) {
                     if (data.registered == 'true') {
                         clearModalErrors();
                         $("#register_failure").prepend("Success");
-                        //location.reload();
-                        //window.location.replace("");
+                        window.location.href = root;
                     } else {
                         clearModalErrors();
                         $("#register_failure").prepend("Error registering.");
