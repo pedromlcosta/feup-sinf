@@ -238,7 +238,7 @@ namespace FirstREST.Lib_Primavera
                 // Cliente does not exist in primavera
                 GcpBECliente objCli = new GcpBECliente();
                 objCli = Lib_Primavera.PriEngine.Engine.Comercial.Clientes.Edita(codCliente);
-                return objCli.get_Nome();  
+                return objCli.get_Nome();
             }
             return null;
         }
@@ -459,6 +459,34 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+        public static bool editArtigo(RequestObjects.EditArtigoData data)
+        {
+            String aritgoID;
+            bool returnFlag = false;
+            if (data.fieldToEdit.Equals("desc"))
+            {
+                aritgoID = data.idOfProduct;
+                GcpBEArtigo objArtigo = new GcpBEArtigo();
+
+                if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+                {
+                    if (PriEngine.Engine.Comercial.Artigos.Existe(aritgoID) == false)
+                    {
+                        Debug.Write("Artigo não Existe");
+                        return false;
+                    }
+                    else
+                    {
+                        objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(aritgoID);
+                        objArtigo.set_EmModoEdicao(true);
+                        objArtigo.set_Observacoes(data.valueToSet);
+                        PriEngine.Engine.Comercial.Artigos.Actualiza(objArtigo);
+                        returnFlag = true;
+                    }
+                }
+            }
+            return returnFlag;
+        }
         #endregion Artigo
 
         #region ArtigoArmazem

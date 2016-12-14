@@ -41,6 +41,9 @@ namespace FirstREST.Lib_Primavera
         public HttpResponseMessage POST(EditArtigoData data)
         {
             Debug.Write(data);
+            if (data == null || data.isFieldNull() || !Lib_Primavera.PriIntegration.editArtigo(data))
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+
 
             return Request.CreateResponse(HttpStatusCode.Accepted);
 
