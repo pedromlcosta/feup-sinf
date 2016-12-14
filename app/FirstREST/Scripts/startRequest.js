@@ -186,6 +186,7 @@ function processArticles(articles,start_index,end_index)
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price-original",price);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","../../../Images/" +imageURL);
+		$("#myModal"+j+" #productImage").attr("src","../../../Images/" +imageURL);
         if(stock > 0) $("#myModal"+j+" .quick").append("<p>"+stock+ " units left <span style='color:green;'>✔</span></p>");
 		else 
 		{
