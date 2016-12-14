@@ -128,8 +128,10 @@ namespace FirstREST.Controllers {
                     if (cliente != null) {
                         Debug.Write("Postal Code: " + cliente.CodPostal);
                         Debug.Write("Telemovel: " + cliente.NumTelemovel);
+                        Debug.Write("Localidade: " + cliente.LocalidadeCP);
                         System.Web.HttpContext.Current.Session["codPostal"] = cliente.CodPostal;
                         System.Web.HttpContext.Current.Session["numTelemovel"] = cliente.NumTelemovel;
+                        System.Web.HttpContext.Current.Session["localidadeCP"] = cliente.LocalidadeCP;
                     }
 
                 }

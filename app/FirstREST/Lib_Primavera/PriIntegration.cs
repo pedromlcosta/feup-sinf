@@ -74,6 +74,7 @@ namespace FirstREST.Lib_Primavera
                     myCli.Morada = objCli.get_Morada();
                     myCli.NumTelemovel = objCli.get_Telefone();
                     myCli.CodPostal = objCli.get_CodigoPostal();
+                    myCli.LocalidadeCP = objCli.get_LocalidadeCodigoPostal();
                     return myCli;
                 }
                 else
