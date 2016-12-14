@@ -107,7 +107,7 @@ namespace FirstREST.Controllers
 
                     while (dr.Read())
                     {
-                        codCliente = dr["primaveraCode"].ToString();
+                        codCliente = dr["primaveracode"].ToString();
                         userType = dr["type"].ToString();
 
                         /*
