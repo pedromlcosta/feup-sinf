@@ -2,12 +2,12 @@
 // JavaScript source code
 var orders;
 var orderStatus;
-
+var codCliente = $("#codCliente_input").val();
 window.onload = getOrderHistoryRequest;
 function getOrderHistoryRequest()
 {
     // Currently logged in user.
-    var codCliente = $("#codCliente_input").val();
+   
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() 
     {
@@ -86,10 +86,11 @@ function getOrderDetails(orderID)
     <table>
     <tr>    
     <th style="width: 5%;">Armazem</th>
-    <th style="width: 15%;">Descrição</th> 
+    <th style="width: 17%;">Descrição</th> 
     <th style="width: 5%;">Quantidade</th>
     <th style="width: 5%;">Preço(Un)</th>
-    <th style="width: 5%;">Iva</th>   
+    <th style="width: 5%;">Iva</th>  
+    <th style="width: 3%;"></th>
     </tr>
     `);
     
@@ -98,17 +99,25 @@ function getOrderDetails(orderID)
         $("#EncomendaModal .productListing").append(`
         <tr>
         <td style="width: 5.3%;">`+order.LinhasDoc[i].Armazem+`</td>
-        <td style="width: 14%;">`+order.LinhasDoc[i].DescArtigo+`</td>
+        <td style="width: 16%;">`+order.LinhasDoc[i].DescArtigo+`</td>
         <td style="width: 7%;">`+order.LinhasDoc[i].Quantidade+`x</td>
-        <td style="width: 5.1%;">`+order.LinhasDoc[i].PrecoUnitario+`€</td>
-        <td style="width: 5%;">`+order.LinhasDoc[i].TaxaIva+`%   </td>
-        </tr>`);
+        <td style="width: 5.1%;">&nbsp;&nbsp;`+order.LinhasDoc[i].PrecoUnitario+`€</td>
+        <td style="width: 6%;">&nbsp;&nbsp;&nbsp;`+order.LinhasDoc[i].TaxaIva+`%</td>
+        <td style="width: 3%;"><button style="width 100%;" type="button" name="Review" id="Review" value="Review" data-toggle='modal' data-target='#ReviewModal' onclick="makeReview('`+order.LinhasDoc[i].CodArtigo+`,`+codCliente+`');">Review</button></td>
+        </tr>
+       
+        `);
     }
     $("#EncomendaModal .productListing").append(`</table>`);
     
     getOrderStatus(orderID);
 	
 
+}
+
+
+function makeReview(codArtigo,codCliente){
+    console.log("making raviews");  
 }
 function getOrderStatus(orderID)
 {
