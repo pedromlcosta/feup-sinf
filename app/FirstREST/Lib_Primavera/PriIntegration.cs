@@ -397,7 +397,7 @@ namespace FirstREST.Lib_Primavera
                     myArt.IVA = objList.Valor("iva");
 
                     //TODO: get artigo image from pgsql
-                    myArt.imageURL = "test";
+                    myArt.imageURL = "default.jpg";
 
                     if (moeda != "EUR")
                         myArt.PVP1 = getPrecoCambio(myArt.PVP1, moeda);
@@ -446,7 +446,7 @@ namespace FirstREST.Lib_Primavera
                     art.IVA = objList.Valor("iva");
 
                     //TODO: get artigo image from pgsql
-                    art.imageURL = "test";
+                    art.imageURL = "default.jpg";
 
                     if (moeda != "EUR")
                         art.PVP1 = getPrecoCambio(art.PVP1, moeda);

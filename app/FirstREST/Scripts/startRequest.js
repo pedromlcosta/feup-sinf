@@ -1,6 +1,74 @@
 var articles;
 var families;
 var current_filtered_articles = new Array();
+
+function clearModalErrors() {
+    $("#image_success").empty();
+    $("#image_failure").empty();
+}
+
+$(document).ready(function() {  
+    $('.imageUpload').on('submit', function() {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+       
+        console.log($(this).find(".productID").val());
+
+        /*
+        var data = new FormData(this); 
+        var files = $(this).find("#imageUpload").get(0).files;
+        console.log(data);
+
+        // Add the uploaded image content to the form data collection  
+        if (files.length > 0) {  
+            data.append("UploadedImage", files[0]);  
+        }  
+         */
+        var root = location.protocol + '//' + location.host + '/';
+
+        $.ajax({
+            url: root + 'api/imageUpload',
+            type: 'POST',
+            data: new FormData(this),
+            contentType: false,  
+            processData: false,
+            success: function (data, textStatus, jqXHR) {
+                if (typeof data.error === 'undefined') {
+                    console.log(data.imageURL);
+                    if (data.imageURL == 'true') {
+                        console.log("ImageURL is: " + data.imageURL);
+                        clearModalErrors();
+                        //location.reload();
+                        //window.location.href = root;
+                        //window.location.replace(root);
+                    } else {
+                        clearModalErrors();
+                        console.log(data.error);
+                        $("#image_failure").prepend("Could not save image.");
+                    }
+                } else {
+                    // Handle errors here
+                    console.log('ERRORS: ' + data.error);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Handle errors here
+                console.log('ERRORS: ' + jqXHR.status + " - " + errorThrown);
+                clearModalErrors();
+                if (jqXHR.status == 400)
+                    $("#image_failure").prepend("Could not save image.");
+                else
+                    $("#image_failure").prepend("Could not save image.");
+            }   
+        });
+
+
+        
+    });  
+});  
+
+
 window.onload = getArticlesRequest;
 function getArticlesRequest()
 {
@@ -84,7 +152,7 @@ function processArticles(articles,start_index,end_index)
 		if(articleHolder != null) articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
 						<div class='col-m'>
 							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
-								<img src='../../../Images/i7.png' class='img-responsive' alt='' >
+								<img src='../../../Images/'+imageURL+ class='img-responsive' alt='' >
 							</a>
                         
 							<div class='mid-1'>
@@ -110,13 +178,14 @@ function processArticles(articles,start_index,end_index)
 		$("#myModal"+j+" .reducedfrom").html("€"+withIVA);
 		$("#myModal"+j+" .in-para").html(fullDesc);
 		$("#myModal"+j+" .quick_desc").html("");
+		$("#myModal"+j+" .imageUpload .productID").val(codArtigo);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id",codArtigo);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-name",desc);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-summary",desc);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price",withIVA);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-price-original",price);
 		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-quantity","1");
-		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","../../../Images/i7.png");
+		$("#myModal"+j+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-image","../../../Images/" +imageURL);
         if(stock > 0) $("#myModal"+j+" .quick").append("<p>"+stock+ " units left <span style='color:green;'>✔</span></p>");
 		else 
 		{

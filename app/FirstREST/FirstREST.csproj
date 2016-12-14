@@ -274,6 +274,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ClientRegisterController.cs" />
+    <Compile Include="Controllers\ImageUploadController.cs" />
     <Compile Include="RequestObjects\Purchase.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Connection\ConnectionFactory.cs" />
