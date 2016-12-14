@@ -45,7 +45,7 @@ namespace FirstREST.Lib_Primavera
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
 
 
-            return Request.CreateResponse(HttpStatusCode.Accepted);
+            return Request.CreateResponse(HttpStatusCode.Accepted, new { changed = "true" });
 
         }
         //Send from Body ou a partir do URL?

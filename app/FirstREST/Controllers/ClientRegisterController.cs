@@ -30,12 +30,18 @@ namespace FirstREST.Controllers
             string nif = data.nif;
             string adminCode = data.adminCode;
             string type = "cliente";
+            string telemovel = data.telemovel;
+            string localidade = data.localidade;
+            string cp = data.cp;
+
             Debug.Write(name + "\n");
             Debug.Write(email + "\n");
             Debug.Write(password + "\n");
             Debug.Write(address + "\n");
             Debug.Write(nif + "\n");
-            Debug.Write(adminCode + "\n");
+            Debug.Write(telemovel + "\n");
+            Debug.Write(localidade + "\n");
+            Debug.Write(cp + "\n");
 
             //Por agora até alguém alterar no pedido
             if (adminCode != null && System.Text.RegularExpressions.Regex.Match(adminCode, patternToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success)
@@ -44,11 +50,11 @@ namespace FirstREST.Controllers
                 Debug.Write("\n it passed the regex\n");
             }
 
-            if (email != null && password != null && address != null && nif != null && name != null)
+            if (email != null && password != null && address != null && nif != null && name != null && telemovel != null && localidade != null && cp != null)
             {
                 //checks if login is correct
 
-                int registerStatus = register(email, password, name, address, nif, type);
+                int registerStatus = register(email, password, name, address, nif, type, telemovel, localidade, cp);
                 Debug.Write(name + "\n");
                 Debug.Write(registerStatus);
                 if (registerStatus == 1)
@@ -76,7 +82,7 @@ namespace FirstREST.Controllers
 
         }
 
-        private int register(string email, string password, string name, string address, string nif, string type)
+        private int register(string email, string password, string name, string address, string nif, string type, string telemovel, string localidade, string cp)
         {
             NpgsqlConnection conn = null;
             Debug.Write(name + "\n");
@@ -124,7 +130,7 @@ namespace FirstREST.Controllers
                     }
                     dr.Close();
                     // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente --  return the clienteName
-                    int returnValue = Lib_Primavera.PriIntegration.registerCliente(codCliente.ToString(), email, name, address, nif);
+                    int returnValue = Lib_Primavera.PriIntegration.registerCliente(codCliente.ToString(), email, name, address, nif, telemovel, localidade, cp);
 
                     if (returnValue > 0)
                     {

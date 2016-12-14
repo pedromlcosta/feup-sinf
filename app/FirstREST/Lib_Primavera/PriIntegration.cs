@@ -246,7 +246,7 @@ namespace FirstREST.Lib_Primavera
             return null;
         }
 
-        public static int registerCliente(string codCliente, string email, string nome, string morada, string nif)
+        public static int registerCliente(string codCliente, string email, string nome, string morada, string nif, string telemovel, string localidade, string cp)
         {
             Debug.Write("NOME: " + nome);
             Debug.Write("EMAIL: " + email);
@@ -268,6 +268,10 @@ namespace FirstREST.Lib_Primavera
                     objCli.set_B2BEnderecoMail(email);
                     objCli.set_Nome(nome);
                     objCli.set_Morada(morada);
+                    objCli.set_Telefone(telemovel);
+                    objCli.set_Localidade(localidade);
+                    objCli.set_LocalidadeCodigoPostal(localidade);
+                    objCli.set_CodigoPostal(cp);
                     objCli.set_NumContribuinte(nif);
 
                     PriEngine.Engine.Comercial.Clientes.Actualiza(objCli);
