@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Diagnostics;
 
 namespace FirstREST.RequestObjects
 {
@@ -13,8 +14,17 @@ namespace FirstREST.RequestObjects
 
         public override string ToString()
         {
-            return "[ Field To Edit: " + fieldToEdit + " \n Id of Product: " + idOfProduct + " \n New Value of Field: " + valueToSet+" ]";
+            return "[ Field To Edit: " + fieldToEdit + " \n Id of Product: " + idOfProduct + " \n New Value of Field: " + valueToSet + " ]";
         }
 
+        public bool isFieldNull()
+        {
+            if (fieldToEdit == null || idOfProduct == null || valueToSet == null)
+                return true;
+            else {
+                Debug.Write("\n A Filed is NULL\n");
+                return false;
+            }
+        }
     }
 }

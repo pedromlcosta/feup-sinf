@@ -41,8 +41,9 @@ function processOrders(orders,start_index,end_index)
         var totalIva = orders[i].TotalIva;
         var totalDesc = orders[i].TotalDesc;
         var soldItems = orders[i].LinhasDoc;
-        var final = totalMerc-totalDesc;
-        var pricewithoutIva=totalMerc-totalIva
+        var final = totalMerc+totalIva;
+        // totalMerc é o preço sem iva. totalIVA é IVA*totalMerc. Preço final = totalMerc + totalIVA.
+        var pricewithoutIva=totalMerc;
         orderHolder.innerHTML += `<div class='col-md4 pro-1'>
 						<div class='col-cs'>
 							<a href='#' data-toggle='modal' data-target='#EncomendaModal' onclick="getOrderDetails('`+orderID+`');">

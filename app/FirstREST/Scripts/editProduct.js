@@ -14,8 +14,9 @@ $('#descriptionHolder').on('blur','.in-para.productDescEdit',function(event) {
     });
 
 function ajaxRequestsToEdit(fieldToEdit,valueToSet,idOfProduct){
+   var root = location.protocol + '//' + location.host + '/';
 	 $.ajax({
-            url: root + 'api/ArtigosControler',
+            url: root + 'api/Artigos',
             type: 'POST',
             data:
             {

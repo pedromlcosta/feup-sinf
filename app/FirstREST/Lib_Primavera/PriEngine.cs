@@ -14,56 +14,63 @@ namespace FirstREST.Lib_Primavera
     {
         public static StdPlatBS Platform { get; set; }
         public static ErpBS Engine { get; set; }
+        public static bool initialized = false;
 
         public static bool InitializeCompany(string Company, string User, string Password)
         {
-            StdBSConfApl objAplConf = new StdBSConfApl();
-            objAplConf.Instancia = "Default";
-            objAplConf.AbvtApl = "GCP";
-            objAplConf.PwdUtilizador = Password;
-            objAplConf.Utilizador = User;
-            objAplConf.LicVersaoMinima = "9.00";
-            StdBETransaccao objStdTransac = new StdBETransaccao();
-
-            StdPlatBS Plataforma = new StdPlatBS();
-            ErpBS MotorLE = new ErpBS();
-
-            EnumTipoPlataforma objTipoPlataforma = new EnumTipoPlataforma();
-            objTipoPlataforma = EnumTipoPlataforma.tpProfissional;
-
-            objAplConf.Instancia = "Default";
-            objAplConf.AbvtApl = "GCP";
-            objAplConf.PwdUtilizador = Password;
-            objAplConf.Utilizador = User;
-            objAplConf.LicVersaoMinima = "9.00";
-
-            // Retuns the ptl.
-            Platform = Plataforma;
-            // Returns the engine.
-            Engine = MotorLE;
-
-            try
+            if (!initialized)
             {
-                Platform.AbrePlataformaEmpresa(ref Company, ref objStdTransac, ref objAplConf, ref objTipoPlataforma, "");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error on open Primavera Platform.");
-            }
+                StdBSConfApl objAplConf = new StdBSConfApl();
+                objAplConf.Instancia = "Default";
+                objAplConf.AbvtApl = "GCP";
+                objAplConf.PwdUtilizador = Password;
+                objAplConf.Utilizador = User;
+                objAplConf.LicVersaoMinima = "9.00";
+                StdBETransaccao objStdTransac = new StdBETransaccao();
 
-            // Is plt initialized?
-            if (Platform.Inicializada)
-            {
-                bool blnModoPrimario = true;
-                // Open Engine
-                Engine.AbreEmpresaTrabalho(EnumTipoPlataforma.tpProfissional, ref Company, ref User, ref Password, ref objStdTransac, "Default", ref blnModoPrimario);
-                Engine.set_CacheActiva(false);
-                return true;
+                StdPlatBS Plataforma = new StdPlatBS();
+                ErpBS MotorLE = new ErpBS();
+
+                EnumTipoPlataforma objTipoPlataforma = new EnumTipoPlataforma();
+                objTipoPlataforma = EnumTipoPlataforma.tpProfissional;
+
+                objAplConf.Instancia = "Default";
+                objAplConf.AbvtApl = "GCP";
+                objAplConf.PwdUtilizador = Password;
+                objAplConf.Utilizador = User;
+                objAplConf.LicVersaoMinima = "9.00";
+
+                // Retuns the ptl.
+                Platform = Plataforma;
+                // Returns the engine.
+                Engine = MotorLE;
+
+                try
+                {
+                    Platform.AbrePlataformaEmpresa(ref Company, ref objStdTransac, ref objAplConf, ref objTipoPlataforma, "");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error on open Primavera Platform.");
+                }
+
+                // Is plt initialized?
+                if (Platform.Inicializada)
+                {
+                    bool blnModoPrimario = true;
+                    // Open Engine
+                    Engine.AbreEmpresaTrabalho(EnumTipoPlataforma.tpProfissional, ref Company, ref User, ref Password, ref objStdTransac, "Default", ref blnModoPrimario);
+                    Engine.set_CacheActiva(false);
+                    initialized = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
-            {
-                return false;
-            }
+                return true;
         }
     }
 }
