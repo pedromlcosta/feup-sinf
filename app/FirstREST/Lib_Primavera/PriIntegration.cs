@@ -238,7 +238,7 @@ namespace FirstREST.Lib_Primavera
                 // Cliente does not exist in primavera
                 GcpBECliente objCli = new GcpBECliente();
                 objCli = Lib_Primavera.PriEngine.Engine.Comercial.Clientes.Edita(codCliente);
-                return objCli.get_Nome(); ;
+                return objCli.get_Nome();  
             }
             return null;
         }

@@ -127,7 +127,10 @@ namespace FirstREST.Controllers
                 }
 
                 // TEST PRIMAVERA TO CHECK IF CLIENT EXISTS WITH THE codCliente
-                clientName = Lib_Primavera.PriIntegration.getClienteName(codCliente);
+                if (codCliente != null)
+                    clientName = Lib_Primavera.PriIntegration.getClienteName(codCliente);
+                else
+                    login = -1;
 
                 if (clientName == null)
                     login = -2;
