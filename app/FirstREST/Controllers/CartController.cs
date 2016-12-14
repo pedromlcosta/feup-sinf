@@ -19,13 +19,28 @@ namespace FirstREST.Lib_Primavera
         {
 
             string userID = data.id;
-            string date = data.date;
+            string name = data.name;
+            string email = data.email;
+            string nif = data.nif;
             string address = data.address;
+            string postal = data.postal;
+            string payment = data.payment;
             List<Purchase> products = data.products;
-            if (userID != null && date != null && address != null && products != null)
+            bool debug = true;
+            if (userID != null && name != null && email != null && nif != null  && address != null && postal != null && payment != null)
             {
+                if(debug)
+                {
+                    Debug.WriteLine(userID);
+                    Debug.WriteLine(name);
+                    Debug.WriteLine(email);
+                    Debug.WriteLine(nif);
+                    Debug.WriteLine(address);
+                    Debug.WriteLine(postal);
+                    Debug.WriteLine(payment);
+                }
                 Lib_Primavera.Model.RespostaErro erro;
-                erro = encomendaPrimavera(userID, date, address, products);
+                erro = encomendaPrimavera(userID, name, email,nif, address, postal, payment, products);
                 if (erro.Descricao.Equals("Sucesso"))
                 {
                     return Request.CreateResponse(HttpStatusCode.OK);
@@ -38,7 +53,7 @@ namespace FirstREST.Lib_Primavera
             }
             return Request.CreateResponse(HttpStatusCode.NotAcceptable);
         }
-        public Lib_Primavera.Model.RespostaErro encomendaPrimavera(string userID, string date, string address, List<Purchase> products)
+        public Lib_Primavera.Model.RespostaErro encomendaPrimavera(string userID, string name, string email, string nif, string address, string postal, string payment, List<Purchase> products)
         {
             Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
             GcpBEDocumentoVenda myEnc = new GcpBEDocumentoVenda();
@@ -50,14 +65,23 @@ namespace FirstREST.Lib_Primavera
             {
                 if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
                 {
-                    //parse date to Datetime or wtv
-                    //myEnc.set_DataDoc(dv.Data);
                     myEnc.set_Entidade(userID);
+                    myEnc.set_NumContribuinte(nif);
+
                     myEnc.set_Tipodoc("ECL");
                     myEnc.set_TipoEntidade("C"); //Client
-                    myEnc.set_ModoPag("TRA"); //Online transfer
+                    if (payment.Equals("paypal")) myEnc.set_ModoPag("TRA"); //Online transfer
+                    else myEnc.set_ModoPag("TRA"); //Online transfer
+
                     myEnc.set_CondPag("1"); //Request immediate payment.
                     myEnc.set_DataDoc(DateTime.Today);
+
+                    myEnc.set_CodigoPostal(postal);
+                    myEnc.set_CodPostalEntrega(postal);
+                    myEnc.set_CodPostalLocalidadeEntrega(postal);
+
+                    myEnc.set_Morada(address);
+                    myEnc.set_MoradaEntrega(address);
                     PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc);
                     foreach (Purchase p in products)
                     {
