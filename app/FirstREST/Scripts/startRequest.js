@@ -148,7 +148,7 @@ function filterArticlesbyCategory(string)
         var catg = articles[i].subFamiliaDesc;
         if(catg.toLowerCase().indexOf(string.toLowerCase()) !== -1)
         {
-            console.log("match");
+            
             current_filtered_articles.push(articles[i]);
         }
     }

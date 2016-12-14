@@ -107,7 +107,7 @@ function autoFill()
     var get_email = $("#email_input").val();
     var get_name = $("#name_input").val();
 
-    $("#checkoutEmail").val(get_email);
-    $("#checkoutName").val(get_name);
+    // $("#checkoutEmail").val(get_email);
+    //$("#checkoutName").val(get_name);
     
 }

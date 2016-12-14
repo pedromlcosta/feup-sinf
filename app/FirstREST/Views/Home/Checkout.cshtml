@@ -22,7 +22,7 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input id="checkoutName" name="checkoutName" placeholder="Name" class="form-control" type="text" required>
+                    <input id="checkoutName" name="checkoutName" placeholder="Name" class="form-control" type="text" value='@Session["name"]' required>
 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
@@ -36,7 +36,7 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input id="checkoutEmail" name="checkoutEmail" placeholder="Email" class="form-control" type="text" required>
+                    <input id="checkoutEmail" name="checkoutEmail" placeholder="Email" class="form-control" type="text" value="@Session["username"]" required>
 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
@@ -75,8 +75,8 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input name="checkoutPostal" placeholder="Código: XXXX-XXX" class="form-control" type="text" required>
-                    <input name="checkoutLocalidade" placeholder="Localidade" class="form-control" type="text" required>
+                    <input name="checkoutPostal" placeholder="Código: XXXX-XXX" class="form-control" type="text" value="@Session["codPostal"]" required>
+                    <input name="checkoutLocalidade" placeholder="Localidade" class="form-control" type="text" value ="@Session["localidadeCP"]" required>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>
@@ -88,7 +88,7 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input name="checkoutTelemovel" placeholder="Telemóvel: XXX XXX XXX" class="form-control" type="number" required>
+                    <input name="checkoutTelemovel" placeholder="Telemóvel: XXX XXX XXX" class="form-control" type="number" @Session["numTelemovel"] required>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>
