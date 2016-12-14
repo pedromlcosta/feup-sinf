@@ -72,6 +72,8 @@ namespace FirstREST.Lib_Primavera
                     myCli.Moeda = objCli.get_Moeda();
                     myCli.NumContribuinte = objCli.get_NumContribuinte();
                     myCli.Morada = objCli.get_Morada();
+                    myCli.NumTelemovel = objCli.get_Telefone();
+                    myCli.CodPostal = objCli.get_CodigoPostal();
                     return myCli;
                 }
                 else
