@@ -22,7 +22,7 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input id="registerName" name="registerName" placeholder="Name" class="form-control" type="text" required>
+                    <input id="checkoutName" name="checkoutName" placeholder="Name" class="form-control" type="text" required>
 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
@@ -36,7 +36,7 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input id="registerEmail" name="registerEmail" placeholder="Email" class="form-control" type="text" required>
+                    <input id="checkoutEmail" name="checkoutEmail" placeholder="Email" class="form-control" type="text" required>
 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
@@ -49,7 +49,7 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input name="nif" placeholder="NIF. Must have 9 characters Ex: 123456789" class="form-control" type="number" required>
+                    <input name="checkoutNif" placeholder="NIF. Must have 9 characters Ex: 123456789" class="form-control" type="number" required>
 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
@@ -62,15 +62,32 @@
             <div class="col-md-6 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input name="address" placeholder="Morada" class="form-control" type="text" required>
+                    <input name="checkoutAddress" placeholder="Morada" class="form-control" type="text" required>
 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>
         </div>
+        
+        <!-- POSTAL -->
+        <div class="form-group">
+            <label class="col-md-3 control-label">Código Postal</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="checkoutPostal" placeholder="Codigo Postal" class="form-control" type="text" required>
 
-
-            <button id="registerSubmitBtn" type="submit" class="btn btn-success center-block">Checkout</button>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Pagamento</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Paypal</label>
+            <label class="radio-inline"><input type="radio" name="optradio">VISA</label>
+            <label class="radio-inline"><input type="radio" disabled name="optradio">Cheque</label>
+        </div>
+            <button id="checkoutSubmit" type="submit" class="btn btn-success center-block">Checkout</button>
 
 
             <!-- SUCCESS MESSAGE -->

@@ -1,7 +1,7 @@
 var currentIndex = 1;
 var startIndex = 0;
 var endIndex = 8;
-function pageToLeft()
+function pageToLeft(purpose)
 {
 	if(currentIndex > 1) 
 	{
@@ -10,19 +10,33 @@ function pageToLeft()
 		startIndex -= 8;
 	}
 	document.getElementById("pageIndex").innerHTML = currentIndex;
+    if(purpose=='artigo')
 	processArticles(current_filtered_articles,startIndex,endIndex);
-
+    if(purpose=='encomenda')
+    processOrders(orders,startIndex,endIndex)
 }
-function pageToRight()
+function pageToRight(purpose)
 {
-	if(startIndex+8 < current_filtered_articles.length)
-	{
-		currentIndex++;
-		startIndex = endIndex
-		endIndex += 8;
-	}
+    if(purpose=='artigo')
+	    if(startIndex+8 < current_filtered_articles.length)
+	    {
+		    currentIndex++;
+		    startIndex = endIndex
+		    endIndex += 8;
+	    }
+    if (purpose == 'encomenda')
+        if (startIndex + 8 < orders.length)
+        {
+            currentIndex++;
+            startIndex = endIndex
+            endIndex += 8;
+        }
 	document.getElementById("pageIndex").innerHTML = currentIndex;
-	processArticles(current_filtered_articles,startIndex,endIndex);
+	
+	if (purpose == 'artigo')
+	    processArticles(current_filtered_articles, startIndex, endIndex);
+	if (purpose == 'encomenda')
+	    processOrders(orders, startIndex, endIndex)
 }
 function resetPaging()
 {

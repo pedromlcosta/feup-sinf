@@ -2,7 +2,7 @@
 // JavaScript source code
 var orders;
 var orderStatus;
-var current_filtered_orders = new Array();
+
 window.onload = getOrderHistoryRequest;
 function getOrderHistoryRequest()
 {
@@ -23,13 +23,12 @@ function getOrderHistoryRequest()
 }
 function processOrders(orders,start_index,end_index)
 {
-    var i;
-    //alert(orders[4].CodArtigo);
+
+    var i;  
     var orderHolder = document.getElementById("order-holder");
     //For the modals.
     orderHolder.innerHTML = "";
     if(orders.length < end_index) end_index = orders.length;
-    console.log(orders);
     for(i=start_index;i<end_index;i++)
     {
         
@@ -123,27 +122,36 @@ function getOrderStatus(orderID)
             }
             else
             {
-                
+               // $("#EncomendaModal .orderStatus").append(`<p>`+orderStatus.Estado+`</p>`);
                 switch(orderStatus.Estado)
                 {
                     case 'T':
+                        if(orderStatus.Fechado==1){
+                        $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
+                        break;
+                        }
+                            
                         if(orderStatus.Anulado==0)
-                            $("#EncomendaModal .orderStatus").append("<p>In transit.</p>");
+                            $("#EncomendaModal .orderStatus").append("<p>Payment Confirmed, Shipped.</p>");
                         else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
                         break;
                     case 'P':
+                        if(orderStatus.Fechado==1){
+                        $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
+                        break;
+                        }
                         if(orderStatus.Anulado==0)
-                            $("#EncomendaModal .orderStatus").append("<p>Payment received. Shipping soon.</p>");
+                            $("#EncomendaModal .orderStatus").append("<p>Approved Order,Pending to confirm payment</p>");
                         else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
                         break;
                     case 'F':
+                        if(orderStatus.Fechado==1)
                         $("#EncomendaModal .orderStatus").append("<p>Order closed.</p>");
                         break;
-                    case 'G':
-                        if(orderStatus.Anulado==0)
-                            $("#EncomendaModal .orderStatus").append("<p>In Processing.</p>");
-                        else $("#EncomendaModal .orderStatus").append("<p>Anulled</p>");
+                    case 'R':
+                        $("#EncomendaModal .orderStatus").append("<p>Rejected/Anulled</p>");
                         break;
+                   
                 }
             }
         }
@@ -154,77 +162,5 @@ function getOrderStatus(orderID)
 }
 
 
-/*
- 
-}*/
              
-    /*
-function filterorders(string)
-{
-	current_filtered_orders = [];
-	for(var i=0;i<orders.length;i++)
-    {
-		var desc = orders[i].DescArtigo
-		if(desc.toLowerCase().indexOf(string) !== -1)
-	    {
-			current_filtered_orders.push(orders[i]);
-		}
-	}
-	if(string != "" ) processorders(current_filtered_orders,0,8);
-	else processorders(orders,0,8);
-}
-function filterordersbyCategory(string)
-{
-    current_filtered_orders = [];
-    for(var i=0;i<orders.length;i++)
-    {
-        var catg = orders[i].subFamiliaDesc;
-        if(catg.toLowerCase().indexOf(string.toLowerCase()) !== -1)
-        {
-            console.log("match");
-            current_filtered_orders.push(orders[i]);
-        }
-    }
-    if(string != "" ) processorders(current_filtered_orders,0,8);
-    else processorders(orders,0,8);
-}
-function getStorage(modal)
-{
-	var id = $("#myModal"+modal+" .btn.btn-danger.my-cart-btn.my-cart-btn1").attr("data-id");
-	getStorages(id,modal);
-	
 
-}
-function getStorages(id,modal)
-{
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() 
-	{
-	    if (this.readyState == 4 && this.status == 200) {
-    		storages = JSON.parse(xhttp.responseText);
-    		$("#myModal"+modal+" .quick").html("");
-    		if(storages == null)
-	        {   
-    		    $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
-    		}
-    		else
-    		{
-    		    if(storages.length > 0)
-    		    {
-    		        storages.forEach(function(item, index)
-    		        {
-    		            $("#myModal"+modal+" .quick").append("<p>"+item.Armazem+ "<span style='color:green;'>✔</span></p>");
-    		        });
-    		    }
-    		    else
-    		    {
-    		        $("#myModal"+modal+" .quick").append("<p>Out of Stock.</p>");
-    		    }
-    		}
-	    }
-	};
-	xhttp.open("GET", "http://localhost:49822/api/ArtigoArmazem/"+id, true);
-	xhttp.setRequestHeader("Content-Type", "text/json");
-	xhttp.send();
-}
-*/
