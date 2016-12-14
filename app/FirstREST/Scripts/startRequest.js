@@ -62,6 +62,10 @@ function processArticles(articles,start_index,end_index)
 		var flagIVA= articles[i].PVP1_IVA;
 		var marca = articles[i].Marca;
 		var stock = articles[i].StockActual;
+		var imageURL = articles[i].imageURL;
+
+		console.log(imageURL);
+
 		var iva;
 		var withIVA;
 		if(!flagIVA){
