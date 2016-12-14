@@ -65,7 +65,7 @@ namespace FirstREST.Controllers
                 string secondSQL;
                 int idCli=-1;
                 int idArt=-1;
-                string sql = "SELECT product.code,utilizador.code FROM product,utilizador WHERE product.primaveracode=:art AND utilizador.code=:cli";
+                string sql = "SELECT product.code,utilizador.code FROM product,utilizador WHERE product.primaveracode=:art AND utilizador.primaveracode=:cli";
                 NpgsqlCommand command = new NpgsqlCommand();
                 command.Connection = conn;
                 command.CommandText = sql;
