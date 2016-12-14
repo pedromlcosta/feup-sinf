@@ -14,7 +14,7 @@
 <!--register-->
 
 <div class="register">
-    <form class="well form-horizontal " action="#" method="post" id="client_register_form">
+    <form class="well form-horizontal " action="#" method="post" id="client_checkout_form">
 
         <!-- NAME -->
         <div class="form-group">
@@ -81,24 +81,29 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+
+        <div class="form-group" id="checkoutPayment">
             <label class="col-md-3 control-label">Pagamento</label>
-            <label class="radio-inline"><input type="radio" name="optradio">Paypal</label>
-            <label class="radio-inline"><input type="radio" name="optradio">VISA</label>
-            <label class="radio-inline"><input type="radio" disabled name="optradio">Cheque</label>
+            <label class="radio-inline"><input type="radio" name="pay" value="paypal">Paypal</label>
+            <label class="radio-inline"><input type="radio" name="pay" value="visa">VISA</label>
+            <label class="radio-inline"><input type="radio" name="pay" disabled value="cheque">Cheque</label>
         </div>
-            <button id="checkoutSubmit" type="submit" class="btn btn-success center-block">Checkout</button>
+           
 
 
             <!-- SUCCESS MESSAGE -->
-            <div id="register_success" class="text-center">
+            <div id="checkout_success" class="text-center">
             </div>
             <!-- FAILURE MESSAGE -->
-            <div id="register_failure" class="text-center">
+            <div id="checkout_failure" class="text-center">
             </div>
 
         </div>
     </form>
+    <button id="checkoutSubmit" class="btn btn-success center-block" onclick="makeOrder()">Checkout</button>
 </div>
+<script type='text/javascript'>
+    autoFill();
+</script>
 
 @RenderPage("footer.cshtml")
