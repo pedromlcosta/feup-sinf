@@ -379,7 +379,7 @@ namespace FirstREST.Lib_Primavera
                 else
                 {
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
-                    objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,Artigo.Observacoes,PVP1,ArtigoMoeda.PVP1IvaIncluido,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia AND PVP1>0 AND STKActual >0 ");
+                    objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,Artigo.Observacoes,PVP1,ArtigoMoeda.PVP1IvaIncluido,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia AND PVP1>=0 ");
                     String moeda = objList.Valor("moeda");
 
                     myArt.CodArtigo = objList.Valor("artigo");
@@ -422,7 +422,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,Artigo.Observacoes,PVP1,ArtigoMoeda.PVP1IvaIncluido,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia AND PVP1>0 AND STKActual>0");
+                objList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo,Artigo.Descricao,Artigo.Observacoes,PVP1,ArtigoMoeda.PVP1IvaIncluido,STKActual,Marca,Artigo.Familia,Artigo.SubFamilia,Familias.Descricao AS FamiliaDesc,SubFamilias.Descricao AS SubFamiliaDesc,IVA,ArtigoMoeda.moeda AS moeda FROM ArtigoMoeda,Artigo,Familias,SubFamilias WHERE ArtigoMoeda.Artigo= Artigo.Artigo AND Artigo.Familia = Familias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia AND SubFamilias.Familia=Familias.Familia AND PVP1>=0");
                 //objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
 
                 while (!objList.NoFim())
