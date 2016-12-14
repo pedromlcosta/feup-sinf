@@ -84,6 +84,15 @@ EXECUTE PROCEDURE insertPrimaveraCode();
 INSERT INTO Utilizador (email, type, password) VALUES ('hi@gmail.com', 'admin', '123');
 INSERT INTO Utilizador (email, type, password) VALUES ('TEST@gmail.com', 'client', '123');
 INSERT INTO Utilizador (email, type, password) VALUES ('TESTsdasdasd.com', 'client', '123');
-INSERT INTO Utilizador (code,email,type,password) VALUES ('SOFRIO','sofrio@gmail.com','client','123');
-INSERT INTO Utilizador (code,email,type,password) VALUES ('ALCAD','alcad@gmail.com','client','123');
+INSERT INTO Utilizador (email,type,password) VALUES ('sofrio@gmail.com','client','123');
+INSERT INTO Utilizador (email,type,password) VALUES ('alcad@gmail.com','client','123');
+INSERT INTO Utilizador (email,type,password) VALUES ('lima@gmail.com','client','123');
+INSERT INTO Utilizador (email,type,password) VALUES ('silva@gmail.com','client','123');
+INSERT INTO Utilizador (email,type,password) VALUES ('jmf@gmail.com','client','123');
+UPDATE utilizador SET primaveracode='SOFRIO' WHERE email='sofrio@gmail.com';
+UPDATE utilizador SET primaveracode='ALCAD' WHERE email='alcad@gmail.com';
+UPDATE utilizador SET primaveracode='LIMA' WHERE email='lima@gmail.com';
+UPDATE utilizador SET primaveracode='SILVA' WHERE email='silva@gmail.com';
+UPDATE utilizador SET primaveracode='J.M.F.' WHERE email='jmf@gmail.com';
+
 
