@@ -18,6 +18,13 @@ function tryOrder()
         }
     }
 }
+function getPriceNoIVA(title) {
+    for (var i = 0; i < articles.length; i++) {
+        if (title = articles[i].DescArtigo) {
+            return articles[i].PVP1;
+        }
+    }
+}
 function getCart() {
     var list = [];
     cartList = [];
@@ -26,7 +33,7 @@ function getCart() {
     {
         var title = tr[i].getAttribute("title");
         var id = tr[i].getAttribute("data-id");
-        var price = tr[i].getAttribute("data-price");
+        var price = getPriceNoIVA(title);
         var td = tr[i].children;
         var input = td[3].children;
         var quantity = input[0].getAttribute("value");

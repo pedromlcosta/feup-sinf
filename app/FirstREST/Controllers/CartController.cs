@@ -64,6 +64,7 @@ namespace FirstREST.Lib_Primavera
             try
             {
                 if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+                
                 {
                     myEnc.set_Entidade(userID);
                     myEnc.set_NumContribuinte(nif);
