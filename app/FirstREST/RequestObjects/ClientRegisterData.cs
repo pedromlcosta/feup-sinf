@@ -11,5 +11,9 @@ namespace FirstREST{
         public String address { get; set; }
         public String password { get; set; }
         public String adminCode { get; set; }
+        public String telemovel { get; set; }
+        public String localidade { get; set; }
+        public String cp { get; set; }
+   
     }
 }

@@ -19,8 +19,10 @@ function registernButtonHandler(event) {
     var address = $("input[name='address']").val();
     var password = $("input[name='password']").val();
     var password_confirmation = $("input[name='password_confirmation']").val();
-    var adminCode = $("input[name='admin_code'").val()
-
+    var adminCode = $("input[name='admin_code'").val();
+    var telemovel = $("input[name='telemovel'").val();
+    var localidade = $("input[name='localidade'").val();
+    var codigoPostal = $("input[name='cp'").val();
 
 
     console.log("Email: " + email);
@@ -30,11 +32,16 @@ function registernButtonHandler(event) {
     console.log("pass: " + password);
     console.log("check pass : " + password_confirmation);
     console.log("admin code: " + adminCode);
+     console.log("telemovel: " + telemovel );
+     console.log("localidade: " + localidade );
+     console.log("codigoPostal: " + codigoPostal); 
 
     var root = location.protocol + '//' + location.host + '/';
-
+    var regex="\\d\\d\\d\\d-\\d\\d\\d";
+    var matchResult=codigoPostal.match(regex);
+    console.log(matchResult.length);
     console.log(root);
-    if (password == password_confirmation) {
+    if (password == password_confirmation && matchResult != null && matchResult.length==1) {
 
         $.ajax({
             url: root + 'api/clientRegister',
@@ -46,7 +53,10 @@ function registernButtonHandler(event) {
                 nif: nif,
                 address: address,
                 password: password,
-                adminCode: adminCode
+                adminCode: adminCode,
+                telemovel: telemovel,
+                localidade: localidade,
+                cp:codigoPostal
             },
             success: function (data, textStatus, jqXHR) {
                 if (typeof data.error === 'undefined') {
@@ -74,6 +84,7 @@ function registernButtonHandler(event) {
             }
         });
     } else {
+         clearModalErrors();
         $("#register_failure").prepend("Password and confirmation don't match.");
     }
 
