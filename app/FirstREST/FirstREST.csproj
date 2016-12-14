@@ -283,6 +283,7 @@
     <Compile Include="Lib_Primavera\Model\SubCategoria.cs" />
     <Compile Include="RequestObjects\CartData.cs" />
     <Compile Include="RequestObjects\ClientRegisterData.cs" />
+    <Compile Include="RequestObjects\EditArtigoData.cs" />
     <Compile Include="RequestObjects\LoginData.cs" />
     <Compile Include="Controllers\ArtigoArmazemController.cs" />
     <Compile Include="Controllers\ArtigosController.cs" />

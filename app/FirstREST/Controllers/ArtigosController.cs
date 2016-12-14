@@ -7,10 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Diagnostics;
+using FirstREST.RequestObjects;
 using FirstREST.Lib_Primavera.Model;
 
 
-namespace FirstREST.Controllers
+namespace FirstREST.Lib_Primavera
 {
     public class ArtigosController : ApiController
     {
@@ -37,12 +38,9 @@ namespace FirstREST.Controllers
                 return artigo;
             }
         }
-        public HttpResponseMessage changeArtigo(params int[] list)
+        public HttpResponseMessage POST(EditArtigoData data)
         {
-            for (int i = 0; i < list.Length; i++)
-            {
-                Debug.WriteLine("\n\n"+list[i]+"\n\n");
-            }
+            Debug.Write(data);
 
             return Request.CreateResponse(HttpStatusCode.Accepted);
 

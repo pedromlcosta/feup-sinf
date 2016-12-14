@@ -7,13 +7,21 @@ $('#descriptionHolder').on('blur','.in-para.productDescEdit',function(event) {
   //.attr('data-id')
   var productID=$(this).siblings( ".add-to").children("button.my-cart-btn").attr("data-id");
   var newDesc = $(this).html();
-     $.ajax({
-            url: root + 'api/clientRegister',
+  console.log("Request");
+  ajaxRequestsToEdit('desc',newDesc,productID);
+    
+});
+    });
+
+function ajaxRequestsToEdit(fieldToEdit,valueToSet,idOfProduct){
+	 $.ajax({
+            url: root + 'api/ArtigosControler',
             type: 'POST',
             data:
             {
-                productID: productID,
-                newDesc: newDesc
+            	fieldToEdit: fieldToEdit,
+                idOfProduct: idOfProduct,
+                valueToSet: valueToSet
             },
             success: function (data, textStatus, jqXHR) {
                 if (typeof data.error === 'undefined') {
@@ -35,7 +43,4 @@ $('#descriptionHolder').on('blur','.in-para.productDescEdit',function(event) {
                     $("#register_failure").prepend("Error registering.");
             }
         });
-    
-});
-    });
- 
+ }
