@@ -18,7 +18,7 @@ namespace FirstREST.Controllers
     public class ReviewController : ApiController, IRequiresSessionState
     {
         [WebMethod(EnableSession = true)]
-        public HttpResponseMessage Post(ReviewData data)
+        public HttpResponseMessage Post(FirstREST.RequestObjects.ReviewData data)
         {
             string cli = data.CodCliente;
             string art = data.CodArtigo;
@@ -28,7 +28,7 @@ namespace FirstREST.Controllers
             if (art != null && cli != null)
             {
 
-                if (insertOrUpdReview == 0) 
+                if (insertOrUpdReview(cli,art,text,score) == 0)
                 {
                     var response = Request.CreateResponse(
                        HttpStatusCode.OK);
@@ -41,7 +41,7 @@ namespace FirstREST.Controllers
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
 
-                    
+
             }
             else
             {
@@ -53,18 +53,22 @@ namespace FirstREST.Controllers
         /*
          * Returns 
          */
-        private int insertOrUpdReview(string cli, string art,string text, int score)
+        private int insertOrUpdReview(string cli, string art, string text, int score)
         {
-            bool prevReviewed;
+            
             NpgsqlConnection conn = null;
             try
             {
+                bool prevReviewed=false;
                 // Creates and opens connection to the postgres DB
+              
                 conn = ConnectionFactory.MakePostgresConnection();
                 conn.Open();
+                NpgsqlTransaction transaction = conn.BeginTransaction();
+               
                 string secondSQL;
-                int idCli=-1;
-                int idArt=-1;
+                int idCli = -1;
+                int idArt = -1;
                 string sql = "SELECT product.code,utilizador.code FROM product,utilizador WHERE product.primaveracode=:art AND utilizador.primaveracode=:cli";
                 NpgsqlCommand command = new NpgsqlCommand();
                 command.Connection = conn;
@@ -93,29 +97,30 @@ namespace FirstREST.Controllers
                 }
                 dr.Close();
 
-                if (prevReviewed) {
+                if (prevReviewed==true)
+                {
                     secondSQL = "INSERT INTO reviews (utilizador,productcode,text,review,score) VALUES (:idCli,:idArt,:text,:score) RETURNING code;";
                 }
                 else secondSQL = "UPDATE reviews SET review=:text AND score=:score WHERE reviews.utilizador=:idCli AND reviews.productcode=:idArt RETURNING code;";
 
-                NpgsqlCommand command = new NpgsqlCommand();
-                command.Connection = conn;
-                command.CommandText = sql;
-                command.Parameters.Add(new NpgsqlParameter("idCli", DbType.Int32));
-                command.Parameters.Add(new NpgsqlParameter("idArt", DbType.Int32));
-                command.Parameters.Add(new NpgsqlParameter("text", DbType.String));
-                command.Parameters.Add(new NpgsqlParameter("score", DbType.Int16));
-                command.Parameters[0].Value = idCli;
-                command.Parameters[1].Value = idArt;
-                command.Parameters[2].Value = text;
-                command.Parameters[3].Value = score;
-                command.Prepare();
-                NpgsqlDataReader dr = command.ExecuteReader();
+                NpgsqlCommand command2 = new NpgsqlCommand();
+                command2.Connection = conn;
+                command2.CommandText = sql;
+                command2.Parameters.Add(new NpgsqlParameter("idCli", DbType.Int32));
+                command2.Parameters.Add(new NpgsqlParameter("idArt", DbType.Int32));
+                command2.Parameters.Add(new NpgsqlParameter("text", DbType.String));
+                command2.Parameters.Add(new NpgsqlParameter("score", DbType.Int16));
+                command2.Parameters[0].Value = idCli;
+                command2.Parameters[1].Value = idArt;
+                command2.Parameters[2].Value = text;
+                command2.Parameters[3].Value = score;
+                command2.Prepare();
+                NpgsqlDataReader dr2 = command.ExecuteReader();
                 int idRev = -1;
-                if (dr.HasRows)
+                if (dr2.HasRows)
                 {
 
-                    while (dr.Read())
+                    while (dr2.Read())
                     {
 
                         idRev = (int)dr["code"];
@@ -128,17 +133,17 @@ namespace FirstREST.Controllers
                     transaction.Dispose();
                     return -1;
                 }
-               
-                dr.Close();
+
+                dr2.Close();
 
 
-     
-               transaction.Commit();
-               transaction.Dispose();
-               if (prevReviewed)
-                   Debug.Write("\nUPDATED REVIEW\n");
-               else Debug.Write("\nADDED REVIEW\n");
-               return 1;
+
+                transaction.Commit();
+                transaction.Dispose();
+                if (prevReviewed)
+                    Debug.Write("\nUPDATED REVIEW\n");
+                else Debug.Write("\nADDED REVIEW\n");
+                return 1;
             }
             catch (Exception msg)
             {
@@ -155,6 +160,7 @@ namespace FirstREST.Controllers
 
             }
         }
+
+
     }
-    
 }

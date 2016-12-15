@@ -275,6 +275,8 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ClientRegisterController.cs" />
     <Compile Include="Controllers\ImageUploadController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="RequestObjects\ReviewData.cs" />
     <Compile Include="RequestObjects\Purchase.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Connection\ConnectionFactory.cs" />

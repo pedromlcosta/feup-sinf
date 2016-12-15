@@ -139,7 +139,6 @@ function makeReview(codArtigo,codCliente){
 
     $('input#submitReview').click(function() {
         var text = $('textarea#ReviewText').val();
-        console.log(text);
         $('textarea#ReviewText').val('');
     $.ajax({
         url: root + 'api/review',
