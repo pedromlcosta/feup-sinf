@@ -24,15 +24,15 @@ img TEXT NOT NULL -- link to img of a product
 
 CREATE TABLE IF NOT EXISTS Reviews(
 code SERIAL PRIMARY KEY,
-utilizador INTEGER REFERENCES Utilizador(code),
-productCode INTEGER REFERENCES Product(code),  --subject to change and verify with primavera
+utilizador TEXT REFERENCES Utilizador(primaveraCode),
+productCode TEXT REFERENCES Product(primaveraCode),  --subject to change and verify with primavera
 review TEXT,
 score SMALLINT
 );
  
 CREATE TABLE IF NOT EXISTS Wishlist(
-utilizador  INTEGER REFERENCES Utilizador(code),
-productCode INTEGER REFERENCES Product(code),
+utilizador TEXT REFERENCES Utilizador(primaveraCode),
+productCode TEXT REFERENCES Product(primaveraCode),
 quantity INTEGER NOT NULL DEFAULT 1,
  PRIMARY KEY(utilizador, productCode)
 );

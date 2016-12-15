@@ -25,6 +25,8 @@ namespace FirstREST.Controllers
             string text = data.text;
             int score = data.score;
 
+            Debug.Write(cli + ";" + art + ";" + text + ";" + score.ToString());
+
             if (art != null && cli != null)
             {
 
@@ -69,7 +71,7 @@ namespace FirstREST.Controllers
                 string secondSQL;
                 int idCli = -1;
                 int idArt = -1;
-                string sql = "SELECT product.code,utilizador.code FROM product,utilizador WHERE product.primaveracode=:art AND utilizador.primaveracode=:cli";
+                string sql = "SELECT reviews.productcode,reviews.utilizador FROM reviews WHERE reviews.primaveracode=:art AND reviews.utilizador=:cli";
                 NpgsqlCommand command = new NpgsqlCommand();
                 command.Connection = conn;
                 command.CommandText = sql;
@@ -81,15 +83,7 @@ namespace FirstREST.Controllers
                 NpgsqlDataReader dr = command.ExecuteReader();
                 if (dr.HasRows)
                 {
-
-                    while (dr.Read())
-                    {
-                        idCli = (int)dr["utilizador.code"];
-                        idArt = (int)dr["product.code"];
-                        Debug.Write("\nUser,product: " + idCli.ToString() + " " + idArt.ToString());
-                    }
-                    if (idCli != -1 && idArt != -1)
-                        prevReviewed = true;
+                    prevReviewed = true;
                 }
                 else
                 {
@@ -97,21 +91,21 @@ namespace FirstREST.Controllers
                 }
                 dr.Close();
 
-                if (prevReviewed==true)
+                if (prevReviewed==false)
                 {
-                    secondSQL = "INSERT INTO reviews (utilizador,productcode,text,review,score) VALUES (:idCli,:idArt,:text,:score) RETURNING code;";
+                    secondSQL = "INSERT INTO reviews (utilizador,productcode,review,score) VALUES (:cli,:art,:text,:score) RETURNING code;";
                 }
-                else secondSQL = "UPDATE reviews SET review=:text AND score=:score WHERE reviews.utilizador=:idCli AND reviews.productcode=:idArt RETURNING code;";
+                else secondSQL = "UPDATE reviews SET review=:text AND score=:score WHERE reviews.utilizador=:cli AND reviews.productcode=:art RETURNING code;";
 
                 NpgsqlCommand command2 = new NpgsqlCommand();
                 command2.Connection = conn;
                 command2.CommandText = sql;
-                command2.Parameters.Add(new NpgsqlParameter("idCli", DbType.Int32));
-                command2.Parameters.Add(new NpgsqlParameter("idArt", DbType.Int32));
+                command2.Parameters.Add(new NpgsqlParameter("cli", DbType.Int32));
+                command2.Parameters.Add(new NpgsqlParameter("art", DbType.Int32));
                 command2.Parameters.Add(new NpgsqlParameter("text", DbType.String));
                 command2.Parameters.Add(new NpgsqlParameter("score", DbType.Int16));
-                command2.Parameters[0].Value = idCli;
-                command2.Parameters[1].Value = idArt;
+                command2.Parameters[0].Value = cli;
+                command2.Parameters[1].Value = art;
                 command2.Parameters[2].Value = text;
                 command2.Parameters[3].Value = score;
                 command2.Prepare();
