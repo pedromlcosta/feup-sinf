@@ -52,9 +52,18 @@ namespace FirstREST.Controllers
             }
         }
 
-        /*
-         * Returns 
-         */
+        public ReviewReturn Get(string codArt)
+        {
+            if (codArt != null)
+            {
+                return getReviews(codArt);
+            }
+            else
+            {
+                return null;
+            }
+        }
+       
         private int insertOrUpdReview(string cli, string art, string text, int score)
         {
             
@@ -134,6 +143,68 @@ namespace FirstREST.Controllers
             }
         }
 
+        private ReviewReturn getReviews(string art){
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Creates and opens connection to the postgres DB
+                ReviewReturn revs = new ReviewReturn();
+                conn = ConnectionFactory.MakePostgresConnection();
+                conn.Open();
+                NpgsqlTransaction transaction = conn.BeginTransaction();
+                string sql = "SELECT avg(score) as average,count(*) as count FROM reviews  WHERE productcode=:art;";
+                NpgsqlCommand command = new NpgsqlCommand();
+                command.Connection = conn;
+                command.CommandText = sql;
+                command.Parameters.Add(new NpgsqlParameter("art", DbType.String));
+                command.Parameters[0].Value = art;
+                command.Prepare();
+                NpgsqlDataReader dr = command.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        revs.count=(int)dr["count"];
+                        revs.average=(double)dr["average"];
+                        Debug.Write("\ncount/average " + revs.count.ToString()+"/"+revs.average.ToString());
+                    }
+                }
+                dr.Close();
+                
+                string sql2 = "SELECT review FROM reviews WHERE productcode=:art;";
+                NpgsqlCommand command2 = new NpgsqlCommand();
+                command2.Connection = conn;
+                command2.CommandText = sql2;
+                command2.Parameters.Add(new NpgsqlParameter("art", DbType.String));
+                command2.Parameters[0].Value = art;
+                command2.Prepare();
+                NpgsqlDataReader dr2 = command.ExecuteReader();
+                if (dr2.HasRows)
+                {
+                    while (dr2.Read())
+                    {
+                        revs.reviews.Add((string)dr2["review"]);
+                        Debug.Write("\nreview: " + (string)dr2["review"]);
+                    }
+                }
+                dr2.Close();
+                
+                return revs;
+            }
+            catch (Exception msg)
+            {
+                // something went wrong, and you wanna know why
+                MessageBox.Show(msg.ToString());
+                //throw;
+                Debug.Write("Entered catch");
+                return null;
+            }
+            finally
+            {
+                if (conn != null)
+                    conn.Close();
 
+            }
+        }
     }
 }

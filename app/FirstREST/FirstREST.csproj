@@ -315,6 +315,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RequestObjects\ReviewReturn.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
