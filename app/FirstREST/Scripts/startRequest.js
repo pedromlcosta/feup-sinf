@@ -149,30 +149,26 @@ function processArticles(articles,start_index,end_index)
 		{
 		    stars_div += `<img src='../../../Images/star.jpg' style="width: 20px; align:left">`;
 		}
-		if(articleHolder != null) articleHolder.innerHTML += `<div class='col-md-3 pro-1'>
-						<div class='col-m'>
-							<a href='#' data-toggle='modal' data-target='#myModal`+j+`' class='offer-img'>
-								<img src='../../../Images/'+imageURL+ class='img-responsive' alt='' >
-							</a>
-                        
-							<div class='mid-1'>
-								<div class='women'>
-									<h6><a href='single.html'>` + desc.substring(0,20) + `</a></h6>
-                                     <div class="review" >` + stars_div + `</div>
-								</div>
-								<div class='mid-2'>
-									<p ><label></label><em class='item_price'>`+currencySymbol+``+withIVA+`</em> </p>
-                                        
-									  <div class='block'>
-										<div class='starbox small ghosting'> </div>
-									</div>
-                                   
-								</div>
-								 	
-							</div>
-						</div>
-                       
-					</div>`;
+		console.log(imageURL);
+		if(articleHolder != null) articleHolder.innerHTML += "<div class='col-md-3 pro-1'>"+
+						"<div class='col-m'>"+
+							"<a href='#' data-toggle='modal' data-target='#myModal"+j+"' class='offer-img'>"+
+								"<img src='../../../Images/" + imageURL + "'" + "class='img-responsive' alt='' >" +
+							"</a>" +
+							"<div class='mid-1'>" +
+								"<div class='women'>" +
+									"<h6><a href='single.html'>" + desc.substring(0,20) + "</a></h6>" +
+                                     "<div class='review' >" + stars_div + "</div>" +
+								"</div>" +
+								"<div class='mid-2'>" +
+									"<p ><label></label><em class='item_price'>"  +currencySymbol+"" +withIVA+"</em> </p>" +                                        
+									  "<div class='block'>" +
+										"<div class='starbox small ghosting'> </div>" +
+									"</div>" +                                   
+								"</div>" +							 	
+							"</div>" +
+						"</div>" +
+					"</div>";
 		$("#myModal"+j+" h3").html(desc);
 		$("#myModal"+j+" .quick").html("");
 		$("#myModal"+j+" .reducedfrom").html("€"+withIVA);
