@@ -2,15 +2,16 @@
 // JavaScript source code
 var orders;
 var orderStatus;
-var codCliente = $("#codCliente_input").val();
+
 window.onload = getOrderHistoryRequest;
 function getOrderHistoryRequest()
 {
     // Currently logged in user.
-   
+    var codCliente = $("#codCliente_input").val();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() 
     {
+       
         if (this.readyState == 4 && this.status == 200) {
             orders = JSON.parse(xhttp.responseText);
             current_filtered_orders = JSON.parse(xhttp.responseText);
@@ -81,7 +82,7 @@ function getOrderDetails(orderID)
         }
     }
 
-  
+    var codCliente = $("#codCliente_input").val();
     $("#EncomendaModal .productListing").html(`
     <table>
     <tr>    
@@ -103,7 +104,7 @@ function getOrderDetails(orderID)
         <td style="width: 7%;">`+order.LinhasDoc[i].Quantidade+`x</td>
         <td style="width: 5.1%;">&nbsp;&nbsp;`+order.LinhasDoc[i].PrecoUnitario+`€</td>
         <td style="width: 6%;">&nbsp;&nbsp;&nbsp;`+order.LinhasDoc[i].TaxaIva+`%</td>
-        <td style="width: 3%;"><button style="width 100%;" type="button" name="Review" id="Review" value="Review" data-toggle='modal' data-target='#ReviewModal' onclick="makeReview('`+order.LinhasDoc[i].CodArtigo+`,`+codCliente+`');">Review</button></td>
+        <td style="width: 3%;"><button style="width 100%;" type="button" name="Review" id="Review" value="Review" data-toggle='modal' data-target='#ReviewModal' onclick="makeReview('`+order.LinhasDoc[i].CodArtigo+`');">Review</button></td>
         </tr>
        
         `);
@@ -116,7 +117,7 @@ function getOrderDetails(orderID)
 }
 
 
-function makeReview(codArtigo,codCliente){
+function makeReview(codArtigo){
     var root = location.protocol + '//' + location.host + '/';
     var userRating;
     
@@ -125,6 +126,7 @@ function makeReview(codArtigo,codCliente){
    
     
     $("#ReviewModal").ready(function(){
+    var codCliente = $("#codCliente_input").val();
     $(".rating input:radio").attr("checked", false);
     $('.rating input').click(function () {
         $(".rating span").removeClass('checked');
@@ -138,6 +140,7 @@ function makeReview(codArtigo,codCliente){
     }); 
 
     $('input#submitReview').click(function() {
+        console.log(codArtigo);
         var text = $('textarea#ReviewText').val();
         $('textarea#ReviewText').val('');
     $.ajax({

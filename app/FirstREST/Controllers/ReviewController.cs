@@ -18,7 +18,7 @@ namespace FirstREST.Controllers
     public class ReviewController : ApiController, IRequiresSessionState
     {
         [WebMethod(EnableSession = true)]
-        public HttpResponseMessage Post(FirstREST.RequestObjects.ReviewData data)
+        public HttpResponseMessage Post(ReviewData data)
         {
             string cli = data.CodCliente;
             string art = data.CodArtigo;
