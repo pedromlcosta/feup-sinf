@@ -150,10 +150,15 @@ function processArticles(articles,start_index,end_index)
 		var currencySymbol = articles[i].moeadaSymbol;
 		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
-		for(var n=0;n<5;n++)
+        //REPLACE VARS WITH REAL VALUES HERE
+		var averageReview = 3.7;  //Will round down to 3, so 3 stars
+		var nReviews = 10;
+		averageReview = Math.floor(averageReview);
+		for(var n=0;n<averageReview;n++)
 		{
 		    stars_div += `<img src='../../../Images/star.jpg' style="width: 20px; align:left">`;
 		}
+		stars_div += `<p style="display: inline;">(`+nReviews+`)</p> `;
 		console.log(imageURL);
 		if(articleHolder != null) articleHolder.innerHTML += "<div class='col-md-3 pro-1'>"+
 						"<div class='col-m'>"+
