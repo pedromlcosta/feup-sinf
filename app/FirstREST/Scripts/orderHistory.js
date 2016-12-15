@@ -140,7 +140,6 @@ function makeReview(codArtigo){
     }); 
 
     $('input#submitReview').click(function() {
-        console.log(codArtigo);
         var text = $('textarea#ReviewText').val();
         $('textarea#ReviewText').val('');
     $.ajax({
