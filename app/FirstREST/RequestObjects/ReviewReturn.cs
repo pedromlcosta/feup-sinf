@@ -7,9 +7,8 @@ namespace FirstREST
 {
     public class ReviewReturn
     {
-
-        public double average { get; set; }
-        public int count { get; set; }
+        public long count { get; set; }
+        public Decimal average { get; set; }
         public List<string>reviews  { get; set; }
     }
 }

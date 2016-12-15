@@ -54,7 +54,6 @@ namespace FirstREST.Controllers
 
         public ReviewReturn Get(string codArt)
         {
-            Debug.Write("\nentered\n");
             if (codArt != null)
             {
                 return getReviews(codArt);
@@ -150,6 +149,7 @@ namespace FirstREST.Controllers
             {
                 // Creates and opens connection to the postgres DB
                 ReviewReturn revs = new ReviewReturn();
+                revs.reviews = new List<string>();
                 conn = ConnectionFactory.MakePostgresConnection();
                 conn.Open();
                 NpgsqlTransaction transaction = conn.BeginTransaction();
@@ -165,8 +165,11 @@ namespace FirstREST.Controllers
                 {
                     while (dr.Read())
                     {
-                        revs.count=(int)dr["count"];
-                        revs.average=(double)dr["average"];
+                        Debug.Write("\nReading stuff\n");
+                        revs.count=(Int64)dr["count"];
+                        if (dr["average"] != System.DBNull.Value)
+                            revs.average = (Decimal)dr["average"];
+                        else revs.average = -1;
                         Debug.Write("\ncount/average " + revs.count.ToString()+"/"+revs.average.ToString());
                     }
                 }
@@ -179,7 +182,7 @@ namespace FirstREST.Controllers
                 command2.Parameters.Add(new NpgsqlParameter("art", DbType.String));
                 command2.Parameters[0].Value = art;
                 command2.Prepare();
-                NpgsqlDataReader dr2 = command.ExecuteReader();
+                NpgsqlDataReader dr2 = command2.ExecuteReader();
                 if (dr2.HasRows)
                 {
                     while (dr2.Read())

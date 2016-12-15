@@ -242,12 +242,11 @@ function getReviews(productID)
         url: root + 'api/review?codArt='+productID,
         type: 'GET',
         success: function (data, textStatus, jqXHR) {
-            var thing= JSON.parse(data);
-            console.log(thing);
-            alert("sucess");
+            console.log(JSON.parse(jqXHR.responseText));
+            console.log("success");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("fail");
+            console.log("error");
         }
     });
     
