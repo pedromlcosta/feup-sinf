@@ -1,3 +1,4 @@
+
 function tryOrder()
 {
    
@@ -85,22 +86,30 @@ function makeOrder()
             $("#checkout_failure").empty();
             $("#checkout_failure").prepend("Sucess.");
             cleanCart();
-            window.location.href = '/Home/Index';
+            setTimeout(goToIndex, 2000);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $("#checkout_failure").empty();
             $("#checkout_failure").prepend("Error making order.");
+            localStorage.cleanCart = true;
+            window.location.href = '/Home/Index';
         }
     });
     
 }
+function goToIndex()
+{
+    window.location.href = '/Home/Index';
+}
 function cleanCart()
 {
+    document.getElementById("cartIcon").click();
     var closes = document.getElementsByClassName("btn btn-xs btn-danger my-product-remove");
     for (var i = 0; i < closes.length; i++) {
         closes[i].click();
     }
     document.getElementById("close_button").click();
+    return "clean";
 }
 function autoFill()
 {
