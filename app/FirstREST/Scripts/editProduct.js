@@ -5,9 +5,9 @@ $('#descriptionHolder').on('blur','.in-para.productDescEdit',function(event) {
 //  alert('Handler for .change() called.'+$(this).parent);
   //console.log("qualquer coisa");
   //.attr('data-id')
-  var productID=$(this).siblings( ".add-to").children("button.my-cart-btn").attr("data-id");
+
+  var productID=$(this).parent().parent("div.modal-body").children("div.col-md-5").children("div.item").children("form.imageUpload").children("input.productID").val();
   var newDesc = $(this).html();
-  console.log("Request");
   ajaxRequestsToEdit('desc',newDesc,productID);
     
 });
@@ -29,7 +29,8 @@ function ajaxRequestsToEdit(fieldToEdit,valueToSet,idOfProduct){
                     console.log("here");
 
                     if (data.changed == 'true') {
-                       location.reload();
+                      //TODO reload or not
+                       //location.reload();
                     }  
                 } else {
                     // Handle errors here
