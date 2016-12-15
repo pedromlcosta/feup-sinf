@@ -641,7 +641,41 @@
             </div>
         </div>
 
+    <div class="modal fade" id="ReviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body modal-spa">
+                    <div class="rat">
+                        <h4>Rating</h4><br />
+                    </div>
+                    
+                    <div class="rating">
+                     
+                        <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                        <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                        <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                        <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                        <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+                    </div>
+               
+                    <div class="revText">
+                        <h4>Review</h4><br />
+                        <textarea maxlength="300" id="ReviewText"></textarea>
+                        <input type="submit" id="submitReview">
+                    </div>
+                   
+                </div>
+
+                <div class="clearfix"> </div>
+            </div>
+        </div>
     </div>
+
+  
+  
 
    <script type="text/javascript">
         $(document).ready(function () {
