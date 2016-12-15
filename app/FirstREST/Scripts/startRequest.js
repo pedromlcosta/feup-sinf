@@ -14,7 +14,7 @@ $(document).ready(function() {
         event.stopImmediatePropagation();
        
         console.log($(this).find(".productID").val());
-
+        var form = $(this);
         /*
         var data = new FormData(this); 
         var files = $(this).find("#imageUpload").get(0).files;
@@ -36,8 +36,13 @@ $(document).ready(function() {
             success: function (data, textStatus, jqXHR) {
                 if (typeof data.error === 'undefined') {
                     console.log(data.imageURL);
-                    if (data.imageURL == 'true') {
+                    if (data.imageURL !== 'undefined') {
                         console.log("ImageURL is: " + data.imageURL);
+                        console.log(form.parent().find("#productImage"));
+                        form.parent().find("#productImage").attr("src",'/Images/' + data.imageURL);
+                        console.log("banana:" + form.find('.productID').val());
+                        $("#img_" + form.find('.productID').val()).attr("src",'/Images/' + data.imageURL);
+                        console.log(form.parent().find("#productImage"));
                         clearModalErrors();
                         //location.reload();
                         //window.location.href = root;
@@ -153,7 +158,7 @@ function processArticles(articles,start_index,end_index)
 		if(articleHolder != null) articleHolder.innerHTML += "<div class='col-md-3 pro-1'>"+
 						"<div class='col-m'>"+
 							"<a href='#' data-toggle='modal' data-target='#myModal"+j+"' class='offer-img'>"+
-								"<img src='../../../Images/" + imageURL + "'" + "class='img-responsive' alt='' >" +
+								"<img id='img_" + codArtigo + "' src='../../../Images/" + imageURL + "'" + "class='img-responsive' alt='' >" +
 							"</a>" +
 							"<div class='mid-1'>" +
 								"<div class='women'>" +

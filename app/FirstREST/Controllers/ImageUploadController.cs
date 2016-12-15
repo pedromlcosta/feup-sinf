@@ -25,6 +25,7 @@ namespace FirstREST.Controllers {
 
                     var httpRequest = HttpContext.Current.Request;
                     String filePath = HttpContext.Current.Server.MapPath("~/App_Data/" + "default.jpg"); //TODO: default image
+                    String fileName = "";
 
                     foreach (string file in httpRequest.Files) {
                         HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
@@ -53,19 +54,21 @@ namespace FirstREST.Controllers {
 
 
 
-                                filePath = HttpContext.Current.Server.MapPath("~/App_Data/" + postedFile.FileName + extension);
-
+                                filePath = HttpContext.Current.Server.MapPath("~/Images/" + postedFile.FileName);
+                                fileName = postedFile.FileName;
                                 postedFile.SaveAs(filePath);
+
+                                var message1 = string.Format("Image Updated Successfully.");
+                                return Request.CreateResponse(HttpStatusCode.Created, new { imageURL = fileName });
 
                             }
                         }
 
-                        var message1 = string.Format("Image Updated Successfully.");
-                        return Request.CreateResponse(HttpStatusCode.Created, new { imageURL = filePath });
+
                     }
                     var res = string.Format("Please Upload a image.");
                     dict.Add("error", res);
-                    return Request.CreateResponse(HttpStatusCode.NotFound, dict);
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
                 } catch (Exception ex) {
                     var res = string.Format("some Message");
                     dict.Add("error", res);
