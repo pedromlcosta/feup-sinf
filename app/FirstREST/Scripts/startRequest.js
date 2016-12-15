@@ -150,7 +150,8 @@ function processArticles(articles,start_index,end_index)
 		var currencySymbol = articles[i].moeadaSymbol;
 		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
-        //REPLACE VARS WITH REAL VALUES HERE
+	    //REPLACE VARS WITH REAL VALUES HERE
+	    //getReviews(codArtigo);
 		var averageReview = 3.7;  //Will round down to 3, so 3 stars
 		var nReviews = 10;
 		averageReview = Math.floor(averageReview);
@@ -231,4 +232,21 @@ function filterArticlesbyCategory(string)
     }
     if(string != "" ) processArticles(current_filtered_articles,0,8);
     else processArticles(articles,0,8);
+}
+function getReviews(productID)
+{
+    
+    var root = location.protocol + '//' + location.host + '/';
+    //make request with it all
+    $.ajax({
+        url: root + 'api/getReviews',
+        type: 'GET',
+        success: function (data, textStatus, jqXHR) {
+            alert("sucess");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("fail");
+        }
+    });
+    
 }
