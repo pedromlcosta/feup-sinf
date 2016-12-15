@@ -142,41 +142,45 @@ function makeReview(codArtigo){
     $('input#submitReview').click(function() {
         var text = $('textarea#ReviewText').val();
         $('textarea#ReviewText').val('');
-    $.ajax({
-        url: root + 'api/review',
-        type: 'POST',
-        data:
-        {
-            CodCliente:codCliente,
-            CodArtigo:codArtigo,
-            text:text,
-            score:userRating
-        },
-        success: function (data, textStatus, jqXHR) {
-            if (typeof data.error === 'undefined') {
-                console.log("here");
+        if(text!="" && userRating!=0){
+            $.ajax({
+                url: root + 'api/review',
+                type: 'POST',
+                data:
+                {
+                    CodCliente:codCliente,
+                    CodArtigo:codArtigo,
+                    text:text,
+                    score:userRating
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (typeof data.error === 'undefined') {
+                        console.log("here");
 
-                if (data.registered == 'true') {
+                        if (data.registered == 'true') {
+                            clearModalErrors();
+                            $("#review_failure").prepend("Success");
+                            window.location.href = root;
+                        } else {
+                            clearModalErrors();
+                            $("#review_failure").prepend("Error sending review.");
+                        }
+                    } else {
+                        // Handle errors here
+                        console.log('ERRORS: ' + data.error);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Handle errors here
+                    console.log('ERRORS: ' + jqXHR.status + " - " + errorThrown);
                     clearModalErrors();
-                    $("#review_failure").prepend("Success");
-                    window.location.href = root;
-                } else {
-                    clearModalErrors();
-                    $("#review_failure").prepend("Error sending review.");
+                    if (jqXHR.status == 400)
+                        $("#review_failure").prepend("Error reviewing.");
                 }
-            } else {
-                // Handle errors here
-                console.log('ERRORS: ' + data.error);
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            // Handle errors here
-            console.log('ERRORS: ' + jqXHR.status + " - " + errorThrown);
-            clearModalErrors();
-            if (jqXHR.status == 400)
-                $("#review_failure").prepend("Error reviewing.");
+
+            });
+            $('#ReviewModal').modal('toggle');
         }
-    });
    
     });
 });  

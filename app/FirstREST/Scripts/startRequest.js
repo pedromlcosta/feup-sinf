@@ -151,7 +151,7 @@ function processArticles(articles,start_index,end_index)
 		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
 	    //REPLACE VARS WITH REAL VALUES HERE
-	    //getReviews(codArtigo);
+	    getReviews(codArtigo);
 		var averageReview = 3.7;  //Will round down to 3, so 3 stars
 		var nReviews = 10;
 		averageReview = Math.floor(averageReview);
@@ -239,9 +239,11 @@ function getReviews(productID)
     var root = location.protocol + '//' + location.host + '/';
     //make request with it all
     $.ajax({
-        url: root + 'api/getReviews',
+        url: root + 'api/review?codArt='+productID,
         type: 'GET',
         success: function (data, textStatus, jqXHR) {
+            var thing= JSON.parse(data);
+            console.log(thing);
             alert("sucess");
         },
         error: function (jqXHR, textStatus, errorThrown) {

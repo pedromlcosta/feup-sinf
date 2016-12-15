@@ -54,6 +54,7 @@ namespace FirstREST.Controllers
 
         public ReviewReturn Get(string codArt)
         {
+            Debug.Write("\nentered\n");
             if (codArt != null)
             {
                 return getReviews(codArt);
