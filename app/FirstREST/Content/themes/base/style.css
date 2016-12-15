@@ -1660,7 +1660,7 @@ table, td, th {
 .rating span.checked label,
 .rating span.checked ~ span label {
     background:#F90;
-     background-image:url(http://howsyourrobot.com/wp-content/uploads/2013/04/star_1.jpg);
+    /*background-image:url(http://howsyourrobot.com/wp-content/uploads/2013/04/star_1.jpg);*/
     color:#FFF;
 }
 
