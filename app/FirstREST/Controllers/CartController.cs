@@ -67,7 +67,7 @@ namespace FirstREST.Lib_Primavera
                 
                 {
                     myEnc.set_Entidade(userID);
-                    myEnc.set_NumContribuinte(nif);
+                    //myEnc.set_NumContribuinte(nif);
 
                     myEnc.set_Tipodoc("ECL"); //Encomenda de cliente
                     myEnc.set_TipoEntidade("C"); //Client
@@ -83,6 +83,7 @@ namespace FirstREST.Lib_Primavera
                     myEnc.set_Morada(address);
                     myEnc.set_MoradaEntrega(address);
                     PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc);
+                   
                     foreach (Purchase p in products)
                     {
                         PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, p.id, p.quantity, "", "", p.price, 0);
