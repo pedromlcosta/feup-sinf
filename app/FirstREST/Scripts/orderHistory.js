@@ -53,9 +53,9 @@ function processOrders(orders,start_index,end_index)
 								<div>
                                     <label>Cliente:</label><span>` + entidade + `</span><br>
                                     <label>Morada:</label><span>`+ morada+`, `+codPostal+`</span><br>
-                                    <label>Order Date:</label><span>`+data+`</span><br>                      
+                                    <label>Data da Compra:</label><span>`+data+`</span><br>                      
                                     <br>
-                                    <label>Cost Breakdown:</label>
+                                    <label>Custos:</label>
 									<p>+ Preço:€`+pricewithoutIva+`</p>
                                     <p>+ IVA:€`+totalIva+`</p>
                                     <p>- Desconto:€`+totalDesc+`</p>
