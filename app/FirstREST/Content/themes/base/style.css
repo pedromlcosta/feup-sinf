@@ -43,6 +43,10 @@ ul{
 	text-align:center;
 	margin-bottom:2em;
 }
+.review {
+    border:1px solid black;   
+   margin: 10px;
+}
 .agileinfo h6{
 	font-size: 2em;
     color: #62BF43;

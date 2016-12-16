@@ -151,6 +151,7 @@ function processArticles(articles,start_index,end_index)
 		var currencySymbol = articles[i].moeadaSymbol;
 		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
+		var reviews_div="";
 	    
         
 	    //REVIEW VARIABLES TO INSERT INTO MODAL
@@ -161,11 +162,17 @@ function processArticles(articles,start_index,end_index)
 		else var averageReview = Math.floor(reviewsInfo.average);  //Will round down to 3, so 3 stars
         var nReviews = reviewsInfo.count;
 		var arrayReviews = reviewsInfo.reviews;
+		console.log(reviewsInfo);
 	    //REVIEW VARIABLES TO INSERT INTO MODAL
-		console.log(averageReview);
+ 	 
 		for(var n=0;n<averageReview;n++)
 		{
 		    stars_div += `<img src='../../../Images/star.jpg' style="width: 20px; align:left">`;
+		}
+		 
+			if(reviewsInfo.average!=-1)
+		for(var n=0;n<reviewsInfo.reviews.length;n++){
+			reviews_div+="<div class='review'>"+reviewsInfo.reviews[n]+" </div>";
 		}
 		stars_div += `<p style="display: inline;">(`+nReviews+`)</p> `;
 	
@@ -177,7 +184,7 @@ function processArticles(articles,start_index,end_index)
 							"<div class='mid-1'>" +
 								"<div class='women'>" +
 									"<h6><a href='single.html'>" + desc.substring(0,20) + "</a></h6>" +
-                                     "<div class='review' >" + stars_div + "</div>" +
+                                 
 								"</div>" +
 								"<div class='mid-2'>" +
 									"<p ><label></label><em class='item_price'>"  +currencySymbol+"" +withIVA+"</em> </p>" +                                        
@@ -188,7 +195,32 @@ function processArticles(articles,start_index,end_index)
 							"</div>" +
 						"</div>" +
 					"</div>";
+
+
+            	if(reviewsInfo.average!=-1)      
+var reviewsModal= "<div class='modal fade' id='myModal" + j + '_' + j + "' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>"+
+                          " <div class='modal-dialog' role='document'>"+
+                         " <div class='modal-content modal-info'>"+
+                          "  <div class='modal-header'>"+
+                            " <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"+
+                             " </div>"+
+                              " <div class='modal-body modal-spa'>"+
+                               " <h4>Reviews</h4><br/>"+
+                                    "   <div class=reviews>"+
+                                    reviews_div+
+                                    "  </div>"+
+                               " <div class='clearfix'> </div>"+
+                           " </div>"+
+                         "  </div>"+
+                      " </div>"
+                  " </div>"
+ 
 		$("#myModal"+j+" h3").html(desc);
+		$("#myModal"+j+" .score").html(stars_div);
+			if(reviewsInfo.average!=-1){
+		$("#myModal"+j).append(reviewsModal);
+		$("#myModal"+j+" .score").append("<a href='#' data-toggle='modal' data-target='#myModal" + j + '_' + j + "' class='offer-img'>Reviews</a>");
+}
 		$("#myModal"+j+" .quick").html("");
 		$("#myModal"+j+" .reducedfrom").html("€"+withIVA);
 		$("#myModal"+j+" .in-para").html(fullDesc);
