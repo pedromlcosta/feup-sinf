@@ -404,6 +404,7 @@ namespace FirstREST.Lib_Primavera
 
                     //TODO: get artigo image from pgsql
                     myArt.imageURL = ImageUploadController.getArtigoImg(myArt.CodArtigo);
+                    myArt.reviewInfo = ReviewController.getReviews(myArt.CodArtigo);
 
                     if (moeda != "EUR")
                         myArt.PVP1 = getPrecoCambio(myArt.PVP1, moeda);
@@ -453,6 +454,7 @@ namespace FirstREST.Lib_Primavera
 
                     //TODO: get artigo image from pgsql
                     art.imageURL = ImageUploadController.getArtigoImg(art.CodArtigo);
+                    art.reviewInfo = ReviewController.getReviews(art.CodArtigo);
 
                     if (moeda != "EUR")
                         art.PVP1 = getPrecoCambio(art.PVP1, moeda);

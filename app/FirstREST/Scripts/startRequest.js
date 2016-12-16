@@ -136,8 +136,9 @@ function processArticles(articles,start_index,end_index)
 		var marca = articles[i].Marca;
 		var stock = articles[i].StockActual;
 		var imageURL = articles[i].imageURL;
+		var reviewsInfo= articles[i].reviewInfo;
 
-		console.log(imageURL);
+		
 
 		var iva;
 		var withIVA;
@@ -150,17 +151,24 @@ function processArticles(articles,start_index,end_index)
 		var currencySymbol = articles[i].moeadaSymbol;
 		withIVA = withIVA.toFixed(2);
 		var stars_div = "";
-	    //REPLACE VARS WITH REAL VALUES HERE
-	    getReviews(codArtigo);
-		var averageReview = 3.7;  //Will round down to 3, so 3 stars
-		var nReviews = 10;
-		averageReview = Math.floor(averageReview);
+	    
+        
+	    //REVIEW VARIABLES TO INSERT INTO MODAL
+
+		
+		if(reviewsInfo.average==-1)
+		    var averageReview = 0;
+		else var averageReview = Math.floor(reviewsInfo.average);  //Will round down to 3, so 3 stars
+        var nReviews = reviewsInfo.count;
+		var arrayReviews = reviewsInfo.reviews;
+	    //REVIEW VARIABLES TO INSERT INTO MODAL
+		console.log(averageReview);
 		for(var n=0;n<averageReview;n++)
 		{
 		    stars_div += `<img src='../../../Images/star.jpg' style="width: 20px; align:left">`;
 		}
 		stars_div += `<p style="display: inline;">(`+nReviews+`)</p> `;
-		console.log(imageURL);
+	
 		if(articleHolder != null) articleHolder.innerHTML += "<div class='col-md-3 pro-1'>"+
 						"<div class='col-m'>"+
 							"<a href='#' data-toggle='modal' data-target='#myModal"+j+"' class='offer-img'>"+

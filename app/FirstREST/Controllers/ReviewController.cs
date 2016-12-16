@@ -143,7 +143,7 @@ namespace FirstREST.Controllers
             }
         }
 
-        private ReviewReturn getReviews(string art){
+        public static ReviewReturn getReviews(string art){
             NpgsqlConnection conn = null;
             try
             {

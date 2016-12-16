@@ -84,5 +84,10 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
+        public ReviewReturn reviewInfo
+        {
+            get;
+            set;
+        }
     }
 }
