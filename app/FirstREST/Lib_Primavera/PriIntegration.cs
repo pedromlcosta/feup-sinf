@@ -849,7 +849,7 @@ namespace FirstREST.Lib_Primavera
                     query += "SELECT Artigo.Artigo,Familias.Familia,SubFamilias.SubFamilia, Familias.Descricao AS FamiliaDesc ,SubFamilias.Descricao AS SubFamiliaDesc FROM Artigo,Familias,SubFamilias WHERE Familias.Familia= '";
                     query += familiaCod + "' AND Artigo.Familia = Familias.Familia AND SubFamilias.SubFamilia = Artigo.SubFamilia AND Familias.Familia = SubFamilias.Familia;";
 
-                    System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", query);
+                  
                     StdBELista objList = PriEngine.Engine.Consulta(query);
                     Model.CategoriaArtigo categoriaArtigoObj = new Model.CategoriaArtigo();
                     if (!objList.Vazia())
